@@ -23,51 +23,23 @@ const Login = () => {
   }
 
   const submitLogin = async () => {
-    console.log(email);
-    console.log(password);
-
     if (email.trim() === '' || password.trim() === '') {
-      console.log('bad data');
       throwWarning('Email and password cannot be empty.');
       return;
     }
 
     const response = await FetchAPI('/user/auth/login', 'POST', { email, password });
-
-    if (response.status === 400) {
-      console.log(response.data?.error);
-    } else if (response.status === 200) {
-      console.log(response.data?.token);
+    switch (response.status) {
+      case 400:
+        throwWarning(response.data?.error);
+        break;
+      case 200:
+        console.log(response.data?.token);
+        closeModal();
+        break;
+      default:
+        throwWarning('Unknown error!');
     }
-
-    // try {
-    //   const res = await fetch(`${BACKEND_URL}/user/auth/login`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password
-    //     })
-    //   });
-
-    //   const data = await res.json();
-    //   switch (res.status) {
-    //     case 400:
-    //       throwWarning(data.error);
-    //       break;
-    //     case 200: {
-    //       console.log(data.token);
-    //       closeModal();
-    //       break;
-    //     }
-    //     default:
-    //       throwWarning('Unknown error');
-    //   }
-    // } catch (e) {
-    //   console.error('Network error!');
-    // }
   }
 
   // If modal is closed, navigate to home
@@ -75,10 +47,6 @@ const Login = () => {
     setIsOpen(false);
     navigate('/');
   }
-
-  // const openModal = () => {
-  // setIsOpen(true);
-  // }
 
   return (
     <>

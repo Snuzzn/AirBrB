@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from '../components/TextInput';
 import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
-import { BACKEND_URL } from '../config.json';
+import { FetchAPI } from '../util/FetchAPI';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -32,34 +32,21 @@ const Register = () => {
       return;
     }
 
-    try {
-      const res = await fetch(`${BACKEND_URL}/user/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password: confirmPassword,
-          name
-        })
-      });
-
-      const data = await res.json();
-      switch (res.status) {
-        case 400:
-          throwWarning(data.error);
-          break;
-        case 200: {
-          console.log(data.token);
-          closeModal();
-          break;
-        }
-        default:
-          throwWarning('Unknown error');
-      }
-    } catch (e) {
-      console.error('Network error!');
+    const response = await FetchAPI('/user/auth/register', 'POST', {
+      email,
+      password: confirmPassword,
+      name
+    })
+    switch (response.status) {
+      case 400:
+        throwWarning(response.data?.error);
+        break;
+      case 200:
+        console.log(response.data?.token);
+        closeModal();
+        break;
+      default:
+        throwWarning('Unknown error!');
     }
   }
 
