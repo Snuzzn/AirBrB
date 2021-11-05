@@ -6,7 +6,7 @@ import { HiUserCircle } from 'react-icons/hi'
 import { Link } from 'react-router-dom';
 
 export default function Navbar () {
-  const userOptions = [{ icon: <AiOutlineUserAdd alt="Register icon: user being added"/>, text: 'Register' }, { icon: <AiOutlineLogin alt="Login icon: arrow entering circle"/>, text: 'Login' }, { icon: <AiOutlineHome alt="Your listings Icon: house icon"/>, text: 'Your Listings', to: '/hosted-listings' }]
+  const userOptions = [{ icon: <AiOutlineUserAdd alt="Register icon: user being added"/>, text: 'Register' }, { icon: <AiOutlineLogin alt="Login icon: arrow entering circle"/>, text: 'Login', to: '/login' }, { icon: <AiOutlineHome alt="Your listings Icon: house icon"/>, text: 'Your Listings', to: '/hosted-listings' }]
   const userIcon = <HiUserCircle size="2em" className="text-gray-600" alt="genericUserIcon"/>
   return (
     <nav className="bg-white shadow-md px-3 sm:px-6 lg:px-8 flex items-center justify-between h-16">
