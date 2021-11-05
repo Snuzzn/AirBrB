@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function Dropdown ({ title, options }) {
   return (
@@ -9,11 +10,13 @@ export default function Dropdown ({ title, options }) {
         {title}
       </MenuButton>
         <MenuList className="bg-gray-100 p-4 rounded-lg animate-wiggle">
-            {options.map((item, index) => <MenuItem key={index}
+            {options.map((item, index) => <Link key={index} to={item.to ? item.to : ''}>
+            <MenuItem
             className="hover:bg-gray-200 flex gap-2 items-center cursor-pointer p-3 rounded">
             {item.icon}
             {item.text}
-            </MenuItem>)}
+            </MenuItem>
+            </Link>)}
         </MenuList>
     </Menu>
   );
