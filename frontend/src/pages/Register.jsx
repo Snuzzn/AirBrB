@@ -1,18 +1,19 @@
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../components/TextInput';
 import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
-// import { BACKEND_URL } from '../config.json';
-import { FetchAPI } from '../util/FetchAPI';
+import { BACKEND_URL } from '../config.json';
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [initialPassword, setInitialPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
   const [warningText, setWarningText] = useState('');
 
@@ -22,52 +23,44 @@ const Login = () => {
     setTimeout(() => setShowWarning(false), 3000);
   }
 
-  const submitLogin = async () => {
-    console.log(email);
-    console.log(password);
-
-    if (email.trim() === '' || password.trim() === '') {
-      console.log('bad data');
-      throwWarning('Email and password cannot be empty.');
+  const submitRegistration = async () => {
+    if (email.trim() === '' || confirmPassword.trim() === '' || name.trim() === '') {
+      throwWarning('Email, name and password cannot be empty.');
+      return;
+    } else if (initialPassword !== confirmPassword) {
+      throwWarning('Your passwords must match!');
       return;
     }
 
-    const response = await FetchAPI('/user/auth/login', 'POST', { email, password });
+    try {
+      const res = await fetch(`${BACKEND_URL}/user/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password: confirmPassword,
+          name
+        })
+      });
 
-    if (response.status === 400) {
-      console.log(response.data?.error);
-    } else if (response.status === 200) {
-      console.log(response.data?.token);
+      const data = await res.json();
+      switch (res.status) {
+        case 400:
+          throwWarning(data.error);
+          break;
+        case 200: {
+          console.log(data.token);
+          closeModal();
+          break;
+        }
+        default:
+          throwWarning('Unknown error');
+      }
+    } catch (e) {
+      console.error('Network error!');
     }
-
-    // try {
-    //   const res = await fetch(`${BACKEND_URL}/user/auth/login`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password
-    //     })
-    //   });
-
-    //   const data = await res.json();
-    //   switch (res.status) {
-    //     case 400:
-    //       throwWarning(data.error);
-    //       break;
-    //     case 200: {
-    //       console.log(data.token);
-    //       closeModal();
-    //       break;
-    //     }
-    //     default:
-    //       throwWarning('Unknown error');
-    //   }
-    // } catch (e) {
-    //   console.error('Network error!');
-    // }
   }
 
   // If modal is closed, navigate to home
@@ -75,10 +68,6 @@ const Login = () => {
     setIsOpen(false);
     navigate('/');
   }
-
-  // const openModal = () => {
-  // setIsOpen(true);
-  // }
 
   return (
     <>
@@ -121,11 +110,11 @@ const Login = () => {
                   as="h3"
                   className="text-xl font-medium leading-6 text-gray-900"
                 >
-                  Account Login
+                  Create Account
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-md text-gray-500 pb-4">
-                    Please enter your email and password.
+                    Please enter your email, name and password.
                   </p>
                 </div>
 
@@ -139,15 +128,27 @@ const Login = () => {
                     setState={setEmail}
                   />
                   <TextInput
+                    label='Name'
+                    type='text'
+                    placeholder='Name'
+                    setState={setName}
+                  />
+                  <TextInput
                     label='Password'
                     type='password'
                     placeholder='Password'
-                    setState={setPassword}
+                    setState={setInitialPassword}
+                  />
+                  <TextInput
+                    label='Confirm Password'
+                    type='password'
+                    placeholder='Confirm Password'
+                    setState={setConfirmPassword}
                   />
                 </div>
 
                 <div className="mt-4">
-                  <LoginButton handleClick={submitLogin} buttonText={'Log in'} />
+                  <LoginButton handleClick={submitRegistration} buttonText={'Sign up'} />
                 </div>
               </div>
             </Transition.Child>
@@ -158,4 +159,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Register;

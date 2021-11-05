@@ -6,7 +6,7 @@ const LoginButton = ({ handleClick, buttonText }) => {
   return (
     <button
     type="button"
-    className="items-center flex justify-center w-full px-4 py-2 text-sm bg-red-300 border border-transparent rounded-md hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+    className="items-center flex justify-center w-full px-4 py-2 text-sm bg-red-300 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
     onClick={handleClick}
   >
     <div className="flex-1">

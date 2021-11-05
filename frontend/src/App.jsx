@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import Hostedlistings from './pages/HostedListings';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App () {
   return (
@@ -15,6 +16,8 @@ function App () {
               <Route path="/hosted-listings" element={<Hostedlistings/>}>
               </Route>
               <Route path="/login" element={<Login/>}>
+              </Route>
+              <Route path="/register" element={<Register/>}>
               </Route>
             </Routes>
           </div>

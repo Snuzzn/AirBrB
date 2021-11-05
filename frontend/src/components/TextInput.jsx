@@ -6,7 +6,7 @@ const TextInput = ({ label, type, placeholder, setState }) => {
     <>
       <input
         aria-label={label}
-        className="bg-gray-100 focus:bg-transparent w-full text-md block mt-2 p-2 border rounded-md focus:outline-none focus:ring focus:ring-red-300"
+        className="bg-gray-100 focus:bg-transparent w-full text-md block mt-2 p-2 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
         type={type}
         placeholder={placeholder}
         onChange={(e) => setState(e.target.value)}
