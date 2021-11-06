@@ -5,6 +5,8 @@ import Hostedlistings from './pages/HostedListings';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Listings from './pages/Listings';
+import { ToastContainer } from 'react-toastify';
+import { displayToast } from './util/Toast';
 
 // Initialise token state to what is stored in local storage
 const useLocalStorageState = (key, initialValue) => {
@@ -41,6 +43,7 @@ function App () {
     setStoredEmail('');
     setStoredToken('');
     navigate('/listings');
+    displayToast('Successfully logged out!', 'success');
   }
 
   return (
@@ -65,6 +68,7 @@ function App () {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
