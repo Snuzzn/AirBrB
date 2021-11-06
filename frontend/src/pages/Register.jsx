@@ -136,9 +136,14 @@ const Register = ({ authenticate }) => {
               <div className="text-center inline-block w-full max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
-                  className="text-xl font-medium leading-6 text-gray-900"
+                  className="text-xl font-medium leading-6 text-gray-900 flex"
                 >
-                  Create Account
+                  <div className="flex-1">
+                    Create Account
+                  </div>
+                  <div onClick={closeModal} className="cursor-pointer">
+                    X
+                  </div>
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-md text-gray-500 pb-4">

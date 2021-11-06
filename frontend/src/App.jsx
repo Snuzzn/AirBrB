@@ -37,7 +37,7 @@ function App () {
   const navigate = useNavigate();
   const deauthenticate = () => {
     setStoredToken('');
-    navigate('/listings');
+    navigate('/register');
   }
 
   return (
@@ -48,15 +48,15 @@ function App () {
           <div className="flex flex-col w-full 3xl:w-1/2">
             <Routes>
               {/* Redirect home page to listings landing page */}
-              <Route path="/" element={<Navigate replace to="/listings"/>}>
-              </Route>
-              <Route path="/listings" element={<Listings/>}>
+              <Route exact path="/" element={<Navigate replace to="/listings"/>}>
               </Route>
               <Route path="/hosted-listings" element={<Hostedlistings/>}>
               </Route>
               <Route path="/login" element={<Login authenticate={authenticate}/>}>
               </Route>
               <Route path="/register" element={<Register authenticate={authenticate}/>}>
+              </Route>
+              <Route path="/listings" element={<Listings/>}>
               </Route>
             </Routes>
           </div>

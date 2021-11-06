@@ -55,7 +55,7 @@ const Login = ({ authenticate }) => {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-0 overflow-y-auto"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -89,9 +89,14 @@ const Login = ({ authenticate }) => {
               <div className="text-center inline-block w-full max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
-                  className="text-xl font-medium leading-6 text-gray-900"
+                  className="text-xl font-medium leading-6 text-gray-900 flex"
                 >
-                  Account Login
+                  <div className="flex-1">
+                    Account Login
+                  </div>
+                  <div onClick={closeModal} className="cursor-pointer">
+                    X
+                  </div>
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-md text-gray-500 pb-4">
