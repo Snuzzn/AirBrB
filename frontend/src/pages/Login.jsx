@@ -6,6 +6,7 @@ import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
 import { FetchAPI } from '../util/FetchAPI';
 import PropTypes from 'prop-types';
+import { displayToast } from '../util/Toast';
 
 const Login = ({ authenticate }) => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Login = ({ authenticate }) => {
       case 200:
         authenticate(response.data.token);
         closeModal();
+        displayToast('Successfully Logged In!', 'success');
         break;
       default:
         throwWarning('Unknown error!');

@@ -7,6 +7,7 @@ import LoginButton from '../components/LoginButton';
 import { FetchAPI } from '../util/FetchAPI';
 import EmailValidator from 'email-validator';
 import PropTypes from 'prop-types';
+import { displayToast } from '../util/Toast';
 
 const Register = ({ authenticate }) => {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ const Register = ({ authenticate }) => {
       case 200:
         authenticate(response.data.token);
         closeModal();
+        displayToast('Successfully Signed Up', 'success')
         break;
       default:
         throwWarning('Unknown error!');
