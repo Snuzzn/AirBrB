@@ -27,8 +27,10 @@ const Hostedlistings = () => {
           <BsPlusCircle size="1.5em" alt="add button to create new listing" className='text-gray-700 hover:text-black hover:drop-shadow-lg' />
         </button>
       </div>
-      {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => <HostListing key={idx} listing={listing} />)
-      }
+      <div className="flex flex-col justify-center items-center">
+        {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => <HostListing key={idx} listing={listing} />)
+        }
+      </div>
     </>
   );
 }
