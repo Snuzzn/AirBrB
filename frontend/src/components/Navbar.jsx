@@ -18,6 +18,6 @@ export default function Navbar ({ tokenState, deauthenticate }) {
 }
 
 Navbar.propTypes = {
-  tokenState: PropTypes.object,
+  tokenState: PropTypes.string,
   deauthenticate: PropTypes.func
 }
