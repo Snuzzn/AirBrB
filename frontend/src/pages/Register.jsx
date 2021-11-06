@@ -9,7 +9,7 @@ import EmailValidator from 'email-validator';
 import PropTypes from 'prop-types';
 import { displayToast } from '../util/Toast';
 
-const Register = ({ authenticate }) => {
+const Register = ({ authenticate, storeEmail }) => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -83,6 +83,7 @@ const Register = ({ authenticate }) => {
         throwWarning(response.data?.error);
         break;
       case 200:
+        storeEmail(email);
         authenticate(response.data.token);
         closeModal();
         displayToast('Successfully Signed Up', 'success')
@@ -196,5 +197,6 @@ const Register = ({ authenticate }) => {
 export default Register;
 
 Register.propTypes = {
-  authenticate: PropTypes.func
+  authenticate: PropTypes.func,
+  storeEmail: PropTypes.func,
 }

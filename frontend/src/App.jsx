@@ -9,36 +9,38 @@ import { ToastContainer } from 'react-toastify';
 import { displayToast } from './util/Toast';
 
 // Initialise token state to what is stored in local storage
-const useLocalStorageState = (initialValue) => {
-  const [token, setToken] = React.useState(() => {
+const useLocalStorageState = (key, initialValue) => {
+  const [state, setState] = React.useState(() => {
     try {
-      const tokenInStorage = localStorage.getItem('token');
+      const itemInStorage = localStorage.getItem(key);
 
-      if (!tokenInStorage) {
+      if (!itemInStorage) {
         return initialValue;
       }
-      return JSON.parse(tokenInStorage);
+      return JSON.parse(itemInStorage);
     } catch (e) {
       return initialValue;
     }
   })
 
   React.useEffect(() => {
-    localStorage.setItem('token', JSON.stringify(token));
-  }, [token])
+    localStorage.setItem(key, JSON.stringify(state));
+  }, [state])
 
-  return [token, setToken];
+  return [state, setState];
 }
 
 function App () {
-  const [storedToken, setStoredToken] = useLocalStorageState('');
-
+  const [storedToken, setStoredToken] = useLocalStorageState('token', '');
+  const [storedEmail, setStoredEmail] = useLocalStorageState('email', '');
+  console.log(storedEmail);
   const authenticate = (token) => {
     setStoredToken(token);
   }
 
   const navigate = useNavigate();
   const deauthenticate = () => {
+    setStoredEmail('');
     setStoredToken('');
     navigate('/listings');
     displayToast('Successfully logged out!', 'success');
@@ -56,9 +58,9 @@ function App () {
               </Route>
               <Route path="/hosted-listings" element={<Hostedlistings/>}>
               </Route>
-              <Route path="/login" element={<Login authenticate={authenticate}/>}>
+              <Route path="/login" element={<Login authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>
-              <Route path="/register" element={<Register authenticate={authenticate}/>}>
+              <Route path="/register" element={<Register authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>
               <Route path="/listings" element={<Listings/>}>
               </Route>

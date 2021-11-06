@@ -8,7 +8,7 @@ import { FetchAPI } from '../util/FetchAPI';
 import PropTypes from 'prop-types';
 import { displayToast } from '../util/Toast';
 
-const Login = ({ authenticate }) => {
+const Login = ({ authenticate, storeEmail }) => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -37,6 +37,7 @@ const Login = ({ authenticate }) => {
         throwWarning(response.data?.error);
         break;
       case 200:
+        storeEmail(email);
         authenticate(response.data.token);
         closeModal();
         displayToast('Successfully Logged In!', 'success');
@@ -138,5 +139,6 @@ const Login = ({ authenticate }) => {
 export default Login;
 
 Login.propTypes = {
-  authenticate: PropTypes.func
+  authenticate: PropTypes.func,
+  storeEmail: PropTypes.func
 }

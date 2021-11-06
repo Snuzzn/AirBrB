@@ -47,5 +47,5 @@ export default function Dropdown ({ title, options, tokenState }) {
 Dropdown.propTypes = {
   title: PropTypes.object,
   options: PropTypes.array,
-  tokenState: PropTypes.object
+  tokenState: PropTypes.string
 }
