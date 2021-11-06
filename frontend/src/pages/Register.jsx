@@ -16,13 +16,47 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showWarning, setShowWarning] = useState(false);
   const [warningText, setWarningText] = useState('');
+  const [timer, setTimer] = useState('');
 
-  const throwWarning = (text) => {
+  // Display a warning above text input boxes
+  const throwWarning = (text, temp = true) => {
+    console.log('throwing');
     setWarningText(text)
     setShowWarning(true);
-    setTimeout(() => setShowWarning(false), 3000);
+    if (temp) {
+      setTimeout(() => setShowWarning(false), 3000);
+    }
   }
 
+  // If confirm password has been entered, check for match after 0.8s
+  const handleInitialPassword = (value) => {
+    setInitialPassword(value);
+    if (confirmPassword !== '') {
+      clearTimeout(timer);
+      setTimer(setTimeout(() => {
+        if (confirmPassword === value) {
+          setShowWarning(false);
+        } else {
+          throwWarning('Your passwords must match!', false);
+        }
+      }, 800));
+    }
+  }
+
+  // Check for match with initial password after 0.8s
+  const handleConfirmPassword = (value) => {
+    setConfirmPassword(value);
+    clearTimeout(timer);
+    setTimer(setTimeout(() => {
+      if (initialPassword === value) {
+        setShowWarning(false);
+      } else {
+        throwWarning('Your passwords must match!', false);
+      }
+    }, 800));
+  }
+
+  // Submit registration form and update local storage with token
   const submitRegistration = async () => {
     if (email.trim() === '' || confirmPassword.trim() === '' || name.trim() === '') {
       throwWarning('Email, name and password cannot be empty.');
@@ -42,7 +76,7 @@ const Register = () => {
         throwWarning(response.data?.error);
         break;
       case 200:
-        console.log(response.data?.token);
+        localStorage.setItem('token', response.data.token);
         closeModal();
         break;
       default:
@@ -124,13 +158,13 @@ const Register = () => {
                     label='Password'
                     type='password'
                     placeholder='Password'
-                    setState={setInitialPassword}
+                    setState={handleInitialPassword}
                   />
                   <TextInput
                     label='Confirm Password'
                     type='password'
                     placeholder='Confirm Password'
-                    setState={setConfirmPassword}
+                    setState={handleConfirmPassword}
                   />
                 </div>
 

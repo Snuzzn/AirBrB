@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from '../components/TextInput';
 import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
-// import { BACKEND_URL } from '../config.json';
 import { FetchAPI } from '../util/FetchAPI';
 
 const Login = () => {
@@ -16,12 +15,14 @@ const Login = () => {
   const [showWarning, setShowWarning] = useState(false);
   const [warningText, setWarningText] = useState('');
 
+  // Displays a warning
   const throwWarning = (text) => {
     setWarningText(text)
     setShowWarning(true);
     setTimeout(() => setShowWarning(false), 3000);
   }
 
+  // Submits login data
   const submitLogin = async () => {
     if (email.trim() === '' || password.trim() === '') {
       throwWarning('Email and password cannot be empty.');
@@ -34,7 +35,7 @@ const Login = () => {
         throwWarning(response.data?.error);
         break;
       case 200:
-        console.log(response.data?.token);
+        localStorage.setItem('token', response.data.token);
         closeModal();
         break;
       default:
