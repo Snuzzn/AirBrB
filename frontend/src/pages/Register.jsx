@@ -5,6 +5,7 @@ import TextInput from '../components/TextInput';
 import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
 import { FetchAPI } from '../util/FetchAPI';
+import EmailValidator from 'email-validator';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -20,7 +21,6 @@ const Register = () => {
 
   // Display a warning above text input boxes
   const throwWarning = (text, temp = true) => {
-    console.log('throwing');
     setWarningText(text)
     setShowWarning(true);
     if (temp) {
@@ -39,7 +39,7 @@ const Register = () => {
         } else {
           throwWarning('Your passwords must match!', false);
         }
-      }, 800));
+      }, 600));
     }
   }
 
@@ -63,6 +63,11 @@ const Register = () => {
       return;
     } else if (initialPassword !== confirmPassword) {
       throwWarning('Your passwords must match!');
+      return;
+    }
+
+    if (!EmailValidator.validate(email)) {
+      throwWarning('Please enter a valid email.')
       return;
     }
 
