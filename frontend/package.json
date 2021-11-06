@@ -4,12 +4,15 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.0",
+    "@headlessui/react": "^1.4.1",
     "@reach/menu-button": "^0.16.2",
+    "email-validator": "^2.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.0.0",
-    "react-scripts": "4.0.0"
+    "react-scripts": "4.0.0",
+    "react-toastify": "^8.1.0"
   },
   "scripts": {
     "start": "craco start",
