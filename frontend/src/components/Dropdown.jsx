@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function Dropdown ({ title, options, tokenState }) {
-  console.log('refresh');
   const filterForAuthentication = (option) => {
     if (!('loggedIn' in option)) {
       // Option does not depend on authentication
       // For example: 'View all Listings'
       return true;
     }
-    console.log(tokenState);
+
     if (tokenState && option.loggedIn === true) {
       // User has logged in and option displays when logged in only
       // For example: 'My Listings' and 'Logout'

@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Listings from './pages/Listings';
 
+// Initialise token state to what is stored in local storage
 const useLocalStorageState = (initialValue) => {
   const [token, setToken] = React.useState(() => {
     try {

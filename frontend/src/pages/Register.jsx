@@ -83,7 +83,6 @@ const Register = ({ authenticate }) => {
         break;
       case 200:
         authenticate(response.data.token);
-        // localStorage.setItem('token', response.data.token);
         closeModal();
         break;
       default:
