@@ -5,8 +5,9 @@ import TextInput from '../components/TextInput';
 import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
 import { FetchAPI } from '../util/FetchAPI';
+import PropTypes from 'prop-types';
 
-const Login = () => {
+const Login = ({ authenticate }) => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -35,7 +36,7 @@ const Login = () => {
         throwWarning(response.data?.error);
         break;
       case 200:
-        localStorage.setItem('token', response.data.token);
+        authenticate(response.data.token);
         closeModal();
         break;
       default:
@@ -46,7 +47,7 @@ const Login = () => {
   // If modal is closed, navigate to home
   const closeModal = () => {
     setIsOpen(false);
-    navigate('/');
+    navigate('/listings');
   }
 
   return (
@@ -128,3 +129,7 @@ const Login = () => {
 }
 
 export default Login;
+
+Login.propTypes = {
+  authenticate: PropTypes.func
+}

@@ -6,8 +6,9 @@ import Warning from '../components/Warning';
 import LoginButton from '../components/LoginButton';
 import { FetchAPI } from '../util/FetchAPI';
 import EmailValidator from 'email-validator';
+import PropTypes from 'prop-types';
 
-const Register = () => {
+const Register = ({ authenticate }) => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -81,7 +82,8 @@ const Register = () => {
         throwWarning(response.data?.error);
         break;
       case 200:
-        localStorage.setItem('token', response.data.token);
+        authenticate(response.data.token);
+        // localStorage.setItem('token', response.data.token);
         closeModal();
         break;
       default:
@@ -92,7 +94,7 @@ const Register = () => {
   // If modal is closed, navigate to home
   const closeModal = () => {
     setIsOpen(false);
-    navigate('/');
+    navigate('/listings');
   }
 
   return (
@@ -186,3 +188,7 @@ const Register = () => {
 }
 
 export default Register;
+
+Register.propTypes = {
+  authenticate: PropTypes.func
+}
