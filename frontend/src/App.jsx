@@ -37,7 +37,7 @@ function App () {
   const navigate = useNavigate();
   const deauthenticate = () => {
     setStoredToken('');
-    navigate('/register');
+    navigate('/listings');
   }
 
   return (
