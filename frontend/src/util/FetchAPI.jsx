@@ -2,13 +2,16 @@ import { BACKEND_URL } from '../config.json';
 
 export const FetchAPI = async (path, method, body = '') => {
   try {
-    const res = await fetch(`${BACKEND_URL}${path}`, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body)
-    });
+    const options = {
+      method,
+      headers: { 'Content-Type': 'application/json' }
+    }
+
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    const res = await fetch(`${BACKEND_URL}${path}`, options);
 
     // Build response object for component to handle
     const response = {
