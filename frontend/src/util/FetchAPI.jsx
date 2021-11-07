@@ -1,10 +1,13 @@
 import { BACKEND_URL } from '../config.json';
 
-export const FetchAPI = async (path, method, body = '') => {
+export const FetchAPI = async (path, method, body = '', token = '') => {
   try {
     const options = {
       method,
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }
     }
 
     if (body) {
