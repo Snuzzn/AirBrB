@@ -47,7 +47,7 @@ function App () {
 
   return (
     <>
-      <div className="bg-gray-50 h-screen">
+      <div className="bg-gray-50 min-h-screen">
         <Navbar tokenState={storedToken} deauthenticate={deauthenticate} />
         <div className="p-5 sm:p-7 flex place-items-center justify-center">
           <Routes>
@@ -56,7 +56,7 @@ function App () {
             </Route>
             <Route path="/hosted-listings" element={<Hostedlistings/>}>
             </Route>
-            <Route path="/create-listings" element={<CreateListing/>}>
+            <Route path="/create-listing" element={<CreateListing/>}>
             </Route>
             <Route path="/login" element={<Login authenticate={authenticate}/>}>
             </Route>

@@ -1,13 +1,14 @@
 import { BACKEND_URL } from '../config.json';
 
-export const FetchAPI = async (path, method, body = '') => {
+export const FetchAPI = async (path, method, body = '', token = '') => {
   try {
     const res = await fetch(`${BACKEND_URL}${path}`, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
     // Build response object for component to handle
