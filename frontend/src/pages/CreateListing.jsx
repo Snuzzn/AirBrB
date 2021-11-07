@@ -7,7 +7,7 @@ import { GiKitchenTap, GiBatMask, GiWashingMachine } from 'react-icons/gi'
 import { FaRegSnowflake, FaTv } from 'react-icons/fa'
 import { AiOutlineWifi, AiFillFolderOpen, AiFillFolder } from 'react-icons/ai'
 import { ImFire } from 'react-icons/im'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { useDropzone } from 'react-dropzone';
 import { convertToBase64 } from '../util/Image';
@@ -45,6 +45,7 @@ const CreateListing = () => {
     setBedrooms(old)
   }
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target
@@ -81,6 +82,7 @@ const CreateListing = () => {
         break;
       case 200:
         displayToast('Successfully created listing', 'success')
+        navigate('/hosted-listings')
         break;
       default:
         displayToast('Something went wrong!', 'error');
