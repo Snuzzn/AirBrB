@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react';
 import Fade from 'react-reveal/Fade';
 import { IoChevronBack } from 'react-icons/io5';
-import { BsCurrencyDollar, BsWater, BsPlusCircle } from 'react-icons/bs';
-import { MdOutlineShower, MdOutlineHome, MdOutlineLocalParking } from 'react-icons/md';
-import { GiKitchenTap, GiBatMask, GiWashingMachine } from 'react-icons/gi'
-import { FaRegSnowflake, FaTv } from 'react-icons/fa'
-import { AiOutlineWifi, AiFillFolderOpen, AiFillFolder } from 'react-icons/ai'
-import { ImFire } from 'react-icons/im'
+import { BsCurrencyDollar, BsPlusCircle } from 'react-icons/bs';
+import { MdOutlineShower, MdOutlineHome } from 'react-icons/md';
+import { AiFillFolderOpen, AiFillFolder } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { useDropzone } from 'react-dropzone';
@@ -15,15 +12,16 @@ import { displayToast } from '../util/Toast'
 import { FetchAPI } from '../util/FetchAPI';
 
 const CreateListing = () => {
-  const amenities = [{ text: 'Kitchen', icon: <GiKitchenTap/> },
-    { text: 'Washer', icon: <GiWashingMachine/> },
-    { text: 'Air Conditioning', icon: <FaRegSnowflake/> },
-    { text: 'Heating', icon: <ImFire/> },
-    { text: 'TV', icon: <FaTv/> },
-    { text: 'Free Parking', icon: <MdOutlineLocalParking/> },
-    { text: 'Free Wifi', icon: <AiOutlineWifi/> },
-    { text: 'Waterfront', icon: <BsWater/> },
-    { text: 'Bat Cave', icon: <GiBatMask/> }]
+  const navigate = useNavigate();
+  const [amenities, setAmenities] = React.useState([{ text: 'Kitchen', isChecked: false },
+    { text: 'Washer', isChecked: false },
+    { text: 'Air Conditioning', isChecked: false },
+    { text: 'Heating', isChecked: false },
+    { text: 'TV', isChecked: false },
+    { text: 'Free Parking', isChecked: false },
+    { text: 'Free Wifi', isChecked: false },
+    { text: 'Waterfront', isChecked: false },
+    { text: 'Bat Cave', isChecked: false }])
 
   const [image, setImage] = React.useState('');
   // drag and drop image
@@ -45,7 +43,6 @@ const CreateListing = () => {
     setBedrooms(old)
   }
 
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target
@@ -54,13 +51,6 @@ const CreateListing = () => {
     if (image === '') {
       displayToast('No photo was found', 'error')
       return;
-    }
-
-    // store amenities
-    const amenities = []
-    const checkboxes = document.querySelectorAll('input[name=amenities]:checked')
-    for (let i = 0; i < checkboxes.length; i++) {
-      amenities.push(checkboxes[i].value)
     }
 
     const body = {
@@ -87,6 +77,12 @@ const CreateListing = () => {
       default:
         displayToast('Something went wrong!', 'error');
     }
+  }
+
+  const changeAmenities = (index) => {
+    const copy = [...amenities]
+    copy[index].isChecked = !copy[index].isChecked;
+    setAmenities(copy)
   }
 
   return (
@@ -157,13 +153,12 @@ const CreateListing = () => {
           <label>Amenities</label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             <IconContext.Provider value={{ color: '#8f8f9c' }}>
-              {amenities.map((item) => (
+              {amenities.map((item, index) => (
               <div key={item.text} className="flex gap-4 items-center">
-                <input type="checkbox" name="amenities" value={item.text} className="cursor-pointer" id={item.text} />
-                <div className="flex gap-2 items-center">
-                  <label htmlFor={item.text} className="text-gray-500 cursor-pointer">{item.text}</label>
-                  {item.icon}
-                </div>
+                <input type="checkbox" checked={amenities[index].isChecked}
+                  onChange={(e) => changeAmenities(index)}
+                  name="amenities" value={item.text} className="cursor-pointer" id={item.text} />
+                <label htmlFor={item.text} className="text-gray-500 cursor-pointer">{item.text}</label>
               </div>))}
             </IconContext.Provider>
           </div>

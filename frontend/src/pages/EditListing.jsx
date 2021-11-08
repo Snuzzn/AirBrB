@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react';
 import Fade from 'react-reveal/Fade';
 import { IoChevronBack } from 'react-icons/io5';
-import { BsCurrencyDollar, BsWater, BsPlusCircle } from 'react-icons/bs';
-import { MdOutlineShower, MdOutlineHome, MdOutlineLocalParking } from 'react-icons/md';
-import { GiKitchenTap, GiBatMask, GiWashingMachine } from 'react-icons/gi'
-import { FaRegSnowflake, FaTv } from 'react-icons/fa'
-import { AiOutlineWifi, AiFillFolderOpen, AiFillFolder } from 'react-icons/ai'
-import { ImFire } from 'react-icons/im'
+import { BsCurrencyDollar, BsPlusCircle } from 'react-icons/bs';
+import { MdOutlineShower, MdOutlineHome } from 'react-icons/md';
+import { AiFillFolderOpen, AiFillFolder } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { useDropzone } from 'react-dropzone';
@@ -15,16 +12,9 @@ import { displayToast } from '../util/Toast'
 import { FetchAPI } from '../util/FetchAPI';
 
 const EditListing = () => {
-  const amenities = [{ text: 'Kitchen', icon: <GiKitchenTap/> },
-    { text: 'Washer', icon: <GiWashingMachine/> },
-    { text: 'Air Conditioning', icon: <FaRegSnowflake/> },
-    { text: 'Heating', icon: <ImFire/> },
-    { text: 'TV', icon: <FaTv/> },
-    { text: 'Free Parking', icon: <MdOutlineLocalParking/> },
-    { text: 'Free Wifi', icon: <AiOutlineWifi/> },
-    { text: 'Waterfront', icon: <BsWater/> },
-    { text: 'Bat Cave', icon: <GiBatMask/> }]
+  const navigate = useNavigate();
 
+  const [amenities, setAmenities] = React.useState([])
   const [image, setImage] = React.useState('');
   // drag and drop image
   const onDrop = useCallback(async acceptedFiles => {
@@ -46,23 +36,59 @@ const EditListing = () => {
     setBedrooms(old)
   }
 
-  const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(navigate);
-    displayToast('sds', 'error')
+  const changeAmenities = (index) => {
+    const copy = [...amenities]
+    copy[index].isChecked = !copy[index].isChecked;
+    setAmenities(copy)
   }
 
+  // fetch existing listing data
   const [formData, setFormData] = React.useState({})
   React.useEffect(async () => {
-    console.log('hi');
-    const response = await FetchAPI('/listings/528067876', 'GET', '', '');
+    const response = await FetchAPI('/listings/593309487', 'GET', '', '');
     const listing = response.data.listing
     setFormData(listing)
     setImage(listing.thumbnail)
     setBedrooms(listing.metadata.bedrooms)
+    setAmenities(listing.metadata.amenities)
   }, [])
-  // console.lsog(formData);
+
+  // update listing in server
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target
+    form.checkValidity()
+
+    if (image === '') {
+      displayToast('No photo was found', 'error')
+      return;
+    }
+
+    const body = {
+      title: form.title.value,
+      address: form.address.value,
+      price: parseInt(form.price.value),
+      thumbnail: image,
+      metadata: {
+        type: form.propertyType.value,
+        bathrooms: parseInt(form.bathrooms.value),
+        amenities: amenities,
+        bedrooms: bedrooms
+      }
+    }
+    const response = await FetchAPI('/listings/593309487', 'PUT', body, JSON.parse(localStorage.getItem('token')));
+    switch (response.status) {
+      case 400:
+        displayToast('Could not edit listing', 'error')
+        break;
+      case 200:
+        displayToast('Successfully edited listing', 'success')
+        navigate('/hosted-listings')
+        break;
+      default:
+        displayToast('Something went wrong!', 'error');
+    }
+  }
 
   return (
     <>
@@ -142,9 +168,10 @@ const EditListing = () => {
           <label>Amenities</label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             <IconContext.Provider value={{ color: '#8f8f9c' }}>
-              {amenities.map((item) => (
+              {amenities.map((item, index) => (
               <div key={item.text} className="flex gap-4 items-center">
-                <input type="checkbox" name="amenities" value={item.text} className="cursor-pointer" id={item.text} />
+                <input type="checkbox" checked={amenities[index].isChecked}
+                  onChange={(e) => changeAmenities(index)} name="amenities" value={item.text} className="cursor-pointer" id={item.text} />
                 <div className="flex gap-2 items-center">
                   <label htmlFor={item.text} className="text-gray-500 cursor-pointer">{item.text}</label>
                   {item.icon}
