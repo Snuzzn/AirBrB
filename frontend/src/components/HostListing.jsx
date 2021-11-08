@@ -78,10 +78,10 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
           <div className="flex justify-between">
             <div>{metadata.type}</div>
             <div>
-              <div onClick={editListing} className="inline cursor-pointer">
+              <div onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
-              <div onClick={deleteListing} className="inline cursor-pointer">
+              <div onClick={deleteListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiTrash className="inline text-xl pointer-events-none" />
               </div>
             </div>
@@ -110,8 +110,9 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
             </div>
           </div>
         </div>
-        <div className="text-red-500 align-bottom text-right flex-end">
+        <div className="text-red-400 text-lg align-bottom text-right flex-end">
           ${listing.price}
+          <span className="text-base font-light"> / night</span>
         </div>
       </div>
     </div>
