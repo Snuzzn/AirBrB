@@ -8,6 +8,7 @@ import ImageUpload from '../components/HostedListings/ImageUpload';
 import Amenities from '../components/HostedListings/Amenities';
 import Bedrooms from '../components/HostedListings/Bedrooms';
 import BasicInfo from '../components/HostedListings/BasicInfo';
+import { prepareForSubmit } from '../util/CreateEditListing';
 
 const CreateListing = () => {
   const navigate = useNavigate();
@@ -20,23 +21,9 @@ const CreateListing = () => {
     const form = e.target
     form.checkValidity()
 
-    if (image === '') {
-      displayToast('No photo was found', 'error')
-      return;
-    }
+    const body = prepareForSubmit(image, form, amenities, bedrooms, displayToast)
+    if (body === false) return;
 
-    const body = {
-      title: form.title.value,
-      address: form.address.value,
-      price: parseInt(form.price.value),
-      thumbnail: image,
-      metadata: {
-        type: form.propertyType.value,
-        bathrooms: parseInt(form.bathrooms.value),
-        amenities: amenities,
-        bedrooms: bedrooms
-      }
-    }
     const response = await FetchAPI('/listings/new', 'POST', body, JSON.parse(localStorage.getItem('token')));
     switch (response.status) {
       case 400:
