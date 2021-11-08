@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Hostedlistings from './pages/HostedListings';
+import CreateListing from './pages/CreateListing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Listings from './pages/Listings';
@@ -48,15 +49,16 @@ function App () {
 
   return (
     <>
-      <div className="bg-gray-50 h-screen">
+      <div className="bg-gray-50 min-h-screen">
         <Navbar tokenState={storedToken} deauthenticate={deauthenticate} />
         <div className="p-5 sm:p-7 flex place-items-center justify-center">
-          <div className="flex flex-col w-full 3xl:w-1/2">
             <Routes>
               {/* Redirect home page to listings landing page */}
               <Route exact path="/" element={<Navigate replace to="/listings"/>}>
               </Route>
               <Route path="/hosted-listings" element={<Hostedlistings/>}>
+              </Route>
+              <Route path="/create-listing" element={<CreateListing/>}>
               </Route>
               <Route path="/login" element={<Login authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>
@@ -65,7 +67,6 @@ function App () {
               <Route path="/listings" element={<Listings/>}>
               </Route>
             </Routes>
-          </div>
         </div>
       </div>
       <ToastContainer />

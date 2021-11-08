@@ -3,6 +3,9 @@ import { BsPlusCircle } from 'react-icons/bs';
 import { FetchAPI } from '../util/FetchAPI';
 import HostListing from '../components/HostListing';
 import EmptyList from '../components/EmptyList';
+// import emptyStreet from '../images/emptyStreet.svg';
+import Fade from 'react-reveal/Fade';
+import { Link } from 'react-router-dom';
 
 const Hostedlistings = () => {
   const [hostListings, setHostListings] = React.useState([]);
@@ -18,20 +21,22 @@ const Hostedlistings = () => {
   }, [hostListings, setHostListings]);
 
   return (
-    <>
-      <div className="flex items-center gap-4">
-        <div className="text-3xl font-medium  text-gray-700">
-          Your Listings
+    <Fade>
+      <div className="flex flex-col w-full 3xl:w-1/2">
+        <div className="flex items-center gap-4">
+          <div className="text-3xl font-medium  text-gray-700">
+            Your Listings
+          </div>
+          <Link to="/create-listing">
+            <BsPlusCircle size="1.5em" alt="add button to create new listing" className='text-gray-700 hover:text-black hover:drop-shadow-lg' />
+          </Link>
         </div>
-        <button >
-          <BsPlusCircle size="1.5em" alt="add button to create new listing" className='text-gray-700 hover:text-black hover:drop-shadow-lg' />
-        </button>
-      </div>
       <div className="flex flex-col justify-center items-center">
         {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => <HostListing key={idx} listing={listing} />)
         }
       </div>
-    </>
+      </div>
+    </Fade>
   );
 }
 
