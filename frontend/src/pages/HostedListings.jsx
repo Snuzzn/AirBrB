@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 const Hostedlistings = () => {
   const [hostListings, setHostListings] = React.useState([]);
+  const [refresh, setRefresh] = React.useState(true);
 
   React.useEffect(async () => {
     const response = await FetchAPI('/listings', 'GET');
@@ -18,8 +19,8 @@ const Hostedlistings = () => {
       // console.log(myListings);
       setHostListings([...myListings]);
     }
-  }, []);
-  console.log('ummm')
+  }, [refresh]);
+
   return (
     <Fade>
       <div className="flex flex-col w-full 3xl:w-1/2">
@@ -32,7 +33,7 @@ const Hostedlistings = () => {
           </Link>
         </div>
       <div className="flex flex-col justify-center items-center">
-        {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => (<HostListing key={idx} listing={listing} />))
+        {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => (<HostListing key={idx} listing={listing} setRefresh={setRefresh} refresh={refresh} />))
         }
       </div>
       </div>

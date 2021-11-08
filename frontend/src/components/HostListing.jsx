@@ -4,25 +4,31 @@ import { BsDot } from 'react-icons/bs';
 import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
 import { RiHotelBedLine } from 'react-icons/ri';
 import { FetchAPI } from '../util/FetchAPI';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { displayToast } from '../util/Toast';
 
-const HostListing = ({ listing }) => {
-  const [listingData, setListingData] = React.useState({});
+const HostListing = ({ listing, setRefresh, refresh }) => {
+  const [metadata, setMetadata] = React.useState({});
+  const navigate = useNavigate();
 
   React.useEffect(() => {
-    console.log('hi!!');
     async function getData () {
       const response = await FetchAPI(`/listings/${listing.id}`, 'GET');
-      if (response.status === 200) {
-        setListingData(response.data.listing);
-        console.log(response.data.listing);
+      switch (response.status) {
+        case 200:
+          setMetadata(response.data.listing.metadata);
+          break;
+        case 403:
+          displayToast('You are not authorised to access this listing', 'error');
+          break;
+        default:
+          displayToast('Something went wrong!', 'error');
       }
     }
 
     getData();
   }, []);
 
-  console.log(listingData.metadata);
   const listingId = listing.id;
   const scores = listing.reviews.filter((review) => review.score);
 
@@ -30,7 +36,7 @@ const HostListing = ({ listing }) => {
     if (scores.length === 0) {
       return 'N/A';
     }
-    return scores.reduce((a, b) => a + b) / scores.length;
+    return scores.reduce((a, b) => parseInt(a) + parseInt(b)) / scores.length;
   }
 
   const getNumReviews = () => {
@@ -38,20 +44,31 @@ const HostListing = ({ listing }) => {
   }
 
   const editListing = (e) => {
-    console.log('Editing listing');
-    console.log(listingId);
+    navigate(`/edit-listing/${listingId}`);
   }
 
-  const deleteListing = (e) => {
-    console.log('Deleting listing');
-    console.log(listingId);
+  const deleteListing = async (e) => {
+    const response = await FetchAPI(`/listings/${listingId}`, 'DELETE', '', JSON.parse(localStorage.getItem('token')));
+    switch (response.status) {
+      case 400:
+        displayToast('Could not delete listing', 'error')
+        break;
+      case 200:
+        displayToast('Successfully deleted listing', 'success')
+        setRefresh(!refresh);
+        break;
+      case 403:
+        displayToast('You are not authorised to delete this listing', 'error');
+        break;
+      default:
+        displayToast('Something went wrong!', 'error');
+    }
   }
 
-  // TODO: another get to retrieve metadata
-
-  console.log(`data: ${listingData.metadata}`);
   return (
-    <div className="border max-w-4xl shadow-md p-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 text-gray-500 font-medium w-full">
+    <>
+    { metadata &&
+      <div className="border max-w-4xl shadow-md p-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 text-gray-500 font-medium w-full">
       <div className="col-start-1 row-span-3 mx-auto">
         <img className="max-h-60 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
       </div>
@@ -59,16 +76,14 @@ const HostListing = ({ listing }) => {
         <div>
 
           <div className="flex justify-between">
-            <div>{listingData.metadata.type}</div>
+            <div>{metadata.type}</div>
             <div>
               <div onClick={editListing} className="inline cursor-pointer">
-                <BiPencil className="inline text-xl mr-2 pointer-events-none" />
+                <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
-              <Link to="/edit-listing">
-                <div onClick={deleteListing} className="inline cursor-pointer">
-                  <BiTrash className="inline text-xl pointer-events-none" />
-                </div>
-              </Link>
+              <div onClick={deleteListing} className="inline cursor-pointer">
+                <BiTrash className="inline text-xl pointer-events-none" />
+              </div>
             </div>
           </div>
           <div className="text-xl font-semibold text-black">{listing.title}</div>
@@ -86,30 +101,28 @@ const HostListing = ({ listing }) => {
           <hr className="mt-2 mb-2 w-20 border-gray-300 block" />
           <div className="grid grid-cols-2">
             <div className="col-start-1 row-span-2">
-                {listingData.metadata.bedrooms.map((bedroom, idx) => {
-                  return (
-                  <div key={idx}>
-                    <RiHotelBedLine className="inline pb-0.5 text-xl" />
-                    <span className="text-base ml-2 font-normal">{bedroom.count} x {bedroom.title}</span>
-                  </div>)
-                })}
-              <div>
+                <RiHotelBedLine className="inline pb-0.5 text-xl" />
+                <span className="text-base ml-2 font-normal">{metadata.bedrooms && metadata.bedrooms.map(bedroom => parseInt(bedroom.count)).reduce((a, b) => a + b)} x Beds</span>
+            <div>
                 <BiBath className="inline pb-0.5 text-xl" />
-                <span className="text-base ml-2 font-normal">{listingData.metadata.bathrooms} x Baths</span>
+                <span className="text-base ml-2 font-normal">{metadata.bathrooms} x Baths</span>
               </div>
             </div>
           </div>
         </div>
-        <div className="text-black align-bottom text-right flex-end">
+        <div className="text-red-500 align-bottom text-right flex-end">
           ${listing.price}
         </div>
       </div>
     </div>
-  )
+  }
+  </>)
 }
 
 export default HostListing;
 
 HostListing.propTypes = {
-  listing: PropTypes.object
+  listing: PropTypes.object,
+  setRefresh: PropTypes.object,
+  refresh: PropTypes.object
 }
