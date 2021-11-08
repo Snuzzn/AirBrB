@@ -14,7 +14,7 @@ import { convertToBase64 } from '../util/Image';
 import { displayToast } from '../util/Toast'
 import { FetchAPI } from '../util/FetchAPI';
 
-const CreateListing = () => {
+const EditListing = () => {
   const amenities = [{ text: 'Kitchen', icon: <GiKitchenTap/> },
     { text: 'Washer', icon: <GiWashingMachine/> },
     { text: 'Air Conditioning', icon: <FaRegSnowflake/> },
@@ -36,6 +36,7 @@ const CreateListing = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
   const [imgWarning, setImgWarning] = React.useState(false)
 
+  // bedrooms
   const [bedrooms, setBedrooms] = React.useState([{ title: '', count: 0 }])
   const handleBedroomChange = (e, index, isTitle) => {
     const input = e.target.value
@@ -48,48 +49,24 @@ const CreateListing = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target
-    form.checkValidity()
-
-    if (image === '') {
-      displayToast('No photo was found', 'error')
-      return;
-    }
-
-    // store amenities
-    const amenities = []
-    const checkboxes = document.querySelectorAll('input[name=amenities]:checked')
-    for (let i = 0; i < checkboxes.length; i++) {
-      amenities.push(checkboxes[i].value)
-    }
-
-    const body = {
-      title: form.title.value,
-      address: form.address.value,
-      price: parseInt(form.price.value),
-      thumbnail: image,
-      metadata: {
-        type: form.propertyType.value,
-        bathrooms: parseInt(form.bathrooms.value),
-        amenities: amenities,
-        bedrooms: bedrooms
-      }
-    }
-    const response = await FetchAPI('/listings/new', 'POST', body, JSON.parse(localStorage.getItem('token')));
-    switch (response.status) {
-      case 400:
-        displayToast('Could not create listing', 'error')
-        break;
-      case 200:
-        displayToast('Successfully created listing', 'success')
-        navigate('/hosted-listings')
-        break;
-      default:
-        displayToast('Something went wrong!', 'error');
-    }
+    console.log(navigate);
+    displayToast('sds', 'error')
   }
 
+  const [formData, setFormData] = React.useState({})
+  React.useEffect(async () => {
+    console.log('hi');
+    const response = await FetchAPI('/listings/528067876', 'GET', '', '');
+    const listing = response.data.listing
+    setFormData(listing)
+    setImage(listing.thumbnail)
+    setBedrooms(listing.metadata.bedrooms)
+  }, [])
+  // console.lsog(formData);
+
   return (
+    <>
+    { JSON.stringify(formData) !== '{}' &&
     <Fade>
       <div className="flex flex-col w-full 2xl:w-1/2 max-w-2xl ">
       <div className="flex items-center gap-2">
@@ -97,26 +74,32 @@ const CreateListing = () => {
           <IoChevronBack/>
         </Link>
         <div className="text-3xl font-medium  text-gray-700">
-          New Listing
+          Edit Listing
         </div>
       </div>
       <form onSubmit={handleSubmit} action="" className="flex flex-col pt-7 gap-5">
         {/* Title */}
         <div className="flex flex-col gap-1 justify-center">
           <label>Title</label>
-          <input type="text" name="title" required className="p-2 border border-gray-300 rounded-lg" />
+          <input type="text" value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })} name="title"
+            required className="p-2 border border-gray-300 rounded-lg" />
         </div>
         {/* Address */}
         <div className="flex flex-col gap-1 justify-center">
           <label>Address</label>
-          <input type="text" name="address" required className="p-2 border border-gray-300 rounded-lg" />
+          <input type="text" name="address" value={ formData.address }
+            onChange={(e) => setFormData({ ...formData, address: e.target.value })} required
+            className="p-2 border border-gray-300 rounded-lg" />
         </div>
         {/* Property type, price, bathrooms */}
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
           <div className="relative flex flex-col gap-1 justify-center">
             <label>Property Type</label>
             <span className="absolute mt-7 ml-2"><MdOutlineHome className="text-gray-400"/></span>
-            <select name="propertyType" required className="p-2 pl-7 border bg-white border-gray-300 rounded-lg" >
+            <select name="propertyType" required value={ formData.metadata.type }
+              onChange={(e) => setFormData({ ...formData, metadata: { ...formData.metadata, type: e.target.value } })}
+              className="p-2 pl-7 border bg-white border-gray-300 rounded-lg" >
               <option value="Entire Place">Entire Place</option>
               <option value="Private Room">Private Room</option>
               <option value="Shared Room">Shared Room</option>
@@ -125,12 +108,14 @@ const CreateListing = () => {
           <div className="relative flex flex-col gap-1 justify-center">
             <label>Price (per night)</label>
             <span className="absolute mt-7 ml-2"><BsCurrencyDollar className="text-gray-400"/></span>
-            <input type="number" required name="price" className="p-2 pl-7 border border-gray-300 rounded-lg" />
+            <input type="number" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} required name="price" className="p-2 pl-7 border border-gray-300 rounded-lg" />
           </div>
           <div className="relative flex flex-col gap-1 justify-center">
             <label>Bathrooms</label>
             <span className="absolute mt-7 ml-2"><MdOutlineShower className="text-gray-400"/></span>
-            <input type="number" required name="bathrooms" className="p-2 pl-7 border border-gray-300 rounded-lg" />
+            <input type="number" required name="bathrooms" value={ formData.metadata.bathrooms }
+              onChange={(e) => setFormData({ ...formData, metadata: { ...formData.metadata, bathrooms: e.target.value } })}
+              className="p-2 pl-7 border border-gray-300 rounded-lg" />
           </div>
         </div>
         {/* Bedrooms */}
@@ -185,9 +170,10 @@ const CreateListing = () => {
         <button className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Add listing</button>
       </form>
       </div>
-
     </Fade>
+    }
+    </>
   );
 }
 
-export default CreateListing;
+export default EditListing;
