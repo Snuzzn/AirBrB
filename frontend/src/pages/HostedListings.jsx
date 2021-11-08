@@ -11,15 +11,15 @@ const Hostedlistings = () => {
   const [hostListings, setHostListings] = React.useState([]);
 
   React.useEffect(async () => {
-    console.log('fetching');
     const response = await FetchAPI('/listings', 'GET');
     if (response.status === 200) {
-      // Filter out listings not belong to host
+      // Filter out listings not belonging to host
       const myListings = response.data.listings.filter((listing) => listing.owner === JSON.parse(localStorage.getItem('email')));
+      // console.log(myListings);
       setHostListings([...myListings]);
     }
-  }, [hostListings, setHostListings]);
-
+  }, []);
+  console.log('ummm')
   return (
     <Fade>
       <div className="flex flex-col w-full 3xl:w-1/2">
@@ -32,7 +32,7 @@ const Hostedlistings = () => {
           </Link>
         </div>
       <div className="flex flex-col justify-center items-center">
-        {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => <HostListing key={idx} listing={listing} />)
+        {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => (<HostListing key={idx} listing={listing} />))
         }
       </div>
       </div>
