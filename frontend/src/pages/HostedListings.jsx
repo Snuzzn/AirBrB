@@ -1,10 +1,26 @@
 import React from 'react';
 import { BsPlusCircle } from 'react-icons/bs';
-import emptyStreet from '../images/emptyStreet.svg';
+import { FetchAPI } from '../util/FetchAPI';
+import HostListing from '../components/HostListing';
+import EmptyList from '../components/EmptyList';
+// import emptyStreet from '../images/emptyStreet.svg';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 
 const Hostedlistings = () => {
+  const [hostListings, setHostListings] = React.useState([]);
+  const [refresh, setRefresh] = React.useState(true);
+
+  React.useEffect(async () => {
+    const response = await FetchAPI('/listings', 'GET');
+    if (response.status === 200) {
+      // Filter out listings not belonging to host
+      const myListings = response.data.listings.filter((listing) => listing.owner === JSON.parse(localStorage.getItem('email')));
+      // console.log(myListings);
+      setHostListings([...myListings]);
+    }
+  }, [refresh]);
+
   return (
     <Fade>
       <div className="flex flex-col w-full 3xl:w-1/2">
@@ -16,8 +32,10 @@ const Hostedlistings = () => {
             <BsPlusCircle size="1.5em" alt="add button to create new listing" className='text-gray-700 hover:text-black hover:drop-shadow-lg' />
           </Link>
         </div>
-        <img src={emptyStreet} alt="empty street with park benches represents lack of listings" className="mt-20 w-8/12 max-w-lg self-center" />
-        <div className="text-lg font-extralight mt-5 self-center">You have no listings yet...</div>
+      <div className="flex flex-col justify-center items-center">
+        {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => (<HostListing key={idx} listing={listing} setRefresh={setRefresh} refresh={refresh} />))
+        }
+      </div>
       </div>
     </Fade>
   );
