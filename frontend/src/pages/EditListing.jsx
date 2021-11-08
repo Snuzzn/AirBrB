@@ -194,7 +194,7 @@ const EditListing = () => {
         {imgWarning && <p className="text-red-600">Image type must be <b>png</b> or <b>jpeg</b> or <b>gif</b>.</p>}
         {image !== '' && <div><p className="text-gray-500 text-sm mb-2">Preview</p><img src={image} className="w-1/2 "/></div>}
 
-        <button className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Add listing</button>
+        <button className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Edit listing</button>
       </form>
       </div>
     </Fade>
