@@ -64,11 +64,11 @@ const HostListing = ({ listing }) => {
           <div className="col-start-1 row-span-2">
             <div>
               <RiHotelBedLine className="inline pb-0.5 text-xl" />
-              <span className="text-base ml-2 font-normal">#beds</span>
+              <span className="text-base ml-2 font-normal">#X beds</span>
             </div>
             <div>
               <BiBath className="inline pb-0.5 text-xl" />
-              <span className="text-base ml-2 font-normal">#bathrooms</span>
+              <span className="text-base ml-2 font-normal">#X baths</span>
             </div>
           </div>
           <div className="text-black justify-end col-start-2 text-right align-bottom row-start-2">

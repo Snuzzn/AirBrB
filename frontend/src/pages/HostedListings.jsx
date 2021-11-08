@@ -15,7 +15,7 @@ const Hostedlistings = () => {
       const myListings = response.data.listings.filter((listing) => listing.owner === JSON.parse(localStorage.getItem('email')));
       setHostListings([...myListings]);
     }
-  }, []);
+  }, [hostListings, setHostListings]);
 
   return (
     <>
