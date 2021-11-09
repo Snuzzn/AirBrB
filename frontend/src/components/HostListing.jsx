@@ -13,6 +13,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
   const [metadata, setMetadata] = React.useState({});
   const [showTooltip, setShowTooltip] = React.useState(false);
   const [showAvailabilityModal, setShowAvailabilityModal] = React.useState(false);
+  const [published, setPublished] = React.useState(0);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -21,6 +22,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
       switch (response.status) {
         case 200:
           setMetadata(response.data.listing.metadata);
+          setPublished(response.data.listing.published);
           break;
         case 403:
           displayToast('You are not authorised to access this listing', 'error');
@@ -31,14 +33,35 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     }
 
     getData();
-  }, [setShowAvailabilityModal]);
-  console.log('rerendering');
+  }, [published]);
+
   const listingId = listing.id;
   const scores = listing.reviews.filter((review) => review.score);
 
   const handlePublishClick = () => {
     setShowAvailabilityModal(true);
     setShowTooltip(false);
+  }
+
+  const handleUnpublishClick = async () => {
+    setShowTooltip(false);
+
+    const response = await FetchAPI(`/listings/unpublish/${listingId}`, 'PUT', '', JSON.parse(localStorage.getItem('token')));
+    switch (response.status) {
+      case 400:
+        displayToast('Input error.', 'error');
+        break;
+      case 403:
+        displayToast('You are not authorised to unpublish this listing.', 'error')
+        break;
+      case 200:
+        displayToast('Listing successfully unpublished!', 'success')
+        setPublished(0);
+        break;
+      default:
+        displayToast('Something went wrong!', 'error');
+        break;
+    }
   }
 
   const getScore = () => {
@@ -76,7 +99,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
 
   return (
     <>
-    { metadata &&
+    { metadata && published !== 0 &&
       <div className="border max-w-4xl shadow-md p-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 text-gray-500 font-medium w-full">
       <div className="col-start-1 row-span-3 mx-auto">
         <img className="max-h-60 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
@@ -87,12 +110,30 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
           <div className="flex justify-between">
             <div>{metadata.type}</div>
             <div>
-            <div onClick={handlePublishClick} onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} className="animate-pulse  inline-block cursor-pointer font-light text-red-400 hover:text-green-500">
+              {!published
+                ? <div
+                onClick={handlePublishClick}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+                className="animate-pulse  inline-block cursor-pointer font-light text-red-400 hover:text-green-500">
                 {showTooltip && <span className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black -mt-8">Publish Listing</span>}
                 <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
                 {showAvailabilityModal &&
-                    <AvailabilityModal listingId={listingId} setShowAvailabilityModal={setShowAvailabilityModal} />}
-              </div>
+                  <AvailabilityModal
+                    listingId={listingId}
+                    setShowAvailabilityModal={setShowAvailabilityModal}
+                    setPublished={setPublished}
+                  />}
+                </div>
+                : <div
+                  onClick={handleUnpublishClick}
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                  className="animate-pulse  inline-block cursor-pointer font-light text-green-500 hover:text-red-400">
+                  {showTooltip && <span className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black -mt-8">Unpublish Listing</span>}
+                  <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
+                </div>
+              }
               <div onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
@@ -139,6 +180,6 @@ export default HostListing;
 
 HostListing.propTypes = {
   listing: PropTypes.object,
-  setRefresh: PropTypes.object,
-  refresh: PropTypes.object
+  setRefresh: PropTypes.func,
+  refresh: PropTypes.bool
 }

@@ -7,7 +7,7 @@ import LoginButton from './LoginButton';
 import PropTypes from 'prop-types';
 import { FetchAPI } from '../util/FetchAPI';
 
-const AvailabilityModal = ({ listingId, setShowAvailabilityModal }) => {
+const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [availabilities, setAvailabilities] = useState([{ start: '', end: '' }]);
 
@@ -46,7 +46,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal }) => {
     }
 
     const body = { availability: availabilities }
-    const response = await FetchAPI(`/listings/${listingId}`, 'PUT', body, JSON.parse(localStorage.getItem('token')));
+    const response = await FetchAPI(`/listings/publish/${listingId}`, 'PUT', body, JSON.parse(localStorage.getItem('token')));
     switch (response.status) {
       case 400:
         dateError('Invalid input.');
@@ -57,6 +57,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal }) => {
       case 200:
         publishSuccess();
         setShowAvailabilityModal(false);
+        setPublished(0);
     }
   }
 
@@ -242,6 +243,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal }) => {
 export default AvailabilityModal;
 
 AvailabilityModal.propTypes = {
-  listingId: PropTypes.string,
-  setShowAvailabilityModal: PropTypes.object
+  listingId: PropTypes.number,
+  setShowAvailabilityModal: PropTypes.func,
+  setPublished: PropTypes.func,
 }
