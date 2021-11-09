@@ -61,7 +61,7 @@ function App () {
               </Route>
               <Route path="/create-listing" element={<CreateListing/>}>
               </Route>
-              <Route path="/edit-listing" element={<EditListing/>}>
+              <Route path="/edit-listing/:id" element={<EditListing/>}>
               </Route>
               <Route path="/login" element={<Login authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>

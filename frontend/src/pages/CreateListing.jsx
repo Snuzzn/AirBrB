@@ -15,6 +15,7 @@ const CreateListing = () => {
   const [amenities, setAmenities] = React.useState(amenityList)
   const [bedrooms, setBedrooms] = React.useState([{ title: '', count: 0 }])
   const [image, setImage] = React.useState('');
+  const [formData, setFormData] = React.useState({ metadata: {} })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +51,7 @@ const CreateListing = () => {
         </div>
       </div>
       <form onSubmit={handleSubmit} action="" className="flex flex-col pt-7 gap-5">
-        <BasicInfo/>
+        <BasicInfo formData={formData} setFormData={setFormData}/>
         {/* Bedrooms */}
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
         {/* Amenities */}

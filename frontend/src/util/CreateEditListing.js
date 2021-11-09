@@ -15,11 +15,11 @@ export const prepareForSubmit = (
     address: form.address.value,
     price: parseInt(form.price.value),
     thumbnail: image,
-    type: form.propertyType.value,
     metadata: {
       bathrooms: parseInt(form.bathrooms.value),
       amenities: amenities,
       bedrooms: bedrooms,
+      type: form.propertyType.value,
     },
   };
   return body;

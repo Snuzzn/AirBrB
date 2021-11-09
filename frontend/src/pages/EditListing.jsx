@@ -1,7 +1,7 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
 import { IoChevronBack } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { displayToast } from '../util/Toast'
 import { FetchAPI } from '../util/FetchAPI';
 import BasicInfo from '../components/HostedListings/BasicInfo';
@@ -11,6 +11,7 @@ import ImageUpload from '../components/HostedListings/ImageUpload';
 import { prepareForSubmit } from '../util/CreateEditListing';
 
 const EditListing = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [amenities, setAmenities] = React.useState([])
   const [image, setImage] = React.useState('');
@@ -19,12 +20,28 @@ const EditListing = () => {
   // fetch existing fields on listing
   const [formData, setFormData] = React.useState({})
   React.useEffect(async () => {
-    const response = await FetchAPI('/listings/593309487', 'GET', '', '');
-    const listing = response.data.listing
-    setFormData(listing)
-    setImage(listing.thumbnail)
-    setBedrooms(listing.metadata.bedrooms)
-    setAmenities(listing.metadata.amenities)
+    const response = await FetchAPI(`/listings/${id}`, 'GET', '', '');
+    console.log(response);
+    switch (response.status) {
+      case 400:
+        displayToast('Could not open listing to edit', 'error')
+        break;
+      case 200: {
+        const listing = response.data.listing
+        if (JSON.stringify(listing) === '{}') {
+          displayToast('Could not find listing', 'error')
+          navigate('/hosted-listings')
+          return;
+        }
+        setFormData(listing)
+        setImage(listing.thumbnail)
+        setBedrooms(listing.metadata.bedrooms)
+        setAmenities(listing.metadata.amenities)
+        break;
+      }
+      default:
+        displayToast('Something went wrong!', 'error');
+    }
   }, [])
 
   // update listing in server
@@ -36,7 +53,8 @@ const EditListing = () => {
     const body = prepareForSubmit(image, form, amenities, bedrooms, displayToast)
     if (body === false) return
 
-    const response = await FetchAPI('/listings/593309487', 'PUT', body, JSON.parse(localStorage.getItem('token')));
+    const response = await FetchAPI(`/listings/${id}`, 'PUT', body, JSON.parse(localStorage.getItem('token')));
+    console.log(response);
     switch (response.status) {
       case 400:
         displayToast('Could not edit listing', 'error')
@@ -64,7 +82,7 @@ const EditListing = () => {
         </div>
       </div>
       <form onSubmit={handleSubmit} action="" className="flex flex-col pt-7 gap-5">
-        <BasicInfo/>
+        <BasicInfo formData={formData} setFormData={setFormData}/>
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
         <Amenities amenities={amenities} setAmenities={setAmenities}/>
         <ImageUpload image={image} setImage={setImage}/>
