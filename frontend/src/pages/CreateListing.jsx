@@ -4,10 +4,10 @@ import { IoChevronBack } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { displayToast } from '../util/Toast'
 import { FetchAPI } from '../util/FetchAPI';
-import ImageUpload from '../components/HostedListings/ImageUpload';
-import Amenities from '../components/HostedListings/Amenities';
-import Bedrooms from '../components/HostedListings/Bedrooms';
-import BasicInfo from '../components/HostedListings/BasicInfo';
+import ImageUpload from '../components/CreateEditListing/ImageUpload';
+import Amenities from '../components/CreateEditListing/Amenities';
+import Bedrooms from '../components/CreateEditListing/Bedrooms';
+import BasicInfo from '../components/CreateEditListing/BasicInfo';
 import { prepareForSubmit } from '../util/CreateEditListing';
 
 const CreateListing = () => {
