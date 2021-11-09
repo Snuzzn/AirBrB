@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { BsDot } from 'react-icons/bs';
 import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
 import { RiHotelBedLine } from 'react-icons/ri';
+import { CgLivePhoto } from 'react-icons/cg';
 import { FetchAPI } from '../util/FetchAPI';
 import { useNavigate } from 'react-router-dom';
 import { displayToast } from '../util/Toast';
+import AvailabilityModal from './AvailabilityModal';
 
 const HostListing = ({ listing, setRefresh, refresh }) => {
   const [metadata, setMetadata] = React.useState({});
+  const [showTooltip, setShowTooltip] = React.useState(false);
+  const [showAvailabilityModal, setShowAvailabilityModal] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -27,10 +31,15 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     }
 
     getData();
-  }, []);
-
+  }, [setShowAvailabilityModal]);
+  console.log('rerendering');
   const listingId = listing.id;
   const scores = listing.reviews.filter((review) => review.score);
+
+  const handlePublishClick = () => {
+    setShowAvailabilityModal(true);
+    setShowTooltip(false);
+  }
 
   const getScore = () => {
     if (scores.length === 0) {
@@ -78,6 +87,12 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
           <div className="flex justify-between">
             <div>{metadata.type}</div>
             <div>
+            <div onClick={handlePublishClick} onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} className="animate-pulse  inline-block cursor-pointer font-light text-red-400 hover:text-green-500">
+                {showTooltip && <span className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black -mt-8">Publish Listing</span>}
+                <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
+                {showAvailabilityModal &&
+                    <AvailabilityModal listingId={listingId} setShowAvailabilityModal={setShowAvailabilityModal} />}
+              </div>
               <div onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
