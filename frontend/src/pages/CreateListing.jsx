@@ -52,13 +52,9 @@ const CreateListing = () => {
       </div>
       <form onSubmit={handleSubmit} action="" className="flex flex-col pt-7 gap-5">
         <BasicInfo formData={formData} setFormData={setFormData}/>
-        {/* Bedrooms */}
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
-        {/* Amenities */}
         <Amenities amenities={amenities} setAmenities={setAmenities} />
-        {/* Drag n Drop */}
         <ImageUpload image={image} setImage={setImage}/>
-
         <button className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Add listing</button>
       </form>
       </div>
