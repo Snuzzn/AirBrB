@@ -123,6 +123,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
                     listingId={listingId}
                     setShowAvailabilityModal={setShowAvailabilityModal}
                     setPublished={setPublished}
+                    setShowTooltip={setShowTooltip}
                   />}
                 </div>
                 : <div

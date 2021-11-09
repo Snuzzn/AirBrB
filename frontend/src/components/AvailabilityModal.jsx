@@ -7,7 +7,7 @@ import LoginButton from './LoginButton';
 import PropTypes from 'prop-types';
 import { FetchAPI } from '../util/FetchAPI';
 
-const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished }) => {
+const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, setShowTooltip }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [availabilities, setAvailabilities] = useState([{ start: '', end: '' }]);
 
@@ -57,6 +57,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished }
       case 200:
         publishSuccess();
         setShowAvailabilityModal(false);
+        setShowTooltip(false);
         setPublished(0);
     }
   }
@@ -246,4 +247,5 @@ AvailabilityModal.propTypes = {
   listingId: PropTypes.number,
   setShowAvailabilityModal: PropTypes.func,
   setPublished: PropTypes.func,
+  setShowTooltip: PropTypes.func
 }
