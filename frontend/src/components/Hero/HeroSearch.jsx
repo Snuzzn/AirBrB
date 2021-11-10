@@ -21,6 +21,16 @@ function HeroSearch () {
     const form = e.target
     form.checkValidity()
 
+    if (priceRange[0] > priceRange[1]) {
+      displayToast('Minimum price must be lower than maximum price', 'error')
+      return
+    }
+
+    if (roomRange[0] > roomRange[1]) {
+      displayToast('Minimum bedrooms must be lower than maximum bedrooms', 'error')
+      return
+    }
+
     if (new Date(startDate) > new Date(endDate)) {
       displayToast('Check in date must come before the Check out date', 'error')
       return
@@ -31,7 +41,6 @@ function HeroSearch () {
         displayToast('Could not find any listng', 'error')
         break;
       case 200:
-        displayToast('Found some listings', 'success')
         filterListings(response.data.listings)
         break;
       default:
