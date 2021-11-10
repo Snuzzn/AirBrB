@@ -20,7 +20,9 @@ function DayPicker ({ setDate }) {
     setDate(date.toISOString())
     return dateFnsFormat(date, format, { locale });
   }
-
+  const yesterday = new Date()
+  yesterday.setDate(yesterday.getDate() - 1)
+  const disabledDays = [{ from: new Date(1970, 1, 1), to: yesterday }]
   return (
     <DayPickerInput
         overlayComponent={CustomOverlay}
@@ -29,7 +31,10 @@ function DayPicker ({ setDate }) {
         parseDate={parseDate}
         placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
         inputProps={
-          { required: true }
+          { required: true, className: 'focus:outline-none' }
+        }
+        dayPickerProps={
+          { disabledDays: disabledDays }
         }
     />
   )

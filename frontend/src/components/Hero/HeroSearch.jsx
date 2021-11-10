@@ -27,6 +27,11 @@ function HeroSearch () {
     e.preventDefault();
     const form = e.target
     form.checkValidity()
+
+    if (new Date(startDate) > new Date(endDate)) {
+      displayToast('Check in date must come before the Check out date', 'error')
+      return
+    }
     console.log(e.target);
     const response = await FetchAPI('/listings', 'GET');
     switch (response.status) {
@@ -49,7 +54,7 @@ function HeroSearch () {
 
       <div className="flex items-center justify-center lg:items-end sm:pb-10 absolute top-0 left-0 w-full h-full ">
         <form action="" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-7 lg:flex-row p-4 sm:gap-3  bg-white rounded-lg shadow-xl">
+          <div className="flex flex-col gap-7 lg:flex-row p-4 sm:gap-3  bg-white rounded-lg shadow-xl text-lg">
             <div>
               <p>Location</p>
               <input type="text" required value={location} onChange={e => setLocation(e.target.value)}
@@ -63,12 +68,12 @@ function HeroSearch () {
               <p>Check out</p>
               <DayPicker setDate={setEndDate}/>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <Popover className="relative">
-                <Popover.Button className="bg-gray-200 p-4 rounded-lg hover:bg-gray-300">
+                <Popover.Button className="bg-gray-200 p-5 rounded-lg hover:bg-gray-300">
                   <FiFilter className="text-gray-700"/>
                 </Popover.Button>
-                <Popover.Panel className="absolute flex flex-col gap-5 p-6 bottom-12 mb-6 sm:right-0 rounded-lg bg-white shadow-xl animate-fadeUp">
+                <Popover.Panel className="absolute flex flex-col gap-5 p-6 bottom-12 mb-8 sm:right-0 rounded-lg bg-white shadow-xl animate-fadeUp">
                   <div>
                     <p className="text-xl font-bold mb-2">Filters</p>
                     <hr />
@@ -90,8 +95,9 @@ function HeroSearch () {
                   </div>
                 </Popover.Panel>
               </Popover>
-              <button className="bg-red-300 p-4 rounded-lg hover:bg-red-400">
-                <FiSearch className="text-gray-700"/>
+              <button className="bg-red-400 p-3 text-white rounded-lg hover:bg-red-400 flex items-center gap-2">
+                <FiSearch />
+                <p>Search</p>
               </button>
             </div>
           </div>
