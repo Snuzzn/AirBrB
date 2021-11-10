@@ -102,7 +102,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     { metadata && published !== 0 &&
       <div className="border max-w-4xl shadow-md p-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 text-gray-500 font-medium w-full">
       <div className="col-start-1 row-span-3 mx-auto">
-        <img className="max-h-60 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
+        <img className="object-cover h-60 w-80 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
       </div>
       <div className="flex flex-col justify-between sm:col-start-2 row-span-3">
         <div>
