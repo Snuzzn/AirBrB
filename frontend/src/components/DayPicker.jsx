@@ -6,7 +6,7 @@ import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
 import PropTypes from 'prop-types';
 
-function DayPicker () {
+function DayPicker ({ setDate }) {
   const FORMAT = 'dd/MM/yyyy';
   function parseDate (str, format, locale) {
     const parsed = dateFnsParse(str, format, new Date(), { locale });
@@ -17,21 +17,29 @@ function DayPicker () {
   }
 
   function formatDate (date, format, locale) {
+    setDate(date.toISOString())
     return dateFnsFormat(date, format, { locale });
   }
 
   return (
     <DayPickerInput
-      overlayComponent={CustomOverlay}
+        overlayComponent={CustomOverlay}
         formatDate={formatDate}
         format={FORMAT}
         parseDate={parseDate}
         placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+        inputProps={
+          { required: true }
+        }
     />
   )
 }
 
 export default DayPicker
+
+DayPicker.propTypes = {
+  setDate: PropTypes.func
+};
 
 function CustomOverlay ({ classNames, selectedDay, children, ...props }) {
   return (
