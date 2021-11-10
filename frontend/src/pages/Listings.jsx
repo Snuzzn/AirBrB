@@ -1,10 +1,12 @@
 import React from 'react';
+import HeroSearch from '../components/Hero/HeroSearch';
+import Fade from 'react-reveal/Fade';
 
 const Listings = () => {
   return (
-    <>
-    Landing page
-    </>
+    <Fade>
+      <HeroSearch/>
+    </Fade>
   )
 }
 

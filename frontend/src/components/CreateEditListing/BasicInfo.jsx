@@ -7,8 +7,9 @@ function BasicInfo ({ formData, setFormData }) {
   const updateFormData = (e) => {
     const key = e.target.name
     const clone = JSON.parse(JSON.stringify(formData))
-    if (key === 'title' || key === 'address' || key === 'price') clone[key] = e.target.value
+    if (key === 'title' || key === 'price') clone[key] = e.target.value
     else if (key === 'propertyType' || key === 'bathrooms') clone.metadata[key] = e.target.value
+    else if (key === 'street' || key === 'city') clone.address[key] = e.target.value
     setFormData(clone)
   }
 
@@ -23,7 +24,12 @@ function BasicInfo ({ formData, setFormData }) {
       {/* Address */}
       <div className="flex flex-col gap-1 justify-center">
         <label>Address</label>
-        <input type="text" name="address" value={formData.address} onChange={updateFormData}
+        <input type="text" name="street" value={formData.address.street} onChange={updateFormData}
+          required className="p-2 border border-gray-300 rounded-lg" />
+      </div>
+      <div className="flex flex-col gap-1 justify-center">
+        <label>City</label>
+        <input type="text" name="city" value={formData.address.city} onChange={updateFormData}
           required className="p-2 border border-gray-300 rounded-lg" />
       </div>
       {/* Property type, price, bathrooms */}

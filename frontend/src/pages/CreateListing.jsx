@@ -15,7 +15,7 @@ const CreateListing = () => {
   const [amenities, setAmenities] = React.useState(amenityList)
   const [bedrooms, setBedrooms] = React.useState([{ title: '', count: 0 }])
   const [image, setImage] = React.useState('');
-  const [formData, setFormData] = React.useState({ metadata: {} })
+  const [formData, setFormData] = React.useState({ address: {}, metadata: {} })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
