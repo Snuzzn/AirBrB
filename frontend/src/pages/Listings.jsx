@@ -49,7 +49,6 @@ const Listings = () => {
         const publishedListingsData = [];
         for (const listing of listingsData) {
           const res = await FetchAPI(`/listings/${listing.id}`, 'GET');
-          console.log(res.data);
           if (res.status === 200 && res.data.listing.published) {
             // Only display published listings on landing page
             publishedListingsData.push(listing);
