@@ -21,6 +21,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
       const response = await FetchAPI(`/listings/${listing.id}`, 'GET');
       switch (response.status) {
         case 200:
+          console.log(response);
           setMetadata(response.data.listing.metadata);
           setPublished(response.data.listing.published);
           break;
@@ -152,7 +153,8 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
               <span className="font-italic text-black">{getScore()}</span>
               <span className="pl-1 text-black">({getNumReviews()})</span>
               <BsDot className="inline pb-0.5" />
-              <>{listing.address}</>
+              <span>{listing.address.street} ·</span>
+              <span> {listing.address.city}</span>
             </div>
           </div>
           <hr className="mt-2 mb-2 w-20 border-gray-300 block" />

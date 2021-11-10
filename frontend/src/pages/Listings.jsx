@@ -2,6 +2,8 @@ import React from 'react';
 import { displayToast } from '../util/Toast';
 import { FetchAPI } from '../util/FetchAPI';
 import Listing from '../components/Listing';
+import HeroSearch from '../components/Hero/HeroSearch';
+import Fade from 'react-reveal/Fade';
 
 const Listings = () => {
   const [displayedListings, setDisplayedListings] = React.useState([]);
@@ -80,25 +82,28 @@ const Listings = () => {
   }, []);
 
   return (
-    <>
-    { displayedListings !== [] &&
-    <div className="">
-      <div className="flex gap-6 flex-wrap justify-center lg:justify-start">
-        {displayedListings.map((listing, idx) => (
-          <div key={idx}>
-            <Listing
-              id={listing.id}
-              thumbnail={listing.thumbnail}
-              reviews={listing.reviews}
-              title={listing.title}
-              price={listing.price}
-            />
+    <div>
+      <Fade className="flex flex-row">
+        <HeroSearch/>
+        <div className="mt-10">
+        { displayedListings !== [] &&
+          <div className="flex gap-6 flex-wrap justify-center lg:justify-start">
+            {displayedListings.map((listing, idx) => (
+              <div key={idx}>
+                <Listing
+                  id={listing.id}
+                  thumbnail={listing.thumbnail}
+                  reviews={listing.reviews}
+                  title={listing.title}
+                  price={listing.price}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        }
+        </div>
+      </Fade>
     </div>
-    }
-  </>
   )
 }
 

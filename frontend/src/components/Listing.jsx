@@ -10,7 +10,9 @@ const Listing = ({ id, thumbnail, reviews, title, price }) => {
       <div className="relative -mb-8 text-right pr-4">
         <span className="bg-red-400 cursor-default text-white rounded-xl p-1 hover:text-red-400 hover:bg-white">${price}</span>
       </div>
-      <img className="object-cover h-60 w-80 rounded-2xl" src={thumbnail} alt="Image of a your listing" />
+      <div className="">
+        <img className="object-cover h-60 w-80 rounded-2xl" src={thumbnail} alt="Image of a your listing" />
+      </div>
       <div className="relative mt-1 flex justify-between pl-2 pr-2">
         <div className="font-semibold">
           {title}
