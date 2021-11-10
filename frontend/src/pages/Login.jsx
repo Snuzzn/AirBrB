@@ -37,6 +37,7 @@ const Login = ({ authenticate, storeEmail }) => {
         throwWarning(response.data?.error);
         break;
       case 200:
+        console.log(response.status);
         storeEmail(email);
         authenticate(response.data.token);
         closeModal();

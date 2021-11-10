@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Hostedlistings from './pages/HostedListings';
 import CreateListing from './pages/CreateListing';
+import EditListing from './pages/EditListing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Listings from './pages/Listings';
@@ -59,6 +60,8 @@ function App () {
               <Route path="/hosted-listings" element={<Hostedlistings/>}>
               </Route>
               <Route path="/create-listing" element={<CreateListing/>}>
+              </Route>
+              <Route path="/edit-listing/:id" element={<EditListing/>}>
               </Route>
               <Route path="/login" element={<Login authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>

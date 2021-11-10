@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import { BsDot } from 'react-icons/bs';
 import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
 import { RiHotelBedLine } from 'react-icons/ri';
+import { CgLivePhoto } from 'react-icons/cg';
 import { FetchAPI } from '../util/FetchAPI';
 import { useNavigate } from 'react-router-dom';
 import { displayToast } from '../util/Toast';
+import AvailabilityModal from './AvailabilityModal';
 
 const HostListing = ({ listing, setRefresh, refresh }) => {
   const [metadata, setMetadata] = React.useState({});
+  const [showTooltip, setShowTooltip] = React.useState(false);
+  const [showAvailabilityModal, setShowAvailabilityModal] = React.useState(false);
+  const [published, setPublished] = React.useState(0);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -17,6 +22,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
       switch (response.status) {
         case 200:
           setMetadata(response.data.listing.metadata);
+          setPublished(response.data.listing.published);
           break;
         case 403:
           displayToast('You are not authorised to access this listing', 'error');
@@ -27,10 +33,36 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     }
 
     getData();
-  }, []);
+  }, [published]);
 
   const listingId = listing.id;
   const scores = listing.reviews.filter((review) => review.score);
+
+  const handlePublishClick = () => {
+    setShowAvailabilityModal(true);
+    setShowTooltip(false);
+  }
+
+  const handleUnpublishClick = async () => {
+    setShowTooltip(false);
+
+    const response = await FetchAPI(`/listings/unpublish/${listingId}`, 'PUT', '', JSON.parse(localStorage.getItem('token')));
+    switch (response.status) {
+      case 400:
+        displayToast('Input error.', 'error');
+        break;
+      case 403:
+        displayToast('You are not authorised to unpublish this listing.', 'error')
+        break;
+      case 200:
+        displayToast('Listing successfully unpublished!', 'success')
+        setPublished(0);
+        break;
+      default:
+        displayToast('Something went wrong!', 'error');
+        break;
+    }
+  }
 
   const getScore = () => {
     if (scores.length === 0) {
@@ -67,7 +99,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
 
   return (
     <>
-    { metadata &&
+    { metadata && published !== 0 &&
       <div className="border max-w-4xl shadow-md p-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 text-gray-500 font-medium w-full">
       <div className="col-start-1 row-span-3 mx-auto">
         <img className="max-h-60 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
@@ -78,6 +110,31 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
           <div className="flex justify-between">
             <div>{metadata.type}</div>
             <div>
+              {!published
+                ? <div
+                onClick={handlePublishClick}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+                className="animate-pulse  inline-block cursor-pointer font-light text-red-400 hover:text-green-500">
+                {showTooltip && <span className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black -mt-8">Publish Listing</span>}
+                <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
+                {showAvailabilityModal &&
+                  <AvailabilityModal
+                    listingId={listingId}
+                    setShowAvailabilityModal={setShowAvailabilityModal}
+                    setPublished={setPublished}
+                    setShowTooltip={setShowTooltip}
+                  />}
+                </div>
+                : <div
+                  onClick={handleUnpublishClick}
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                  className="animate-pulse  inline-block cursor-pointer font-light text-green-500 hover:text-red-400">
+                  {showTooltip && <span className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black -mt-8">Unpublish Listing</span>}
+                  <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
+                </div>
+              }
               <div onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
@@ -91,7 +148,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
             <svg width="20" height="20" fill="orange" className="text-violet-600 inline">
               <path d="M9.05 3.691c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.372 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.539 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118l-2.8-2.034c-.784-.57-.381-1.81.587-1.81H7.03a1 1 0 00.95-.69L9.05 3.69z" />
             </svg>
-            <div className="ml-2 mt-1">
+            <div className="ml-2">
               <span className="font-italic text-black">{getScore()}</span>
               <span className="pl-1 text-black">({getNumReviews()})</span>
               <BsDot className="inline pb-0.5" />
@@ -124,6 +181,6 @@ export default HostListing;
 
 HostListing.propTypes = {
   listing: PropTypes.object,
-  setRefresh: PropTypes.object,
-  refresh: PropTypes.object
+  setRefresh: PropTypes.func,
+  refresh: PropTypes.bool
 }
