@@ -12,7 +12,10 @@ export const prepareForSubmit = (
 
   const body = {
     title: form.title.value,
-    address: form.address.value,
+    address: {
+      street: form.street.value,
+      city: form.city.value,
+    },
     price: parseInt(form.price.value),
     thumbnail: image,
     metadata: {
