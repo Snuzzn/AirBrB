@@ -8,20 +8,13 @@ import { FetchAPI } from '../../util/FetchAPI';
 import { displayToast } from '../../util/Toast';
 
 function HeroSearch () {
-  const [priceRange, setPriceRange] = React.useState([])
-  const [roomRange, setRoomRange] = React.useState([])
-  console.log(priceRange);
-  console.log(roomRange);
-
-  const [sortRating, setSortRating] = React.useState('descending')
-  console.log(sortRating);
+  const [priceRange, setPriceRange] = React.useState(['', ''])
+  const [roomRange, setRoomRange] = React.useState(['', ''])
+  const [sortRating, setSortRating] = React.useState('')
 
   const [location, setLocation] = React.useState('')
-  console.log(location);
   const [startDate, setStartDate] = React.useState('')
-  console.log(startDate);
   const [endDate, setEndDate] = React.useState('')
-  console.log(endDate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +25,6 @@ function HeroSearch () {
       displayToast('Check in date must come before the Check out date', 'error')
       return
     }
-    console.log(e.target);
     const response = await FetchAPI('/listings', 'GET');
     switch (response.status) {
       case 400:
@@ -40,11 +32,76 @@ function HeroSearch () {
         break;
       case 200:
         displayToast('Found some listings', 'success')
-        console.log(response);
+        filterListings(response.data.listings)
         break;
       default:
         displayToast('Something went wrong!', 'error');
     }
+  }
+
+  const filterListings = async (listings) => {
+    const matchingListings = []
+    listings.forEach(async item => {
+      // console.log(sortRating);
+      // check location match
+      if (!item.title.toLowerCase().includes(location.toLowerCase()) &&
+      !item.address.city.toLowerCase().includes(location.toLowerCase())) return
+
+      // check for price match
+      if (priceRange[0] !== '' && priceRange[1] !== '') {
+        if (item.price < parseInt(priceRange[0]) || item.price > parseInt(priceRange[1])) return;
+      }
+
+      // need more info to check for date and bedroom matches, so we fetch this
+      const response = await FetchAPI(`/listings/${item.id}`, 'GET');
+      switch (response.status) {
+        case 400:
+          displayToast(`Could not find availability of listng ${item.id} `, 'error')
+          break;
+        case 200: {
+          const listing = response.data.listing
+
+          // check for bedroom match
+          if (roomRange[0] !== '' && roomRange[1] !== '') {
+            let numBedrooms = 0
+            listing.metadata.bedrooms.forEach(item => {
+              numBedrooms += parseInt(item.count)
+            })
+            if (numBedrooms < roomRange[0] || numBedrooms > roomRange[1]) return
+          }
+          // check for date availability match
+          if (!doesAvailabilityMatch(listing.availability)) return
+          break;
+        }
+        default:
+          displayToast('Something went wrong!', 'error');
+      }
+      matchingListings.push(item)
+
+      // calculate rating for each listing
+      matchingListings.forEach(listing => {
+        let sum = 0
+        listing.reviews.forEach(review => {
+          if (review.score) sum += parseInt(review.score)
+        })
+        let rating = 0
+        if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
+        matchingListings.rating = rating
+      })
+    });
+
+    console.log(matchingListings);
+    return matchingListings
+  }
+
+  const doesAvailabilityMatch = (availability) => {
+    let isMatch = false;
+    availability.forEach((range) => {
+      if (new Date(range.start) <= new Date(startDate) && new Date(range.end) >= new Date(endDate)) {
+        isMatch = true;
+      }
+    })
+    return isMatch;
   }
 
   return (
@@ -80,15 +137,16 @@ function HeroSearch () {
                   </div>
                   <div>
                     <label >Price</label>
-                    <RangeInputs initMax={5000} setRange={setPriceRange} />
+                    <RangeInputs initMax={5000} setRange={setPriceRange} range={priceRange}/>
                   </div>
                   <div>
                     <p className="mb-1">Bedrooms</p>
-                    <RangeInputs initMax={50} setRange={setRoomRange} />
+                    <RangeInputs initMax={50} setRange={setRoomRange} range={roomRange}/>
                   </div>
                   <div >
                     <p className="mb-2" >Rating</p>
                     <select value={sortRating} onChange={e => setSortRating(e.target.value)} className="p-2 border-gray-200 border-2 rounded-md " >
+                      <option value="">Unsorted</option>
                       <option value="descending">Sort by: Highest to Lowest</option>
                       <option value="ascending">Sort by: Lowest to Highest</option>
                     </select>

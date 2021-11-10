@@ -49,7 +49,7 @@ DayPicker.propTypes = {
 function CustomOverlay ({ classNames, selectedDay, children, ...props }) {
   return (
     <div
-      className="bg-white absolute bottom-12 mb-9 animate-fadeUp"
+      className="bg-white absolute z-10 bottom-10 mb-24 animate-fadeUp"
       {...props}
     >
       {children}
