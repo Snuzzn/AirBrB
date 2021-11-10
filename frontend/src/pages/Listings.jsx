@@ -46,11 +46,17 @@ const Listings = () => {
           return 0;
         })
 
-        // for (const listing of listingsData) {
-
-        // }
-
+        const publishedListingsData = [];
         for (const listing of listingsData) {
+          const res = await FetchAPI(`/listings/${listing.id}`, 'GET');
+          console.log(res.data);
+          if (res.status === 200 && res.data.listing.published) {
+            // Only display published listings on landing page
+            publishedListingsData.push(listing);
+          }
+        }
+
+        for (const listing of publishedListingsData) {
           // Get all bookings of this listing
           const listingBookings = bookingsData.filter(booking => booking.listingId === listing.id);
           console.log(bookingsData);
@@ -66,7 +72,7 @@ const Listings = () => {
           }
         }
         // Build list of listings, with user booked listings first
-        const nonUserBookedListings = listingsData.filter(listing => {
+        const nonUserBookedListings = publishedListingsData.filter(listing => {
           const listingId = listing.id;
           for (const userBooking of userBookings) {
             // Exclude user booked listings
