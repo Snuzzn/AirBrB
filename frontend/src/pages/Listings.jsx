@@ -22,14 +22,13 @@ const Listings = () => {
           break;
         case 200:
           bookingsData = [...response.data.bookings];
-          console.log(bookingsData)
           break;
         default:
           displayToast('Something went wrong!');
           break;
       }
     }
-    console.log(bookingsData);
+
     const response = await FetchAPI('/listings', 'GET');
     let listingsData = [];
     let userBookings = [];
@@ -46,6 +45,10 @@ const Listings = () => {
           if (a.title > b.title) return 1;
           return 0;
         })
+
+        // for (const listing of listingsData) {
+
+        // }
 
         for (const listing of listingsData) {
           // Get all bookings of this listing
