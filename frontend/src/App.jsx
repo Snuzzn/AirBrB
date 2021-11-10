@@ -7,6 +7,7 @@ import EditListing from './pages/EditListing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Listings from './pages/Listings';
+import Listing from './pages/Listing';
 import { ToastContainer } from 'react-toastify';
 import { displayToast } from './util/Toast';
 
@@ -68,6 +69,8 @@ function App () {
               <Route path="/register" element={<Register authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>
               <Route path="/listings" element={<Listings/>}>
+              </Route>
+              <Route path="/listing/:id" element={<Listing/>}>
               </Route>
             </Routes>
         </div>
