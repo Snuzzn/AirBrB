@@ -5,6 +5,7 @@ import UpcomingBookings from '../UpcomingBookings';
 import { displayToast } from '../../util/Toast';
 import { FetchAPI } from '../../util/FetchAPI';
 import Confetti from 'react-confetti'
+import useWindowSize from 'react-use/lib/useWindowSize';
 
 function ActionCard ({ listingInfo, listingId }) {
   const context = React.useContext(StoreContext)
@@ -13,6 +14,7 @@ function ActionCard ({ listingInfo, listingId }) {
   const [endDate, setEndDate] = React.useState('');
   const [confettiCannon, blastConfettiCannon] = React.useState(false);
   const [userBookings, setUserBookings] = React.useState([]);
+  const { width, height } = useWindowSize();
 
   React.useEffect(async () => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -104,7 +106,7 @@ function ActionCard ({ listingInfo, listingId }) {
 
   return (
     <>
-    {confettiCannon && <Confetti recycle={false} />}
+    {confettiCannon && <Confetti recycle={false} width={width} height={height} />}
     <div className="border p-5 w-80 h-full bg-white shadow-md self-center lg:self-center">
       <p className="text-xl font-medium">{priceTxt}</p>
       <div className="mb-3 mt-3 flex flex-col justify-center items-center">
@@ -136,6 +138,7 @@ function ActionCard ({ listingInfo, listingId }) {
           Book Now
       </button>
       {JSON.parse(localStorage.getItem('token')) !== '' && JSON.parse(localStorage.getItem('token')) !== null &&
+        userBookings.length !== 0 &&
        <UpcomingBookings userBookings={userBookings} />}
     </div>
     </>
