@@ -14,7 +14,7 @@ const CreateListing = () => {
   const navigate = useNavigate();
   const [amenities, setAmenities] = React.useState(amenityList)
   const [bedrooms, setBedrooms] = React.useState([{ title: '', count: 0 }])
-  const [image, setImage] = React.useState('');
+  const [images, setImages] = React.useState([])
   const [formData, setFormData] = React.useState({ address: {}, metadata: {} })
 
   const handleSubmit = async (e) => {
@@ -22,7 +22,7 @@ const CreateListing = () => {
     const form = e.target
     form.checkValidity()
 
-    const body = prepareForSubmit(image, form, amenities, bedrooms, displayToast)
+    const body = prepareForSubmit(images, form, amenities, bedrooms, displayToast)
     if (body === false) return;
 
     const response = await FetchAPI('/listings/new', 'POST', body, JSON.parse(localStorage.getItem('token')));
@@ -54,7 +54,7 @@ const CreateListing = () => {
         <BasicInfo formData={formData} setFormData={setFormData}/>
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
         <Amenities amenities={amenities} setAmenities={setAmenities} />
-        <ImageUpload image={image} setImage={setImage}/>
+        <ImageUpload images={images} setImages={setImages}/>
         <button className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Add listing</button>
       </form>
       </div>

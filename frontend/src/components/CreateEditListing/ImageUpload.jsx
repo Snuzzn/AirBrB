@@ -1,19 +1,30 @@
 import React, { useCallback } from 'react';
-import { AiFillFolderOpen, AiFillFolder } from 'react-icons/ai'
+import { AiFillFolderOpen, AiFillFolder, AiFillMinusCircle } from 'react-icons/ai'
 import { useDropzone } from 'react-dropzone';
 import { convertToBase64 } from '../../util/Image';
 import PropTypes from 'prop-types';
 
-function ImageUpload ({ image, setImage }) {
+function ImageUpload ({ images, setImages }) {
+  const [imgWarning, setImgWarning] = React.useState(false)
+
   // drag and drop image
   const onDrop = useCallback(async acceptedFiles => {
+    // TODO: allow mulitple file upload
     const base64File = await convertToBase64(acceptedFiles[0])
     if (base64File !== false) {
-      setImage(base64File); setImgWarning(false);
+      // setImage(base64File);
+      setImgWarning(false);
+      setImages((images) => [...images, base64File])
     } else setImgWarning(true)
   }, [])
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-  const [imgWarning, setImgWarning] = React.useState(false)
+
+  const removeImage = (index) => {
+    const imagesClone = [...images]
+    imagesClone.splice(index, 1)
+    setImages(imagesClone)
+  }
 
   return (
     <>
@@ -28,7 +39,19 @@ function ImageUpload ({ image, setImage }) {
         </div>
       </div>
       {imgWarning && <p className="text-red-600">Image type must be <b>png</b> or <b>jpeg</b> or <b>gif</b>.</p>}
-      {image !== '' && <div><p className="text-gray-500 text-sm mb-2">Preview</p><img src={image} className="w-1/2 "/></div>}
+      {images.length !== 0 &&
+        <div>
+          <p className="text-gray-500 text-sm mb-2">Preview</p>
+          <div className="grid grid-cols-3 gap-3">
+            {images.map((image, index) => (
+              <div key={index} className="relative">
+                <img src={image} className="object-cover w-full h-full rounded-lg shadow"/>
+                <AiFillMinusCircle className="text-white text-lg absolute top-1 right-1 hover:text-red-300 cursor-pointer"
+                  onClick={() => removeImage(index)}/>
+              </div>))
+            }
+          </div>
+        </div>}
     </>
   )
 }
@@ -36,6 +59,6 @@ function ImageUpload ({ image, setImage }) {
 export default ImageUpload
 
 ImageUpload.propTypes = {
-  image: PropTypes.string,
-  setImage: PropTypes.string
+  images: PropTypes.array,
+  setImages: PropTypes.array
 }
