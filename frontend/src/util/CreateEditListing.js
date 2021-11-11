@@ -1,12 +1,12 @@
 export const prepareForSubmit = (
-  image,
+  images,
   form,
   amenities,
   bedrooms,
   displayToast
 ) => {
-  if (image === '') {
-    displayToast('No photo was found', 'error');
+  if (images.length === 0) {
+    displayToast('No photos were found', 'error');
     return false;
   }
 
@@ -17,12 +17,13 @@ export const prepareForSubmit = (
       city: form.city.value,
     },
     price: parseInt(form.price.value),
-    thumbnail: image,
+    thumbnail: images[0],
     metadata: {
       bathrooms: parseInt(form.bathrooms.value),
       amenities: amenities,
       bedrooms: bedrooms,
       type: form.propertyType.value,
+      gallery: images.slice(1),
     },
   };
   return body;
