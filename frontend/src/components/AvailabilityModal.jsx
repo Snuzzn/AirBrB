@@ -204,17 +204,19 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                 {availabilities && availabilities.map((availability, index) => (
                   <>
                   <div key={index} className="grid grid-rows-2 w-5/6 m-auto">
-                    <div className="row-start-1 grid grid-cols-2 text-left">
+                    <div className="row-start-1 grid grid-cols-2 text-left pt-1">
                         <label className="font-bold">From: </label>
                         <input
+                          className="focus:outline-none focus:ring ring-red-400 rounded"
                           type="date"
                           onChange={(e) => handleStartDate(e)}
                           title={index}
                         />
                     </div>
-                      <div className="row-start-2 grid grid-cols-2 text-left">
+                      <div className="row-start-2 grid grid-cols-2 text-left pt-1">
                         <label className="font-bold">To: </label>
                         <input
+                          className="focus:outline-none focus:ring ring-red-400 rounded"
                           type="date"
                           title={index}
                           onChange={(e) => handleEndDate(e)}

@@ -45,7 +45,7 @@ function App () {
   const deauthenticate = () => {
     setStoredEmail('');
     setStoredToken('');
-    navigate('/listings');
+    navigate('/');
     displayToast('Successfully logged out!', 'success');
   }
 
@@ -68,7 +68,7 @@ function App () {
               </Route>
               <Route path="/register" element={<Register authenticate={authenticate} storeEmail={setStoredEmail}/>}>
               </Route>
-              <Route path="/listings" element={<Listings/>}>
+              <Route path="/listings" element={<Listings/>} storedToken={storedToken} >
               </Route>
               <Route path="/listing/:id" element={<ListingDetails/>}>
               </Route>
