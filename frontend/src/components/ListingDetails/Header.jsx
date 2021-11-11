@@ -1,5 +1,6 @@
 import React from 'react'
 import { HiStar } from 'react-icons/hi'
+import { Link } from 'react-scroll'
 
 function Header () {
   return (
@@ -15,7 +16,9 @@ function Header () {
           <HiStar className="text-red-400 text-xl"/>
           <p className="text-gray-600 font-medium text-2xl">4.96</p>
         </div>
-        <p className="text-sm text-gray-500 hover:text-red-400 cursor-pointer">12 reviews</p>
+        <Link to="reviews" smooth={true} duration={1000}>
+          <p className="text-sm text-gray-500 hover:text-red-400 cursor-pointer">12 reviews</p>
+        </Link>
       </div>
     </div>
   )

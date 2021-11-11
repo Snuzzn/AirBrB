@@ -3,7 +3,7 @@ import { HiStar, HiUserCircle } from 'react-icons/hi'
 
 function Reviews () {
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-9 mb-10" id="reviews">
       <div className="flex gap-5 items-center">
         <div className="w-10 self-start">
           <HiUserCircle size="3em" className="text-gray-600 " />

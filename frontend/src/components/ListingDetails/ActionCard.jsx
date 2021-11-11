@@ -2,7 +2,7 @@ import React from 'react'
 
 function ActionCard () {
   return (
-    <div className="border p-5 w-80 h-full bg-white shadow-md self-center">
+    <div className="border p-5 w-80 h-full bg-white shadow-md self-start lg:self-center">
       <p className="text-xl font-medium">$121 / night</p>
       <div className="flex mb-3 mt-3">
         <div className="border  rounded p-3 w-1/2">
