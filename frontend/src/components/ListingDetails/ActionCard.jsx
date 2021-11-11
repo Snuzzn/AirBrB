@@ -110,7 +110,7 @@ function ActionCard ({ listingInfo, listingId }) {
     <div className="border p-5 w-80 h-full bg-white shadow-md self-center lg:self-center">
       <p className="text-xl font-medium">{priceTxt}</p>
       <div className="mb-3 mt-3 flex flex-col justify-center items-center">
-        <div className="border  rounded-lg mb-2 p-1 w-3/4">
+        <div className="border  rounded-lg mb-2 p-1 w-full">
           <p className="text-gray-500">Check in</p>
           <input
             aria-label='Start date for your booking'
@@ -120,7 +120,7 @@ function ActionCard ({ listingInfo, listingId }) {
             onChange={(e) => setStartDate(e.target.value)}
           />
         </div>
-        <div className="border rounded-lg p-1 w-3/4">
+        <div className="border rounded-lg p-1 w-full">
           <p className="text-gray-500">Check out</p>
           <input
             aria-label='End date for your booking'
