@@ -40,7 +40,7 @@ function ActionCard ({ listingInfo, listingId }) {
         break;
       }
     }
-  }, [])
+  }, [confettiCannon])
 
   const makeNewBooking = async () => {
     blastConfettiCannon(false);
