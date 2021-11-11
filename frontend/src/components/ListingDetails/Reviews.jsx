@@ -23,7 +23,7 @@ function Reviews ({ listingInfo }) {
           </div>
         </div>)
         : (<div className="flex flex-col items-center">
-          <img src={locationReview} alt="Person next to house below a card with a navigation symbol on top" className="w-1/4" />
+          <img src={locationReview} alt="Person next to house below a card with a navigation symbol on top" className="w-1/2 sm:w-1/3 lg:w-1/4" />
           <p>No reviews yet...</p>
         </div>)
       }
