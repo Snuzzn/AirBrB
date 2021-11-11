@@ -6,6 +6,7 @@ import DayPicker from '../DayPicker';
 import RangeInputs from './RangeInputs';
 import { FetchAPI } from '../../util/FetchAPI';
 import { displayToast } from '../../util/Toast';
+import { StoreContext } from '../../util/store';
 
 function HeroSearch () {
   const [priceRange, setPriceRange] = React.useState(['', ''])
@@ -15,6 +16,9 @@ function HeroSearch () {
   const [location, setLocation] = React.useState('')
   const [startDate, setStartDate] = React.useState('')
   const [endDate, setEndDate] = React.useState('')
+
+  const context = React.useContext(StoreContext)
+  const setDayDuration = context.dayDuration[1]
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,6 +65,19 @@ function HeroSearch () {
         if (item.price < parseInt(priceRange[0]) || item.price > parseInt(priceRange[1])) return;
       }
 
+      // calculate day duration that user is looking for
+      if (startDate !== '' && endDate !== '') {
+        const startDateObj = new Date(startDate)
+        const endDateObj = new Date(endDate)
+        const time = endDateObj.getTime() - startDateObj.getTime()
+        const days = Math.ceil(time / (1000 * 3600 * 24))
+        if (days === 0) {
+          displayToast('You can\'t check in and check out on the same day', 'error')
+          return
+        } else setDayDuration(days)
+      } else {
+        setDayDuration(0)
+      }
       // need more info to check for date and bedroom matches, so we fetch this
       const response = await FetchAPI(`/listings/${item.id}`, 'GET');
       switch (response.status) {
@@ -79,7 +96,9 @@ function HeroSearch () {
             if (numBedrooms < roomRange[0] || numBedrooms > roomRange[1]) return
           }
           // check for date availability match
-          if (!doesAvailabilityMatch(listing.availability)) return
+          if (startDate !== '' && endDate !== '') {
+            if (!doesAvailabilityMatch(listing.availability)) return
+          }
           break;
         }
         default:
@@ -123,7 +142,7 @@ function HeroSearch () {
           <div className="flex flex-col gap-7 lg:flex-row p-4 sm:gap-3  bg-white rounded-lg shadow-xl text-lg">
             <div>
               <p>Location</p>
-              <input type="text" required value={location} onChange={e => setLocation(e.target.value)}
+              <input type="text" value={location} onChange={e => setLocation(e.target.value)}
                 className="focus:outline-none" placeholder="Where are you going?" />
             </div>
             <div>

@@ -40,7 +40,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      animation: ['hover', 'group-hover'],
+      filter: ['hover', 'focus'],
+    },
   },
   plugins: [],
 };

@@ -31,7 +31,7 @@ function DayPicker ({ setDate }) {
         parseDate={parseDate}
         placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
         inputProps={
-          { required: true, className: 'focus:outline-none' }
+          { className: 'focus:outline-none' }
         }
         dayPickerProps={
           { disabledDays: disabledDays }
