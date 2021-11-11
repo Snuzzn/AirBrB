@@ -9,8 +9,6 @@ import { BiWater } from 'react-icons/bi'
 import PropTypes from 'prop-types';
 
 function Amenities ({ listingInfo }) {
-  console.log(amenityInfo);
-  console.log(listingInfo);
   return (
     <div className="flex flex-col gap-8">
       {listingInfo.metadata.amenities.filter((amenity) => amenity.isChecked).map((amenity) => (
