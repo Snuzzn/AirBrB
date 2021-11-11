@@ -1,6 +1,5 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
-import lakehouse from '../images/lakehouse.jpg';
 import Amenities from '../components/ListingDetails/Amenities';
 import Summary from '../components/ListingDetails/Summary';
 import Header from '../components/ListingDetails/Header';
@@ -17,7 +16,6 @@ const ListingDetails = () => {
   const navigate = useNavigate();
   React.useEffect(async () => {
     const response = await FetchAPI(`/listings/${id}`, 'GET', '', '');
-    console.log(response);
     switch (response.status) {
       case 400:
         displayToast('Could not open listing', 'error')
@@ -39,27 +37,31 @@ const ListingDetails = () => {
   console.log(listingInfo);
 
   return (
-    <Fade>
-      <div className="flex flex-col w-full max-w-6xl gap-3">
-        <Header/>
-        <img className="rounded-3xl" src={lakehouse} alt="" />
-        <div className="flex flex-col gap-9 justify-between lg:flex-row lg:gap-0">
-          <div>
-            <Summary/>
-            <hr className="mt-2 mb-4"/>
-            <Amenities/>
+    <>
+    {Object.keys(listingInfo).length !== 0 &&
+      <Fade>
+        <div className="flex flex-col w-full max-w-6xl gap-3">
+          <Header listingInfo={listingInfo}/>
+          <img className="rounded-3xl" src={listingInfo.thumbnail} alt="" />
+          <div className="flex flex-col gap-9 justify-between lg:flex-row lg:gap-0">
+            <div>
+              <Summary listingInfo={listingInfo}/>
+              <hr className="mt-2 mb-4"/>
+              <Amenities listingInfo={listingInfo}/>
+            </div>
+            <ActionCard/>
           </div>
-          <ActionCard/>
+          <hr className="mt-2 mb-3"/>
+          <p className="text-xl font-medium text-gray-700">Bedrooms</p>
+          <Bedrooms/>
+          <hr className="mt-2 mb-3 "/>
+          <p className="text-xl font-medium text-gray-700 mb-3">Reviews</p>
+          <Reviews/>
+          <hr />
         </div>
-        <hr className="mt-2 mb-3"/>
-        <p className="text-xl font-medium text-gray-700">Bedrooms</p>
-        <Bedrooms/>
-        <hr className="mt-2 mb-3 "/>
-        <p className="text-xl font-medium text-gray-700 mb-3">Reviews</p>
-        <Reviews/>
-        <hr />
-      </div>
-    </Fade>
+      </Fade>
+    }
+    </>
   )
 }
 

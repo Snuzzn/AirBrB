@@ -1,14 +1,15 @@
 import React from 'react'
 import { HiStar } from 'react-icons/hi'
 import { Link } from 'react-scroll'
+import PropTypes from 'prop-types';
 
-function Header () {
+function Header ({ listingInfo }) {
   return (
     <div className="flex items-center  text-gray-700 justify-between">
       <div>
-        <p className="text-3xl font-medium">Wayne Manor</p>
-        <p className="text-gray-500">1007 Mountain Drive
-          <span className="text-gray-500"> · Gotham</span>
+        <p className="text-3xl font-medium">{listingInfo.title}</p>
+        <p className="text-gray-500">{listingInfo.address.street}
+          <span className="text-gray-500"> · {listingInfo.address.city}</span>
         </p>
       </div>
       <div className="flex flex-col items-end">
@@ -25,3 +26,7 @@ function Header () {
 }
 
 export default Header
+
+Header.propTypes = {
+  listingInfo: PropTypes.object,
+}
