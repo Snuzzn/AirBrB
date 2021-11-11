@@ -5,7 +5,7 @@ import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
 import { RiHotelBedLine } from 'react-icons/ri';
 import { CgLivePhoto } from 'react-icons/cg';
 import { FetchAPI } from '../util/FetchAPI';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { displayToast } from '../util/Toast';
 import AvailabilityModal from './AvailabilityModal';
 
@@ -97,14 +97,18 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
         displayToast('Something went wrong!', 'error');
     }
   }
+  const listingDetailsPage = `/listing/${listingId}`
 
   return (
     <>
     { metadata && published !== 0 &&
       <div className="border max-w-4xl shadow-md p-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 text-gray-500 font-medium w-full">
-      <div className="col-start-1 row-span-3 mx-auto">
-        <img className="object-cover h-60 w-80 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
-      </div>
+        <div className="col-start-1 row-span-3 mx-auto ">
+          <Link to={listingDetailsPage} >
+            <img className="object-cover h-60 w-80 rounded-2xl" src={listing.thumbnail} alt="Image of a your listing" />
+          </Link>
+        </div>
+
       <div className="flex flex-col justify-between sm:col-start-2 row-span-3">
         <div>
 

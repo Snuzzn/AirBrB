@@ -2,14 +2,21 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 480 115" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,-38.4547,-460.478)">
-        <g transform="matrix(1,-0,-0,1,38.4547,460.478)">
-            <use xlink:href="#_Image1" x="3" y="2" width="180.776px" height="110.996px" transform="matrix(0.99876,0,0,0.999968,0,0)"/>
+        <g transform="matrix(0.99876,0,0,0.999968,41.451,462.478)">
+            <use id="_Image1_" serif:id="_Image1" xlink:href="#_Image1" x="0" y="0" width="181px" height="111px"/>
         </g>
         <g transform="matrix(0.142526,0.367963,-0.367963,0.142526,88.9549,105.893)">
             <path d="M954.094,293.028L965.452,287.349C966.179,286.985 966.768,286.396 967.131,285.669L972.811,274.311C974.194,271.543 978.145,271.543 979.529,274.311L985.208,285.669C985.571,286.396 986.161,286.985 986.888,287.349L998.246,293.028C1001.01,294.412 1001.01,298.362 998.246,299.747L986.888,305.426C986.161,305.789 985.571,306.378 985.208,307.105L979.529,318.463C978.145,321.231 974.194,321.231 972.811,318.463L967.131,307.105C966.768,306.378 966.179,305.789 965.452,305.426L954.094,299.747C951.325,298.362 951.325,294.412 954.094,293.028Z" style="fill:white;fill-rule:nonzero;"/>
         </g>
-        <g transform="matrix(0.76135,0,0,0.76135,177.221,452.519)">
-            <text x="106.687px" y="123.41px" style="font-family:'Poppins-Regular', 'Poppins';font-size:114.762px;fill:rgb(41,57,70);">A<tspan x="186.906px 218.006px 263.682px 336.9px 382.575px " y="123.41px 123.41px 123.41px 123.41px 123.41px ">irBrB</tspan></text>
+        <g transform="matrix(0.76135,0,0,0.76135,247.483,544.423)">
+            <g>
+                <g>
+                    <text x="0px" y="0px" style="font-family:'TrebuchetMS', 'Trebuchet MS', sans-serif;font-size:114.762px;fill:rgb(41,57,70);">A</text>
+                    <g transform="matrix(1,0,0,1,69.872,0)">
+                        <text x="0px" y="0px" style="font-family:'TrebuchetMS', 'Trebuchet MS', sans-serif;font-size:114.762px;fill:rgb(41,57,70);">irBrB</text>
+                    </g>
+                </g>
+            </g>
         </g>
     </g>
     <defs>

@@ -2,28 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 function RangeInputs ({ initMax, setRange, range }) {
-  // const [min, setMin] = React.useState('')
-  // const [max, setMax] = React.useState('')
-  // const handleChange = (e) => {
-  //   const val = parseInt(e.target.value)
-  //   if (e.target.name === 'min') {
-  //     setMin(val)
-  //     setRange([val, max])
-  //   } else if (e.target.name === 'max') {
-  //     setMax(val)
-  //     setRange([min, val])
-  //   }
-  // const checkRangeValidity = () => {
-  //   if (min !== '' && max !== '' && min > max) {
-  //     displayToast('Min value cannot be higher than max value', 'error')
-  //     setMin('')
-  //     setMax('')
-  //   } else {
-  //     setRange([min, max])
-  //   }
-  // }
-
-  // TODO: don't allow min to be higher than max
   return (
     <div className="mt-1 flex gap-2">
       <div className="flex flex-col">

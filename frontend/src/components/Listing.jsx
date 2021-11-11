@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineRateReview } from 'react-icons/md';
-
+import { Link } from 'react-router-dom'
 const Listing = ({ id, thumbnail, reviews, title, price }) => {
   const [showTooltip, setShowTooltip] = React.useState(false);
-
+  const link = `/listing/${id}`
   return (
-    <>
-      <div className="relative -mb-8 text-right pr-4">
+    <Link to={link} >
+      <div className="relative -mb-8 text-right pr-4 cursor">
         <span className="bg-red-400 cursor-default text-white rounded-xl transit pb-1 pt-1 pl-2 pr-2 transition duration-500 ease-in-out hover:text-red-400 hover:bg-white">${price}</span>
       </div>
       <div className="">
@@ -32,7 +32,7 @@ const Listing = ({ id, thumbnail, reviews, title, price }) => {
           {showTooltip && <div className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black bottom-7">Review Count</div>}
         </div>
       </div>
-    </>
+    </Link>
   )
 }
 
