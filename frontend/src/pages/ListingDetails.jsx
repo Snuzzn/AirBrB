@@ -58,7 +58,7 @@ const ListingDetails = () => {
               <hr className="mt-2 mb-4"/>
               <Amenities listingInfo={listingInfo}/>
             </div>
-            <ActionCard listingInfo={listingInfo}/>
+            <ActionCard listingInfo={listingInfo} listingId={id}/>
           </div>
           <hr className="mt-2 mb-3"/>
           <p className="text-xl font-medium text-gray-700">Bedrooms</p>
