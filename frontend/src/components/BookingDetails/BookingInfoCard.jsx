@@ -2,7 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types';
 
-function BookingInfoCard ({ message, icon, bg }) {
+function BookingInfoCard ({ title, message, icon, bg }) {
   return (
     <div className="flex flex-col h-96 lg:h-36 lg:flex-row w-full gap-5">
       <div className="bg-white  rounded-lg shadow flex-1 flex justify-start">
@@ -11,7 +11,7 @@ function BookingInfoCard ({ message, icon, bg }) {
             {icon}
           </div>
           <div className="">
-            <p className="text-gray-500 font-light text-sm">Listing Age</p>
+            <p className="text-gray-500 font-light text-sm">{title}</p>
             <p className="text-xl font-bold">{message}</p>
           </div>
         </div>
@@ -23,6 +23,7 @@ function BookingInfoCard ({ message, icon, bg }) {
 export default BookingInfoCard
 
 BookingInfoCard.propTypes = {
+  title: PropTypes.string,
   message: PropTypes.string,
   icon: PropTypes.node,
   bg: PropTypes.string
