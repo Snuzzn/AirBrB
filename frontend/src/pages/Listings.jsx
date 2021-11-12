@@ -3,6 +3,7 @@ import { displayToast } from '../util/Toast';
 import { FetchAPI } from '../util/FetchAPI';
 import Listing from '../components/Listing';
 import HeroSearch from '../components/Hero/HeroSearch';
+import Fade from 'react-reveal/Fade';
 
 const Listings = () => {
   const [displayedListings, setDisplayedListings] = React.useState([]);
@@ -88,25 +89,26 @@ const Listings = () => {
   }, []);
   return (
     <div>
-      {/* <Fade className="flex flex-row"> */}
+      <Fade className="flex flex-row">
         <HeroSearch displayedListings={displayedListings} setDisplayedListings={setDisplayedListings}/>
         <div className="mt-10">
           <div className="flex gap-6 flex-wrap justify-center lg:justify-start">
-            {displayedListings.map((listing) => {
-              // console.log(displayedListings);
-              return (
-              <Listing
-                key={listing.id}
-                id={listing.id}
-                thumbnail={listing.thumbnail}
-                reviews={listing.reviews}
-                title={listing.title}
-                price={listing.price}
-              />)
-            })}
+              {displayedListings.map((listing) => {
+                // console.log(displayedListings);
+                return (
+                <Fade key={listing.id}>
+                  <Listing
+                    id={listing.id}
+                    thumbnail={listing.thumbnail}
+                    reviews={listing.reviews}
+                    title={listing.title}
+                    price={listing.price}
+                  />
+                </Fade>)
+              })}
           </div>
         </div>
-      {/* </Fade> */}
+      </Fade>
     </div>
   )
 }
