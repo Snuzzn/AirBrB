@@ -14,7 +14,7 @@ const EditListing = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [amenities, setAmenities] = React.useState([])
-  const [image, setImage] = React.useState('');
+  const [images, setImages] = React.useState([])
   const [bedrooms, setBedrooms] = React.useState([{ title: '', count: 0 }])
 
   // fetch existing fields on listing
@@ -34,9 +34,11 @@ const EditListing = () => {
           return;
         }
         setFormData(listing)
-        setImage(listing.thumbnail)
         setBedrooms(listing.metadata.bedrooms)
         setAmenities(listing.metadata.amenities)
+        if (listing.metadata.gallery) {
+          setImages([listing.thumbnail, ...listing.metadata.gallery])
+        } else setImages([listing.thumbnail])
         break;
       }
       default:
@@ -50,7 +52,7 @@ const EditListing = () => {
     const form = e.target
     form.checkValidity()
 
-    const body = prepareForSubmit(image, form, amenities, bedrooms, displayToast)
+    const body = prepareForSubmit(images, form, amenities, bedrooms, displayToast)
     if (body === false) return
 
     const response = await FetchAPI(`/listings/${id}`, 'PUT', body, JSON.parse(localStorage.getItem('token')));
@@ -85,7 +87,7 @@ const EditListing = () => {
         <BasicInfo formData={formData} setFormData={setFormData}/>
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
         <Amenities amenities={amenities} setAmenities={setAmenities}/>
-        <ImageUpload image={image} setImage={setImage}/>
+        <ImageUpload images={images} setImages={setImages}/>
         <button className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Edit listing</button>
       </form>
       </div>

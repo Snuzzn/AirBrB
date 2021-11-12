@@ -9,6 +9,8 @@ import Reviews from '../components/ListingDetails/Reviews';
 import { displayToast } from '../util/Toast';
 import { FetchAPI } from '../util/FetchAPI';
 import { useNavigate, useParams } from 'react-router';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
 
 const ListingDetails = () => {
   const [listingInfo, setListingInfo] = React.useState([])
@@ -34,14 +36,22 @@ const ListingDetails = () => {
         displayToast('Something went wrong!', 'error');
     }
   }, [])
-
   return (
     <>
     {Object.keys(listingInfo).length !== 0 &&
       <Fade>
         <div className="flex flex-col w-full max-w-6xl gap-3">
           <Header listingInfo={listingInfo}/>
-          <img className="rounded-3xl" src={listingInfo.thumbnail} alt="" />
+          <Carousel dynamicHeight={true}>
+            <div className="">
+              <img className="rounded-xl" src={listingInfo.thumbnail} alt="" />
+            </div>
+            {listingInfo.metadata.gallery && listingInfo.metadata.gallery.map((src, index) => (
+              <div key={index}>
+                <img className="rounded-xl" src={src} alt="" />
+              </div>))
+            }
+          </Carousel>
           <div className="flex flex-col gap-9 justify-between lg:flex-row lg:gap-0">
             <div>
               <Summary listingInfo={listingInfo}/>
