@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade';
 
 const Listings = () => {
   const [displayedListings, setDisplayedListings] = React.useState([]);
-
+  // console.log('dfdf');
   React.useEffect(async () => {
     const token = JSON.parse(localStorage.getItem('token'));
     const email = JSON.parse(localStorage.getItem('email'));
@@ -58,7 +58,6 @@ const Listings = () => {
         for (const listing of publishedListingsData) {
           // Get all bookings of this listing
           const listingBookings = bookingsData.filter(booking => booking.listingId === listing.id);
-          console.log(bookingsData);
           for (const listingBooking of listingBookings) {
             // Find any bookings made by the user by checking dateRange schema
             // "dateRange": {"guest": email, "start": date, "end": date}
@@ -87,27 +86,26 @@ const Listings = () => {
       }
     }
   }, []);
-
   return (
-    <div>
+    <div id="hero">
       <Fade className="flex flex-row">
-        <HeroSearch/>
+        <HeroSearch displayedListings={displayedListings} setDisplayedListings={setDisplayedListings}/>
         <div className="mt-10">
-        { displayedListings !== [] &&
-          <div className="flex gap-6 flex-wrap justify-center lg:justify-start">
-            {displayedListings.map((listing, idx) => (
-              <div key={idx}>
-                <Listing
-                  id={listing.id}
-                  thumbnail={listing.thumbnail}
-                  reviews={listing.reviews}
-                  title={listing.title}
-                  price={listing.price}
-                />
-              </div>
-            ))}
+          <div className="flex gap-6 flex-wrap justify-center lg:justify-start" id="searchResults">
+              {displayedListings.map((listing) => {
+                // console.log(displayedListings);
+                return (
+                <Fade key={listing.id}>
+                  <Listing
+                    id={listing.id}
+                    thumbnail={listing.thumbnail}
+                    reviews={listing.reviews}
+                    title={listing.title}
+                    price={listing.price}
+                  />
+                </Fade>)
+              })}
           </div>
-        }
         </div>
       </Fade>
     </div>
