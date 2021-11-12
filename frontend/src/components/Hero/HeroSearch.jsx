@@ -40,34 +40,32 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
       displayToast('Check in date must come before the Check out date', 'error')
       return
     }
-    const matchingListings = await filterListings()
-    setDisplayedListings(matchingListings);
 
-    // const response = await FetchAPI('/listings', 'GET');
-    // switch (response.status) {
-    //   case 400:
-    //     displayToast('Could not find any listng', 'error')
-    //     break;
-    //   case 200:
-    //     filterListings(response.data.listings)
-    //     break;
-    //   default:
-    //     displayToast('Something went wrong!', 'error');
-    // }
+    const response = await FetchAPI('/listings', 'GET');
+    switch (response.status) {
+      case 400:
+        displayToast('Could not find any listng', 'error')
+        break;
+      case 200: {
+        filterListings(response.data.listings)
+        // setDisplayedListings(matchingListings);
+        break;
+      }
+      default:
+        displayToast('Something went wrong!', 'error');
+    }
   }
 
-  console.log(displayedListings);
-  const filterListings = async () => {
+  const findMatches = async (listings) => {
     const matchingListings = []
-    displayedListings.forEach(async item => {
-      // console.log(sortRating);
+    for (const item of listings) {
       // check location match
       if (!item.title.toLowerCase().includes(location.toLowerCase()) &&
-      !item.address.city.toLowerCase().includes(location.toLowerCase())) return
+      !item.address.city.toLowerCase().includes(location.toLowerCase())) continue
 
       // check for price match
       if (priceRange[0] !== '' && priceRange[1] !== '') {
-        if (item.price < parseInt(priceRange[0]) || item.price > parseInt(priceRange[1])) return;
+        if (item.price < parseInt(priceRange[0]) || item.price > parseInt(priceRange[1])) continue;
       }
 
       // calculate day duration that user is looking for
@@ -78,7 +76,7 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
         const days = Math.ceil(time / (1000 * 3600 * 24))
         if (days === 0) {
           displayToast('You can\'t check in and check out on the same day', 'error')
-          return
+          continue
         } else setDayDuration(days)
       } else {
         setDayDuration(0)
@@ -98,11 +96,11 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
             listing.metadata.bedrooms.forEach(item => {
               numBedrooms += parseInt(item.count)
             })
-            if (numBedrooms < roomRange[0] || numBedrooms > roomRange[1]) return
+            if (numBedrooms < roomRange[0] || numBedrooms > roomRange[1]) continue
           }
           // check for date availability match
           if (startDate !== '' && endDate !== '') {
-            if (!doesAvailabilityMatch(listing.availability)) return
+            if (!doesAvailabilityMatch(listing.availability)) continue
           }
           break;
         }
@@ -110,21 +108,24 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
           displayToast('Something went wrong!', 'error');
       }
       matchingListings.push(item)
-
-      // calculate rating for each listing
-      matchingListings.forEach(listing => {
-        let sum = 0
-        listing.reviews.forEach(review => {
-          if (review.score) sum += parseInt(review.score)
-        })
-        let rating = 0
-        if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
-        listing.rating = rating
-      })
-    });
-
-    // console.log(matchingListings);
+    }
     return matchingListings
+  }
+
+  const filterListings = async (listings) => {
+    const matchingListings = await findMatches(listings);
+
+    // calculate rating for each listing
+    matchingListings.forEach(listing => {
+      let sum = 0
+      listing.reviews.forEach(review => {
+        if (review.score) sum += parseInt(review.score)
+      })
+      let rating = 0
+      if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
+      listing.rating = rating
+    });
+    setDisplayedListings(matchingListings);
   }
 
   const doesAvailabilityMatch = (availability) => {
