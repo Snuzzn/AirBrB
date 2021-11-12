@@ -86,8 +86,6 @@ const Listings = () => {
       }
     }
   }, []);
-  // console.log(displayedListings);
-  console.log('parent rerendered');
   return (
     <div>
       {/* <Fade className="flex flex-row"> */}
