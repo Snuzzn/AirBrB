@@ -89,7 +89,7 @@ const Listings = () => {
   return (
     <div id="hero">
       <Fade className="flex flex-row">
-        <HeroSearch displayedListings={displayedListings} setDisplayedListings={setDisplayedListings}/>
+        <HeroSearch setDisplayedListings={setDisplayedListings}/>
         <div className="mt-10">
           <div className="flex gap-6 flex-wrap justify-center lg:justify-start" id="searchResults">
               {displayedListings.map((listing) => {
