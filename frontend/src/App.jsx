@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import { displayToast } from './util/Toast';
 import ListingDetails from './pages/ListingDetails';
 import { StoreProvider } from './util/store';
+import BookingDetails from './pages/BookingDetails';
 
 // Initialise token state to what is stored in local storage
 const useLocalStorageState = (key, initialValue) => {
@@ -72,6 +73,8 @@ function App () {
               <Route path="/listings" element={<Listings/>} storedToken={storedToken} >
               </Route>
               <Route path="/listing/:id" element={<ListingDetails/>}>
+              </Route>
+              <Route path="/hosted-listings/:id" element={<BookingDetails/>}>
               </Route>
             </Routes>
         </div>

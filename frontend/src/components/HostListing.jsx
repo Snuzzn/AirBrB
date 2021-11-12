@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BsDot } from 'react-icons/bs';
 import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
+import { IoMdStats } from 'react-icons/io';
 import { RiHotelBedLine } from 'react-icons/ri';
 import { CgLivePhoto } from 'react-icons/cg';
 import { FetchAPI } from '../util/FetchAPI';
@@ -140,6 +141,9 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
                   <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
                 </div>
               }
+              <Link to={`${listingId}`} className="inline cursor-pointer hover:text-gray-800">
+                <IoMdStats className="inline text-xl mr-3 pointer-events-none" />
+              </Link>
               <div onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
