@@ -67,15 +67,17 @@ const BookingDetails = () => {
         setBookings(relevantBookings)
 
         // find total profit and days booked
-        let price = 0
+        let newProfit = 0
         let newDaysBooked = 0
         for (const item of relevantBookings) {
           if (item.status === 'accepted') {
-            price += item.totalPrice
+            // only add profit if it's checkin date is within the last year
+            const daysSinceStart = calculateDayDiff(item.dateRange.start, '')
+            if (daysSinceStart <= 365) newProfit += item.totalPrice
             newDaysBooked += calculateDayDiff(item.dateRange.start, item.dateRange.end)
           }
         }
-        setProfit(price)
+        setProfit(newProfit)
         setDaysBooked(newDaysBooked)
         break;
       }

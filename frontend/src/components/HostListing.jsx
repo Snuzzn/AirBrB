@@ -22,7 +22,6 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
       const response = await FetchAPI(`/listings/${listing.id}`, 'GET');
       switch (response.status) {
         case 200:
-          console.log(response);
           setMetadata(response.data.listing.metadata);
           setPublished(response.data.listing.published);
           break;
