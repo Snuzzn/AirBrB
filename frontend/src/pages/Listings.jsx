@@ -61,9 +61,8 @@ const Listings = () => {
           for (const listingBooking of listingBookings) {
             // Find any bookings made by the user by checking dateRange schema
             // "dateRange": {"guest": email, "start": date, "end": date}
-            if (listingBooking.dateRange?.guest === email) {
+            if (listingBooking.dateRange?.guest === email && listingBooking.status !== 'declined') {
               // User has booked this listing, so move on to the next listing
-              console.log(listing);
               userBookings = [...userBookings, listing];
               break;
             }
