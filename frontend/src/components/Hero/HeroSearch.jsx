@@ -9,8 +9,11 @@ import { displayToast } from '../../util/Toast';
 import { StoreContext } from '../../util/store';
 import PropTypes from 'prop-types';
 import { animateScroll as scroll } from 'react-scroll'
+import { ImSpinner2 } from 'react-icons/im'
 
-function HeroSearch ({ displayedListings, setDisplayedListings }) {
+function HeroSearch ({ setDisplayedListings }) {
+  const [isSearching, setIsSearching] = React.useState(false)
+
   const [priceRange, setPriceRange] = React.useState(['', ''])
   const [roomRange, setRoomRange] = React.useState(['', ''])
   const [sortRating, setSortRating] = React.useState('')
@@ -23,6 +26,7 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
   const setDayDuration = context.dayDuration[1]
 
   const handleSubmit = async (e) => {
+    setIsSearching(true)
     e.preventDefault();
     const form = e.target
     form.checkValidity()
@@ -55,6 +59,26 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
       default:
         displayToast('Something went wrong!', 'error');
     }
+  }
+
+  const filterListings = async (listings) => {
+    const matchingListings = await findMatches(listings);
+
+    // calculate rating for each listing
+    matchingListings.forEach(listing => {
+      let sum = 0
+      listing.reviews.forEach(review => {
+        if (review.score) sum += parseInt(review.score)
+      })
+      let rating = 0
+      if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
+      listing.rating = rating
+    });
+    // prepare for displaying listing
+    setDisplayedListings(matchingListings);
+    scroll.scrollMore(500, { duration: 1000, smooth: true })
+    setIsSearching(false)
+    if (matchingListings.length === 0) displayToast('Unfortunately, no matches were found', 'error')
   }
 
   const findMatches = async (listings) => {
@@ -111,23 +135,6 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
       matchingListings.push(item)
     }
     return matchingListings
-  }
-
-  const filterListings = async (listings) => {
-    const matchingListings = await findMatches(listings);
-
-    // calculate rating for each listing
-    matchingListings.forEach(listing => {
-      let sum = 0
-      listing.reviews.forEach(review => {
-        if (review.score) sum += parseInt(review.score)
-      })
-      let rating = 0
-      if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
-      listing.rating = rating
-    });
-    setDisplayedListings(matchingListings);
-    scroll.scrollMore(500, { duration: 1000, smooth: true })
   }
 
   const doesAvailabilityMatch = (availability) => {
@@ -190,8 +197,18 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
                 </Popover.Panel>
               </Popover>
               <button className="bg-red-400 p-3 text-white rounded-lg hover:bg-red-400 flex items-center gap-2">
-                <FiSearch />
-                <p>Search</p>
+                { isSearching
+                  ? (
+                    <>
+                      <ImSpinner2 className="animate-spin"/>
+                      <p className="animate-pulse">Searching</p>
+                    </>)
+                  : (
+                    <>
+                      <FiSearch />
+                      <p>Search</p>
+                    </>)
+                }
               </button>
             </div>
           </div>
@@ -204,6 +221,5 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
 export default HeroSearch
 
 HeroSearch.propTypes = {
-  displayedListings: PropTypes.array,
   setDisplayedListings: PropTypes.func
 }
