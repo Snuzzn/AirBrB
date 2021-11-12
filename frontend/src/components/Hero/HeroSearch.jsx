@@ -8,6 +8,7 @@ import { FetchAPI } from '../../util/FetchAPI';
 import { displayToast } from '../../util/Toast';
 import { StoreContext } from '../../util/store';
 import PropTypes from 'prop-types';
+import { animateScroll as scroll } from 'react-scroll'
 
 function HeroSearch ({ displayedListings, setDisplayedListings }) {
   const [priceRange, setPriceRange] = React.useState(['', ''])
@@ -126,6 +127,7 @@ function HeroSearch ({ displayedListings, setDisplayedListings }) {
       listing.rating = rating
     });
     setDisplayedListings(matchingListings);
+    scroll.scrollMore(500, { duration: 1000, smooth: true })
   }
 
   const doesAvailabilityMatch = (availability) => {
