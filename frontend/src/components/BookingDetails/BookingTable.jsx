@@ -31,29 +31,31 @@ function BookingTable ({ bookings, isHistory, getBookings }) {
   }
 
   return (
-    <table className="table-auto w-full">
-      <HeaderRow/>
-      <tbody>
-        {filteredBookings.map((item) => (
-            <tr className="border-b" key={item.id}>
-              <BodyRow item={item}/>
-              <td className="p-2 flex gap-2 items-center">
-                {isHistory
-                  ? <span className={`'text-sm font-semibold rounded-lg px-2 p-1 ${item.status === 'accepted'
-                    ? 'bg-green-100 text-green-400'
-                    : 'bg-red-100 text-red-400'}`}>{item.status.toUpperCase()}</span>
-                  : <>
-                      <span className="bg-yellow-100 text-yellow-400 text-sm font-semibold rounded-lg px-2 p-1">{item.status.toUpperCase()}</span>
-                      <AiFillCheckCircle className="text-green-400 text-lg cursor-pointer hover:animate-pulse hover:text-green-500"
-                        onClick={() => handleBookingAction(item.id, 'accept')}/>
-                      <AiFillCloseCircle className="text-red-400 text-lg cursor-pointer hover:animate-pulse hover:text-red-500"
-                        onClick={() => handleBookingAction(item.id, 'decline')}/>
-                    </>}
-              </td>
-          </tr>))
-          }
-      </tbody>
-    </table>
+    <div className="overflow-x-auto">
+      <table className="table-auto w-full">
+        <HeaderRow/>
+        <tbody>
+          {filteredBookings.map((item) => (
+              <tr className="border-b" key={item.id}>
+                <BodyRow item={item}/>
+                <td className="p-2 flex gap-2 items-center">
+                  {isHistory
+                    ? <span className={`'text-sm font-semibold rounded-lg px-2 p-1 ${item.status === 'accepted'
+                      ? 'bg-green-100 text-green-400'
+                      : 'bg-red-100 text-red-400'}`}>{item.status.toUpperCase()}</span>
+                    : <>
+                        <span className="bg-yellow-100 text-yellow-400 text-sm font-semibold rounded-lg px-2 p-1">{item.status.toUpperCase()}</span>
+                        <AiFillCheckCircle className="text-green-400 text-lg cursor-pointer hover:animate-pulse hover:text-green-500"
+                          onClick={() => handleBookingAction(item.id, 'accept')}/>
+                        <AiFillCloseCircle className="text-red-400 text-lg cursor-pointer hover:animate-pulse hover:text-red-500"
+                          onClick={() => handleBookingAction(item.id, 'decline')}/>
+                      </>}
+                </td>
+            </tr>))
+            }
+        </tbody>
+      </table>
+    </div>
   )
 }
 
