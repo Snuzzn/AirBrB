@@ -58,7 +58,6 @@ const Listings = () => {
         for (const listing of publishedListingsData) {
           // Get all bookings of this listing
           const listingBookings = bookingsData.filter(booking => booking.listingId === listing.id);
-          console.log(bookingsData);
           for (const listingBooking of listingBookings) {
             // Find any bookings made by the user by checking dateRange schema
             // "dateRange": {"guest": email, "start": date, "end": date}
@@ -92,9 +91,9 @@ const Listings = () => {
   return (
     <div>
       <Fade className="flex flex-row">
-        <HeroSearch/>
+        <HeroSearch displayedListings={displayedListings} setDisplayedListings={setDisplayedListings}/>
         <div className="mt-10">
-        { displayedListings !== [] &&
+        { displayedListings.length !== 0 &&
           <div className="flex gap-6 flex-wrap justify-center lg:justify-start">
             {displayedListings.map((listing, idx) => (
               <div key={idx}>

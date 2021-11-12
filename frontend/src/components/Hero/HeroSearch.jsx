@@ -7,8 +7,9 @@ import RangeInputs from './RangeInputs';
 import { FetchAPI } from '../../util/FetchAPI';
 import { displayToast } from '../../util/Toast';
 import { StoreContext } from '../../util/store';
+import PropTypes from 'prop-types';
 
-function HeroSearch () {
+function HeroSearch ({ displayedListings, setDisplayedListings }) {
   const [priceRange, setPriceRange] = React.useState(['', ''])
   const [roomRange, setRoomRange] = React.useState(['', ''])
   const [sortRating, setSortRating] = React.useState('')
@@ -39,22 +40,26 @@ function HeroSearch () {
       displayToast('Check in date must come before the Check out date', 'error')
       return
     }
-    const response = await FetchAPI('/listings', 'GET');
-    switch (response.status) {
-      case 400:
-        displayToast('Could not find any listng', 'error')
-        break;
-      case 200:
-        filterListings(response.data.listings)
-        break;
-      default:
-        displayToast('Something went wrong!', 'error');
-    }
+    const matchingListings = await filterListings()
+    setDisplayedListings(matchingListings);
+
+    // const response = await FetchAPI('/listings', 'GET');
+    // switch (response.status) {
+    //   case 400:
+    //     displayToast('Could not find any listng', 'error')
+    //     break;
+    //   case 200:
+    //     filterListings(response.data.listings)
+    //     break;
+    //   default:
+    //     displayToast('Something went wrong!', 'error');
+    // }
   }
 
-  const filterListings = async (listings) => {
+  console.log(displayedListings);
+  const filterListings = async () => {
     const matchingListings = []
-    listings.forEach(async item => {
+    displayedListings.forEach(async item => {
       // console.log(sortRating);
       // check location match
       if (!item.title.toLowerCase().includes(location.toLowerCase()) &&
@@ -114,11 +119,11 @@ function HeroSearch () {
         })
         let rating = 0
         if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
-        matchingListings.rating = rating
+        listing.rating = rating
       })
     });
 
-    console.log(matchingListings);
+    // console.log(matchingListings);
     return matchingListings
   }
 
@@ -194,3 +199,8 @@ function HeroSearch () {
 }
 
 export default HeroSearch
+
+HeroSearch.propTypes = {
+  displayedListings: PropTypes.array,
+  setDisplayedListings: PropTypes.func
+}
