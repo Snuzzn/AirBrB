@@ -42,7 +42,7 @@ const BookingDetails = () => {
     }
   }, [])
 
-  // get releveant booking info
+  // get relevant booking info
   React.useEffect(async () => {
     getBookings()
   }, [])
@@ -55,16 +55,18 @@ const BookingDetails = () => {
         break;
       case 200: {
         const bookings = response.data.bookings
-        if (JSON.stringify(bookings) === '{}') {
+        if (JSON.stringify(bookings) === '{}') { // no bookings found
           displayToast('Could not any bookings', 'error')
           navigate('/hosted-listings')
           return;
         }
         const relevantBookings = []
-        for (const item of bookings) {
+        for (const item of bookings) { // get bookings of current listing id
           if (item.listingId === id) relevantBookings.push(item)
         }
         setBookings(relevantBookings)
+
+        // find total profit and days booked
         let price = 0
         let newDaysBooked = 0
         for (const item of relevantBookings) {
@@ -72,7 +74,6 @@ const BookingDetails = () => {
             price += item.totalPrice
             newDaysBooked += calculateDayDiff(item.dateRange.start, item.dateRange.end)
           }
-          // console.log(calculateDayDiff(new Date()));
         }
         setProfit(price)
         setDaysBooked(newDaysBooked)
@@ -83,9 +84,10 @@ const BookingDetails = () => {
     }
   }
 
+  // return number of days between 2 date strings
   const calculateDayDiff = (startDate, endDate) => {
     let end = new Date()
-    if (endDate !== '') end = new Date(endDate)
+    if (endDate !== '') end = new Date(endDate) // today
     return Math.floor((end - new Date(startDate)) / (1000 * 60 * 60 * 24))
   }
 

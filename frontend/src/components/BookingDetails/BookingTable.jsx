@@ -13,11 +13,12 @@ function BookingTable ({ bookings, isHistory, getBookings }) {
     filteredBookings = bookings.filter((item) => item.status === 'pending')
   }
 
+  // accept or decline booking
   const handleBookingAction = async (id, action) => {
     const response = await FetchAPI(`/bookings/${action}/${id}`, 'PUT', '', JSON.parse(localStorage.getItem('token')));
     switch (response.status) {
       case 400:
-        displayToast(`Could not ${action} booking`, 'error')
+        displayToast(`Could not ${action} booking ${id}`, 'error')
         break;
       case 200: {
         console.log(response.data);
