@@ -115,7 +115,7 @@ function ActionCard ({ listingInfo, listingId }) {
           <input
             aria-label='Start date for your booking'
             placeholder="Add date"
-            className="w-full focus:outline-none rounded text-gray-500"
+            className="w-full focus:outline-none rounded text-gray-500 bg-white"
             type="date"
             onChange={(e) => setStartDate(e.target.value)}
           />
@@ -124,7 +124,7 @@ function ActionCard ({ listingInfo, listingId }) {
           <p className="text-gray-500">Check out</p>
           <input
             aria-label='End date for your booking'
-            className="w-full focus:outline-none rounded text-gray-500"
+            className="w-full focus:outline-none rounded text-gray-500 bg-white"
             placeholder="Add date"
             type="date"
             onChange={(e) => setEndDate(e.target.value)}
