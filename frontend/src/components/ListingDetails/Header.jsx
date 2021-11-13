@@ -9,7 +9,7 @@ function Header ({ listingInfo }) {
     score += parseInt(element.score)
   });
   if (score !== 0) {
-    score = score / listingInfo.reviews.length
+    score = Math.round((score / listingInfo.reviews.length) * 100) / 100
   } else {
     score = '-'
   }

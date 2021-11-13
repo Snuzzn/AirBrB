@@ -50,7 +50,7 @@ function ActionCard ({ listingInfo, listingId }) {
     }
 
     if (startDate === '' || endDate === '') {
-      displayToast('Please provide a stard and end date', 'error');
+      displayToast('Please provide a start and end date', 'error');
       return;
     }
 
@@ -89,7 +89,7 @@ function ActionCard ({ listingInfo, listingId }) {
         displayToast(res.data.error, 'error');
         break;
       case 200: {
-        displayToast('Congratulations! Your booking was successful!', 'success');
+        displayToast('Congratulations! Your booking request was successful!', 'success');
         blastConfettiCannon(true);
         break;
       }
