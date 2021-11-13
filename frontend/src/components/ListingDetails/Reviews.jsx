@@ -93,6 +93,8 @@ function Reviews ({ listingId }) {
       case 200:
         displayToast('Thank you for your feedback!', 'success');
         setNewReview(!newReview);
+        setReview('');
+        setRating(0);
         break;
       default:
         displayToast('Uh oh, something went wrong!', 'error');
@@ -112,6 +114,7 @@ function Reviews ({ listingId }) {
           placeholder="Leave a review"
           className="pl-1 text-gray-500 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
           onChange={handleReview}
+          value={review}
         />
         <Ratings
           changeRating={setRating}
