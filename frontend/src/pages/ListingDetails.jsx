@@ -13,7 +13,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
 const ListingDetails = () => {
-  const [listingInfo, setListingInfo] = React.useState([])
+  const [listingInfo, setListingInfo] = React.useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
   React.useEffect(async () => {
@@ -65,7 +65,7 @@ const ListingDetails = () => {
           <Bedrooms listingInfo={listingInfo}/>
           <hr className="mt-2 mb-3 "/>
           <p className="text-xl font-medium text-gray-700 mb-3">Reviews</p>
-          <Reviews listingInfo={listingInfo}/>
+          <Reviews listingInfo={listingInfo} listingId={id} />
           <hr />
         </div>
       </Fade>
