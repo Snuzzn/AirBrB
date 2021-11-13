@@ -1,10 +1,11 @@
 import React from 'react';
-import { HiStar, HiUserCircle } from 'react-icons/hi'
+// import { HiStar, HiUserCircle } from 'react-icons/hi'
 import locationReview from '../../images/locationReview.svg'
 import PropTypes from 'prop-types';
 import Ratings from 'react-ratings-declarative';
 import { displayToast } from '../../util/Toast';
 import { FetchAPI } from '../../util/FetchAPI';
+import GuestReview from './GuestReview';
 
 function Reviews ({ listingId }) {
   const [rating, setRating] = React.useState(0);
@@ -17,28 +18,28 @@ function Reviews ({ listingId }) {
     const token = JSON.parse(localStorage.getItem('token'));
     const email = JSON.parse(localStorage.getItem('email'));
 
-    if (!token) return;
+    if (token) {
+      let bookings = [];
+      const res = await FetchAPI('/bookings', 'GET', '', token);
+      switch (res.status) {
+        case 403:
+          displayToast('You are not authorised to view reviews.');
+          break;
+        case 200:
+          // Get this user's bookings for this listing that have been accepted
+          bookings = res.data.bookings
+            .filter(booking => booking.listingId === listingId)
+            .filter(booking => booking.owner === email)
+            .filter(booking => booking.status === 'accepted');
+          break;
+        default:
+          displayToast('Uh oh, something went wrong!', 'error');
+          break;
+      }
 
-    let bookings = [];
-    const res = await FetchAPI('/bookings', 'GET', '', token);
-    switch (res.status) {
-      case 403:
-        displayToast('You are not authorised to view reviews.');
-        break;
-      case 200:
-        // Get this user's bookings for this listing that have been accepted
-        bookings = res.data.bookings
-          .filter(booking => booking.listingId === listingId)
-          .filter(booking => booking.owner === email)
-          .filter(booking => booking.status === 'accepted');
-        break;
-      default:
-        displayToast('Uh oh, something went wrong!', 'error');
-        break;
-    }
-
-    if (bookings.length > 0) {
-      setBooked(bookings);
+      if (bookings.length > 0) {
+        setBooked(bookings);
+      }
     }
 
     const response = await FetchAPI(`/listings/${listingId}`, 'GET', '', '');
@@ -135,22 +136,7 @@ function Reviews ({ listingId }) {
     </div>
     <div className="flex flex-col gap-9 mb-10" id="reviews">
       { listingInfo.reviews && listingInfo.reviews.length !== 0
-        ? ([...listingInfo.reviews].reverse().map((review, idx) => (<div className="flex gap-5 items-center" key={idx}>
-          <div className="w-10 self-start">
-            <HiUserCircle size="3em" className="text-gray-600 " />
-          </div>
-          <div>
-            <div className="flex gap-1">
-              <HiStar className="text-red-400 text-xl"/>
-              {review.score >= 2 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-              {review.score >= 3 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-              {review.score >= 4 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-              {review.score === 5 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-            </div>
-            <p className="text-gray-600 max-w-5xl">{review.review}</p>
-            <p className="font-light text-gray-400 italic text-sm">{JSON.parse(localStorage.getItem('email'))}</p>
-          </div>
-        </div>)))
+        ? ([...listingInfo.reviews].reverse().map((review, idx) => (<GuestReview review={review} key={idx} />)))
         : (<div className="flex flex-col items-center">
           <img src={locationReview} alt="Person next to house below a card with a navigation symbol on top" className="w-1/2 sm:w-1/3 lg:w-1/4" />
           <p>No reviews yet...</p>
