@@ -76,9 +76,9 @@ function HeroSearch ({ setDisplayedListings }) {
     });
     // prepare for displaying listing
     setDisplayedListings(matchingListings);
-    scroll.scrollMore(500, { duration: 1000, smooth: true })
     setIsSearching(false)
     if (matchingListings.length === 0) displayToast('Unfortunately, no matches were found', 'error')
+    else scroll.scrollMore(500, { duration: 1000, smooth: true })
   }
 
   const findMatches = async (listings) => {
