@@ -17,7 +17,7 @@ const GuestReview = ({ review }) => {
           {review.score === 5 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
         </div>
         <p className="text-gray-600 max-w-5xl">{review.review}</p>
-        <p className="font-light text-gray-400 italic text-sm">{JSON.parse(localStorage.getItem('email'))}</p>
+        <p className="font-light text-gray-400 italic text-sm">{review.reviewer}</p>
       </div>
     </div>
   )

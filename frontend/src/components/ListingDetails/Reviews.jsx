@@ -41,14 +41,14 @@ function Reviews ({ listingInfo, listingId, onSubmit }) {
   }, [])
 
   const handleReview = (e) => {
-    const reviewText = e.target.value.trim();
+    const reviewText = e.target.value;
     setReview(reviewText);
   }
 
   const submitReview = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
 
-    if (review === '') {
+    if (review.trim() === '') {
       displayToast('Please provide review details.', 'error');
       return;
     }
@@ -61,7 +61,8 @@ function Reviews ({ listingInfo, listingId, onSubmit }) {
     const body = {
       review: {
         review: review,
-        score: rating
+        score: rating,
+        reviewer: JSON.parse(localStorage.getItem('email'))
       }
     }
     const bookingId = booked[0].id;
