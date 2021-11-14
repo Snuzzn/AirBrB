@@ -10,6 +10,7 @@
 
 ## Reviews
 - Implemented star rating system for reviews instead of numbers.
+- Adds reviewer to the review display.
 
 ### Misc
 - Toasts for temporary error and success messages.
