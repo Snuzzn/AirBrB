@@ -8,5 +8,8 @@
 ### View Selected Listing Screen
 - When a booking is made, celebratory confetti appears on screen. Bookings also appear in a dynamic popover underneath the 'Book Now' button, with booking statuses appropriately colour-coded.
 
+## Reviews
+- Implemented star rating system for reviews instead of numbers.
+
 ### Misc
 - Toasts for temporary error and success messages.
