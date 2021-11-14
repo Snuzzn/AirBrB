@@ -89,13 +89,13 @@ function Reviews ({ listingInfo, listingId, onSubmit }) {
     <>
     {Object.keys(listingInfo).length > 0 && booked.length > 0 &&
       <div id="create-review" className="flex flex-col gap-2">
-        <label className="font-semibold text-lg text-gray-700">
+        <label className="font-semibold text-base text-gray-700">
           Describe Your Experience
         </label>
         <p className="text-gray-500">Your review will be public on the listing page.</p>
         <textarea
           placeholder="Leave a review"
-          className="pl-1 text-gray-500 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
+          className="p-2 text-gray-500 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
           onChange={handleReview}
           value={review}
         />
@@ -117,7 +117,7 @@ function Reviews ({ listingInfo, listingId, onSubmit }) {
       </button>
       </div>
     }
-    <div className="font-semibold text-lg text-gray-700 mt-2">
+    <div className="italic text-base text-gray-700 mb-2">
       What other guests are saying...
     </div>
     <div className="flex flex-col gap-9 mb-10" id="reviews">
