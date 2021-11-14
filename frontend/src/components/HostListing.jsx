@@ -69,7 +69,14 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     if (scores.length === 0) {
       return 'N/A';
     }
-    return scores.reduce((a, b) => parseInt(a) + parseInt(b)) / scores.length;
+    let score = 0;
+    scores.forEach(element => {
+      score += parseInt(element.score)
+    });
+    if (score !== 0) {
+      score = Math.round((score / scores.length) * 100) / 100
+    }
+    return score;
   }
 
   const getNumReviews = () => {

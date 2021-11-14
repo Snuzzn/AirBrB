@@ -50,7 +50,7 @@ function ActionCard ({ listingInfo, listingId }) {
     }
 
     if (startDate === '' || endDate === '') {
-      displayToast('Please provide a stard and end date', 'error');
+      displayToast('Please provide a start and end date', 'error');
       return;
     }
 
@@ -89,7 +89,7 @@ function ActionCard ({ listingInfo, listingId }) {
         displayToast(res.data.error, 'error');
         break;
       case 200: {
-        displayToast('Congratulations! Your booking was successful!', 'success');
+        displayToast('Congratulations! Your booking request was successful!', 'success');
         blastConfettiCannon(true);
         break;
       }
@@ -115,7 +115,7 @@ function ActionCard ({ listingInfo, listingId }) {
           <input
             aria-label='Start date for your booking'
             placeholder="Add date"
-            className="w-full focus:outline-none rounded text-gray-500"
+            className="w-full focus:outline-none rounded text-gray-500 bg-white"
             type="date"
             onChange={(e) => setStartDate(e.target.value)}
           />
@@ -124,7 +124,7 @@ function ActionCard ({ listingInfo, listingId }) {
           <p className="text-gray-500">Check out</p>
           <input
             aria-label='End date for your booking'
-            className="w-full focus:outline-none rounded text-gray-500"
+            className="w-full focus:outline-none rounded text-gray-500 bg-white"
             placeholder="Add date"
             type="date"
             onChange={(e) => setEndDate(e.target.value)}
