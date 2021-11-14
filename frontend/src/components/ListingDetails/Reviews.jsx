@@ -1,5 +1,4 @@
 import React from 'react';
-// import { HiStar, HiUserCircle } from 'react-icons/hi'
 import locationReview from '../../images/locationReview.svg'
 import PropTypes from 'prop-types';
 import Ratings from 'react-ratings-declarative';
@@ -7,12 +6,10 @@ import { displayToast } from '../../util/Toast';
 import { FetchAPI } from '../../util/FetchAPI';
 import GuestReview from './GuestReview';
 
-function Reviews ({ listingId }) {
+function Reviews ({ listingInfo, listingId, onSubmit }) {
   const [rating, setRating] = React.useState(0);
   const [review, setReview] = React.useState('');
   const [booked, setBooked] = React.useState(false);
-  const [listingInfo, setListingInfo] = React.useState([]);
-  const [newReview, setNewReview] = React.useState(false);
 
   React.useEffect(async () => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -41,21 +38,7 @@ function Reviews ({ listingId }) {
         setBooked(bookings);
       }
     }
-
-    const response = await FetchAPI(`/listings/${listingId}`, 'GET', '', '');
-    switch (response.status) {
-      case 400:
-        displayToast('Could not open listing', 'error')
-        break;
-      case 200: {
-        console.log(response.data.listing);
-        setListingInfo(response.data.listing);
-        break;
-      }
-      default:
-        displayToast('Something went wrong!', 'error');
-    }
-  }, [newReview])
+  }, [])
 
   const handleReview = (e) => {
     const reviewText = e.target.value.trim();
@@ -92,7 +75,7 @@ function Reviews ({ listingId }) {
         break;
       case 200:
         displayToast('Thank you for your feedback!', 'success');
-        setNewReview(!newReview);
+        onSubmit();
         setReview('');
         setRating(0);
         break;
@@ -155,4 +138,5 @@ export default Reviews
 Reviews.propTypes = {
   listingInfo: PropTypes.object,
   listingId: PropTypes.string,
+  onSubmit: PropTypes.func,
 }

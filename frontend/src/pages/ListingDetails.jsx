@@ -14,6 +14,8 @@ import { Carousel } from 'react-responsive-carousel';
 
 const ListingDetails = () => {
   const [listingInfo, setListingInfo] = React.useState([]);
+  const [newReview, setNewReview] = React.useState(false);
+
   const { id } = useParams();
   const navigate = useNavigate();
   React.useEffect(async () => {
@@ -35,7 +37,7 @@ const ListingDetails = () => {
       default:
         displayToast('Something went wrong!', 'error');
     }
-  }, [])
+  }, [newReview])
   return (
     <>
     {Object.keys(listingInfo).length !== 0 &&
@@ -65,7 +67,7 @@ const ListingDetails = () => {
           <Bedrooms listingInfo={listingInfo}/>
           <hr className="mt-2 mb-3 "/>
           <p className="text-xl font-medium text-gray-700 mb-3">Reviews</p>
-          <Reviews listingInfo={listingInfo} listingId={id} />
+          <Reviews listingInfo={listingInfo} listingId={id} onSubmit={() => setNewReview(!newReview)} />
           <hr />
         </div>
       </Fade>
