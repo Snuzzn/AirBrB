@@ -1,7 +1,6 @@
 import React from 'react';
 // import { FetchAPI } from '../util/FetchAPI';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 
 const StarToolTip = ({ listingInfo }) => {
   const totalReviews = listingInfo.reviews.length;
@@ -21,22 +20,18 @@ const StarToolTip = ({ listingInfo }) => {
 
   console.log(starDistribution)
   return (
-    <ReactTooltip
-      id='rating-distri'
-      place='left'
-      delayHide={3000}
-      className='hover:opacity-100 hover:visible'
-      effect="solid"
-    >
+    <div className="relative">
+      <div className="absolute right-10 z-10000000">
         <div>{totalReviews} guest reviews</div>
         {Object.values(starDistribution).map((value, idx) =>
-          <div key={idx} className="flex justify-evenly">
+          <div key={idx} className="flex justify-evenly z-1000">
            <div>{idx} star</div>
            <div>{Math.round((value.length / totalReviews) * 100)} %</div>
            <div>{value.length} total</div>
           </div>
         )}
-    </ReactTooltip>
+      </div>
+    </div>
   )
 }
 
@@ -44,4 +39,5 @@ export default StarToolTip;
 
 StarToolTip.propTypes = {
   listingInfo: PropTypes.object,
+  // ref: PropTypes.object
 }

@@ -19,7 +19,6 @@ function Header ({ listingInfo }) {
 
   return (
     <>
-    <StarToolTip listingInfo={listingInfo} />
     <div className="flex items-center  text-gray-700 justify-between">
       <div>
         <p className="text-3xl font-medium">{listingInfo.title}</p>
@@ -29,10 +28,9 @@ function Header ({ listingInfo }) {
       </div>
       <div className="flex flex-col items-end">
         <div className="flex items-center gap-2 ">
+          <StarToolTip listingInfo={listingInfo} />
           <HiStar
             className="text-red-400 text-xl"
-            data-tip data-for="rating-distri"
-            // onMouseEnter={() => setShowStarToolTip(true)}
           />
           <p className="text-gray-600 font-medium text-2xl">{score}</p>
         </div>
