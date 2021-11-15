@@ -2,6 +2,7 @@ import React from 'react'
 import { Line } from 'react-chartjs-2';
 import { FetchAPI } from '../util/FetchAPI';
 import { displayToast } from '../util/Toast';
+import Fade from 'react-reveal/Fade';
 
 function Graph () {
   const [profit, setProfit] = React.useState([])
@@ -65,42 +66,43 @@ function Graph () {
   }
 
   return (
-    <div className="w-full sm:w-1/2 lg:w-3/4 h-96 flex flex-col items-center m-auto mt-5 text-xl mb-10">
-      <h2 className="text-gray-700 font-medium">Profit from Last Month</h2>
-      <Line
-        data={data}
-        options={ {
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
+    <Fade>
+      <div className="w-full sm:w-1/2 lg:w-3/4 h-96 flex flex-col items-center m-auto mt-5 text-xl mb-10">
+        <h2 className="text-gray-700 font-medium">Profit from Last Month</h2>
+        <Line
+          data={data}
+          options={ {
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
 
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value, index, values) {
-                  return '$' + value;
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function (value, index, values) {
+                    return '$' + value;
+                  }
+                },
+                title: {
+                  text: 'Profit',
+                  display: true,
                 }
               },
-              title: {
-                text: 'Profit',
-                display: true,
-              }
-            },
-            x: {
-              title: {
-                text: 'Days ago',
-                display: true,
+              x: {
+                title: {
+                  text: 'Days ago',
+                  display: true,
+                }
               }
             }
-          }
-        }}
-      />
-    </div>
-
+          }}
+        />
+      </div>
+    </Fade>
   )
 }
 
