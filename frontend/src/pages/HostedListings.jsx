@@ -35,7 +35,8 @@ const Hostedlistings = () => {
           <Link to="/create-listing">
             <BsPlusCircle size="1.5em" alt="add button to create new listing" className='text-gray-700 hover:text-black hover:drop-shadow-lg' />
           </Link>
-          <VscGraphLine size="1.5em" onClick={() => setIsGraphVisibile(!isGraphVisible)} alt="add button to create new listing" className={`cursor-pointer text-gray-300 hover:text-black ${isGraphVisible && 'text-gray-700'}`} />
+          <VscGraphLine size="1.5em" onClick={() => setIsGraphVisibile(!isGraphVisible)} alt="add button to create new listing"
+            className={`cursor-pointer text-gray-300 hover:text-black ${isGraphVisible && 'text-gray-700 hover:text-gray-500'}`} />
         </div>
         { isGraphVisible && <Graph/> }
       <div className="flex flex-col justify-center items-center">
