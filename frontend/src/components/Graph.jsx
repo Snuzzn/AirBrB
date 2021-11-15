@@ -79,6 +79,7 @@ function Graph () {
           },
           scales: {
             y: {
+              beginAtZero: true,
               ticks: {
                 callback: function (value, index, values) {
                   return '$' + value;
