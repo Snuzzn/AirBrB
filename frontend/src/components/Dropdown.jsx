@@ -23,6 +23,12 @@ export default function Dropdown ({ title, options, tokenState }) {
     return false;
   }
 
+  const email = JSON.parse(localStorage.getItem('email'))
+  if (email !== '') { // logged in
+    const src = `https://avatars.dicebear.com/api/gridy/${email}.svg`
+    title = <img src={src} alt="" className="w-10 h-10 rounded-3xl p-2  bg-gray-200 " />
+  }
+
   return (
     <Menu>
       <MenuButton>
