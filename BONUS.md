@@ -14,3 +14,4 @@
 
 ### Misc
 - Toasts for temporary error and success messages.
+- Randomly generated (but consistent) avatar for each user
