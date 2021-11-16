@@ -7,72 +7,72 @@ import renderer from 'react-test-renderer';
 describe('TextInput', () => {
   /**
    * TextInput captures user input in login and register. It takes
-   * in an onChange function, the type of input, an optional placeholder, 
+   * in an onChange function, the type of input, an optional placeholder,
    * and a custom aria-label for accessibility.
    */
-  
+
   const noop = () => {};
 
   it('triggers onChange event on user input', () => {
     const onChange = jest.fn();
-    const inputField = shallow(<TextInput 
+    const inputField = shallow(<TextInput
         type='text'
-        setState={onChange} 
+        setState={onChange}
     />);
-    const event = {target: { value: 'a' }}
+    const event = { target: { value: 'a' } }
     inputField.simulate('change', event);
     expect(onChange).toHaveBeenCalledTimes(1);
   })
 
   it('captures user input on change', () => {
     const onChange = jest.fn();
-    const inputField = shallow(<TextInput 
+    const inputField = shallow(<TextInput
         type='text'
-        setState={onChange} 
+        setState={onChange}
     />);
-    const event = {target: { value: 'testing this value' }}
+    const event = { target: { value: 'testing this value' } }
     inputField.simulate('change', event);
     expect(onChange).toHaveBeenCalledWith('testing this value');
   })
 
   it('aria-label is defined with prop value', () => {
-    const inputField = shallow(<TextInput 
-      label='Test Label!' 
-      setState={noop} 
+    const inputField = shallow(<TextInput
+      label='Test Label!'
+      setState={noop}
     />);
     expect(inputField.prop('aria-label')).toBe('Test Label!');
   })
 
   it('type is defined with prop value', () => {
-    const inputField = shallow(<TextInput 
+    const inputField = shallow(<TextInput
       type='password'
-      setState={noop} 
+      setState={noop}
     />);
     expect(inputField.prop('type')).toBe('password');
   })
 
   it('placeholder is defined with prop value', () => {
-    const inputField = shallow(<TextInput 
+    const inputField = shallow(<TextInput
       type='text'
       placeholder='Test Placeholder!'
-      setState={noop} 
+      setState={noop}
     />);
     expect(inputField.prop('placeholder')).toBe('Test Placeholder!');
   })
 
   it('uses placeholder text defined in prop', () => {
-    render(<TextInput 
+    render(<TextInput
       type='text'
       placeholder='Placeholder!'
-      setState={noop} 
+      setState={noop}
     />);
     expect(screen.getByPlaceholderText('Placeholder!')).toBeInTheDocument();
   })
 
   it('uses default placeholder text if no prop passed in', () => {
-    render(<TextInput 
+    render(<TextInput
       type='text'
-      setState={noop} 
+      setState={noop}
     />);
     // TextInput's default placeholder is 'Please enter details'
     expect(screen.getByPlaceholderText('Please enter details')).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe('TextInput', () => {
   })
 
   it('renders with provided placeholder and type', () => {
-    const inputField = renderer.create(<TextInput 
+    const inputField = renderer.create(<TextInput
       onChange={noop}
       type='text'
       placeholder='placeholder test'

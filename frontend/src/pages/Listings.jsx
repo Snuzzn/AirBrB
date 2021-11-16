@@ -4,6 +4,7 @@ import { FetchAPI } from '../util/FetchAPI';
 import Listing from '../components/Listing';
 import HeroSearch from '../components/Hero/HeroSearch';
 import Fade from 'react-reveal/Fade';
+import { Link } from 'react-router-dom';
 
 const Listings = () => {
   const [displayedListings, setDisplayedListings] = React.useState([]);
@@ -96,13 +97,14 @@ const Listings = () => {
                 // console.log(displayedListings);
                 return (
                 <Fade key={listing.id}>
-                  <Listing
-                    id={listing.id}
-                    thumbnail={listing.thumbnail}
-                    reviews={listing.reviews}
-                    title={listing.title}
-                    price={listing.price}
-                  />
+                  <Link to={`/listing/${listing.id}`} >
+                    <Listing
+                      thumbnail={listing.thumbnail}
+                      reviews={listing.reviews}
+                      title={listing.title}
+                      price={listing.price}
+                    />
+                  </Link>
                 </Fade>)
               })}
           </div>
