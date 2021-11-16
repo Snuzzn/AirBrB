@@ -1,11 +1,11 @@
 import React from 'react';
-// import { FetchAPI } from '../util/FetchAPI';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
 import { HiStar } from 'react-icons/hi';
 import FilteredReviewsModal from './FilteredReviewsModal';
+import ProgressBar from '@ramonak/react-progress-bar';
 
-const StarToolTip = ({ listingInfo }) => {
+const StarToolTip = ({ listingInfo, score }) => {
   const [showFilteredReviews, setShowFilteredReviews] = React.useState(false);
   const [filteredReviews, setFilteredReviews] = React.useState('');
   const totalReviews = listingInfo.reviews.length;
@@ -25,7 +25,7 @@ const StarToolTip = ({ listingInfo }) => {
 
   const prepareModal = (e) => {
     setShowFilteredReviews(true);
-    switch (e.target.title) {
+    switch (e.target.id) {
       case '1':
         setFilteredReviews(oneStar);
         break;
@@ -51,23 +51,34 @@ const StarToolTip = ({ listingInfo }) => {
       interactive="true"
       trigger="mouseenter"
       html={(
-      <div className="">
-        <div>{totalReviews} guest reviews</div>
+      <div className="w-50">
+        <div className="font-bold mb-2">{totalReviews} guest reviews</div>
         <div>
         {Object.values(starDistribution).map((value, idx) =>
-          <div key={idx + 1} className="flex gap-4 z-100 justify-evenly">
-           <div title={idx + 1} onClick={prepareModal}>{idx + 1} star:</div>
-           <div>{Math.round((value.length / totalReviews) * 100)} %</div>
-           <div className="justify-end">{value.length} total</div>
+          <div
+            key={idx + 1}
+            className="grid grid-cols-5 gap-1 z-100 mb-2"
+          >
+            <div id={idx + 1} onClick={prepareModal} className="underline col-start-1 text-sm cursor-pointer hover:text-red-400">{idx + 1} star:</div>
+            <div className="pl-3 pr-3 col-start-2 col-span-3">
+              <ProgressBar
+                bgColor='rgba(248, 113, 113)'
+                labelAlignment='left'
+                completed={Math.round((value.length / totalReviews) * 100)}
+                labelColor='#000000'
+              />
+            </div>
+            <div className="col-start-5 text-sm">{value.length} total</div>
           </div>
         )}
         </div>
       </div>
       )}
     >
-      <HiStar
-        className="text-red-400 text-xl"
-      />
+      <div className="flex items-center gap-2 cursor-pointer">
+        <HiStar className="text-red-400 text-xl" />
+        <p className="text-gray-600 font-medium text-2xl hover:text-red-400">{score}</p>
+      </div>
     </Tooltip>
     {showFilteredReviews && <FilteredReviewsModal
       reviews={filteredReviews}
@@ -81,5 +92,5 @@ export default StarToolTip;
 
 StarToolTip.propTypes = {
   listingInfo: PropTypes.object,
-  // ref: PropTypes.object
+  score: PropTypes.number
 }

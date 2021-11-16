@@ -180,7 +180,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
               <div className="text-center inline-block w-full max-w-md p-6 my-8  align-middle transition-all transform bg-white shadow-xl rounded-2xl overflow-visible">
                 <Dialog.Title
                   as="h3"
-                  className="text-xl font-medium leading-6 text-gray-900 flex"
+                  className="text-xl font-medium leading-6 text-gray-700 flex"
                 >
                   <div className="flex-1">
                     Publish Listing

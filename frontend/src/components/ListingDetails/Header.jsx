@@ -26,10 +26,7 @@ function Header ({ listingInfo }) {
         </p>
       </div>
       <div className="flex flex-col items-end">
-        <div className="flex items-center gap-2 ">
-          <StarToolTip listingInfo={listingInfo} />
-          <p className="text-gray-600 font-medium text-2xl">{score}</p>
-        </div>
+        <StarToolTip listingInfo={listingInfo} score={score} />
         <Link to="reviews" smooth={true} duration={1000}>
           <p className="text-sm text-gray-500 hover:text-red-400 cursor-pointer">{listingInfo.reviews.length} reviews</p>
         </Link>

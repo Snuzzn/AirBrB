@@ -49,9 +49,14 @@ const FilteredReviewsModal = ({ reviews, setShowFilteredReviews }) => {
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
+                  className="text-lg font-medium leading-6 text-gray-700 text-center flex"
                 >
-                  Payment successful
+                  <div className="flex-1">
+                    { reviews && `Viewing ${reviews[0].score} Star Reviews`}
+                  </div>
+                  <div onClick={closeModal} className="cursor-pointer">
+                    X
+                  </div>
                 </Dialog.Title>
                 { reviews && reviews.reverse().map((review, idx) => (
                   <>

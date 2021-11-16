@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@headlessui/react": "^1.4.1",
+    "@ramonak/react-progress-bar": "^4.1.0",
     "@reach/dialog": "^0.16.2",
     "@reach/menu-button": "^0.16.2",
     "@reach/tooltip": "^0.16.2",
