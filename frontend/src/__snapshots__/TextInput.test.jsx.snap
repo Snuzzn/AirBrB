@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput renders with minimal props 1`] = `
+<input
+  className="bg-gray-100 focus:bg-transparent w-full text-md block mt-2 p-2 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
+  onChange={[Function]}
+  placeholder="Please enter details"
+/>
+`;
+
+exports[`TextInput renders with provided placeholder and type 1`] = `
+<input
+  className="bg-gray-100 focus:bg-transparent w-full text-md block mt-2 p-2 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
+  onChange={[Function]}
+  placeholder="placeholder test"
+  type="text"
+/>
+`;
