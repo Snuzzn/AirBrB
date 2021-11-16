@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BsDot } from 'react-icons/bs';
+// import { BsDot } from 'react-icons/bs';
 import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
 import { IoMdStats } from 'react-icons/io';
 import { RiHotelBedLine } from 'react-icons/ri';
@@ -160,14 +160,17 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
             </div>
           </div>
           <div className="text-xl font-semibold text-black">{listing.title}</div>
-          <div className="inline-flex items-center">
-            <HiStar className="text-red-400 text-xl"/>
-            <div className="ml-2">
+            <div className="flex items-center">
+              <HiStar className="text-red-400 text-xl"/>
               <span className="font-italic text-black">{getScore()}</span>
               <span className="pl-1 text-black">({getNumReviews()})</span>
-              <BsDot className="inline pb-0.5" />
-              <span>{listing.address.street} ·</span>
-              <span> {listing.address.city}</span>
+            </div>
+          <div className="flex items-center pl-1 flex-wrap">
+            <div>
+              <span>{listing.address.street}</span>
+            </div>
+            <div className="ml-1">
+              <span>· {listing.address.city}</span>
             </div>
           </div>
           <hr className="mt-2 mb-2 w-20 border-gray-300 block" />
