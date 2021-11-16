@@ -15,7 +15,6 @@ import { Carousel } from 'react-responsive-carousel';
 const ListingDetails = () => {
   const [listingInfo, setListingInfo] = React.useState([]);
   const [newReview, setNewReview] = React.useState(false);
-
   const { id } = useParams();
   const navigate = useNavigate();
   React.useEffect(async () => {
