@@ -39,5 +39,4 @@ describe('Bedrooms', () => {
     const icon = <IoBedOutline className="text-5xl text-gray-600"/>
     expect(bedrooms.contains(icon)).toEqual(true)
   })
-
 })
