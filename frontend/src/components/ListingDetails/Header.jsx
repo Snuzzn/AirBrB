@@ -1,5 +1,4 @@
 import React from 'react'
-import { HiStar } from 'react-icons/hi'
 import { Link } from 'react-scroll'
 import StarToolTip from '../StarToolTip';
 import PropTypes from 'prop-types';
@@ -29,9 +28,6 @@ function Header ({ listingInfo }) {
       <div className="flex flex-col items-end">
         <div className="flex items-center gap-2 ">
           <StarToolTip listingInfo={listingInfo} />
-          <HiStar
-            className="text-red-400 text-xl"
-          />
           <p className="text-gray-600 font-medium text-2xl">{score}</p>
         </div>
         <Link to="reviews" smooth={true} duration={1000}>
