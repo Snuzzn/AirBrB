@@ -5,9 +5,10 @@ import Bedrooms from './components/ListingDetails/Bedrooms';
 
 describe('Bedrooms', () => {
   /**
-   * BookingInfoCard takes title, message, icon, and background colour to
-   * display the appropriate metric. It is used in the Booking Details page.
+   * Bedrooms takes in the listing info and uses the bedrooms list in the metadata to render each bedroom
+   * in the Listing Details page. This includes the name of the bedroom and the number of beds in it.
    */
+
   const listingInfo = { metadata: { bedrooms: [{ title: 'Room1', count: 2 }, { title: 'Room2', count: 4 }] } }
 
   it('renders 1st bedroom title', () => {
