@@ -98,7 +98,7 @@ const Login = ({ authenticate, storeEmail }) => {
                   <div className="flex-1">
                     Account Login
                   </div>
-                  <div onClick={closeModal} className="cursor-pointer">
+                  <div aria-label="exit login screen" onClick={closeModal} className="cursor-pointer">
                     X
                   </div>
                 </Dialog.Title>

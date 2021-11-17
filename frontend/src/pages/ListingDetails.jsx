@@ -46,11 +46,11 @@ const ListingDetails = () => {
           <Header listingInfo={listingInfo}/>
           <Carousel dynamicHeight={true}>
             <div className="">
-              <img className="rounded-xl" src={listingInfo.thumbnail} alt="" />
+              <img className="rounded-xl" src={listingInfo.thumbnail} alt="Thumbnail of your listing" />
             </div>
             {listingInfo.metadata.gallery && listingInfo.metadata.gallery.map((src, index) => (
               <div key={index}>
-                <img className="rounded-xl" src={src} alt="" />
+                <img className="rounded-xl" src={src} alt="Additional photo of your listing" />
               </div>))
             }
           </Carousel>

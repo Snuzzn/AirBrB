@@ -53,7 +53,7 @@ const FilteredReviewsModal = ({ reviews, setShowFilteredReviews }) => {
                   <div className="flex-1 mb-3">
                     { reviews && (reviews.length > 0 ? `Viewing ${reviews[0].score} Star Reviews` : 'No reviews for this rating exist!')}
                   </div>
-                  <div onClick={closeModal} className="cursor-pointer">
+                  <div aria-label="close reviews modal" onClick={closeModal} className="cursor-pointer">
                     X
                   </div>
                 </Dialog.Title>

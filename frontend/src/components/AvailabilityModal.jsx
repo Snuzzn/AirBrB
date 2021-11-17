@@ -185,7 +185,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                   <div className="flex-1">
                     Publish Listing
                   </div>
-                  <div onClick={closeModal} className="cursor-pointer">
+                  <div aria-label="close publishing modal" onClick={closeModal} className="cursor-pointer">
                     X
                   </div>
                 </Dialog.Title>
@@ -199,7 +199,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                 </div>
                 <div className="flex flex-row-reverse items-center justify-center gap-3 mb-2 text-gray-500">
                   <label>Add new date range</label>
-                  <BsPlusCircle className='hover:text-red-500 cursor-pointer' onClick={() => setAvailabilities([...availabilities, { start: '', end: ' ' }])} />
+                  <BsPlusCircle aria-label="add new date range" className='hover:text-red-500 cursor-pointer' onClick={() => setAvailabilities([...availabilities, { start: '', end: ' ' }])} />
                 </div>
                 {availabilities && availabilities.map((availability, index) => (
                   <>

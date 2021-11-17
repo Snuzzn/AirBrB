@@ -143,7 +143,7 @@ const Register = ({ authenticate, storeEmail }) => {
                   <div className="flex-1">
                     Create Account
                   </div>
-                  <div onClick={closeModal} className="cursor-pointer">
+                  <div aria-label="close login screen" onClick={closeModal} className="cursor-pointer">
                     X
                   </div>
                 </Dialog.Title>
