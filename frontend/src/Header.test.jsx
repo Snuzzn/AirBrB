@@ -52,13 +52,13 @@ describe('Header', () => {
 
   it('calculates average score and rounds to 2 decimal place', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
-    expect(header.find('#header-score').text()).toBe('3.5');
+    expect(header.find('#header-tooltip').prop('score')).toBe('3.5');
   })
 
   it('uses hyphen if no review scores exist', () => {
     listingInfo.reviews = [];
     const header = shallow(<Header listingInfo={listingInfo} />);
-    expect(header.find('#header-score').text()).toBe('-');
+    expect(header.find('#header-tooltip').prop('score')).toBe('-');
   })
 
   // Snapshots

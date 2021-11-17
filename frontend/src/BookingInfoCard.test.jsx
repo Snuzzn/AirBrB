@@ -38,7 +38,17 @@ describe('BookingInfoCard', () => {
 
   // Snapshots
   it('renders with minimal props', () => {
-    const button = renderer.create(<BookingInfoCard/>).toJSON();
-    expect(button).toMatchSnapshot();
+    const card = renderer.create(<BookingInfoCard/>).toJSON();
+    expect(card).toMatchSnapshot();
+  })
+
+  it('renders with provided data', () => {
+    const card = renderer.create(<BookingInfoCard
+      title='$30'
+      message='Yearly Profit'
+      icon={<HiCake/>}
+      bg="bg-red-200"
+    />).toJSON();
+    expect(card).toMatchSnapshot();
   })
 })
