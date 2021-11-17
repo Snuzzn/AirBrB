@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({ label, type, placeholder, setState }) => {
+const TextInput = ({ label, type, placeholder = 'Please enter details', setState }) => {
   return (
-    <>
       <input
         aria-label={label}
         className="bg-gray-100 focus:bg-transparent w-full text-md block mt-2 p-2 border rounded-lg focus:outline-none focus:ring focus:ring-red-300"
@@ -11,7 +10,6 @@ const TextInput = ({ label, type, placeholder, setState }) => {
         placeholder={placeholder}
         onChange={(e) => setState(e.target.value)}
       />
-    </>
   )
 }
 
