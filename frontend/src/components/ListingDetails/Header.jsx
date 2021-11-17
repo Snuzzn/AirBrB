@@ -1,9 +1,11 @@
 import React from 'react'
-import { HiStar } from 'react-icons/hi'
 import { Link } from 'react-scroll'
+import StarToolTip from '../StarToolTip';
 import PropTypes from 'prop-types';
 
 function Header ({ listingInfo }) {
+  // const [showStarToolTip, setShowStarToolTip] = React.useState(false);
+
   let score = 0
   listingInfo.reviews.forEach(element => {
     score += parseInt(element.score)
@@ -15,6 +17,7 @@ function Header ({ listingInfo }) {
   }
 
   return (
+    <>
     <div className="flex items-center  text-gray-700 justify-between">
       <div>
         <p className="text-3xl font-medium">{listingInfo.title}</p>
@@ -23,15 +26,13 @@ function Header ({ listingInfo }) {
         </p>
       </div>
       <div className="flex flex-col items-end">
-        <div className="flex items-center gap-2 ">
-          <HiStar className="text-red-400 text-xl"/>
-          <p className="text-gray-600 font-medium text-2xl">{score}</p>
-        </div>
+        <StarToolTip listingInfo={listingInfo} score={score} hostView={false} />
         <Link to="reviews" smooth={true} duration={1000}>
           <p className="text-sm text-gray-500 hover:text-red-400 cursor-pointer">{listingInfo.reviews.length} reviews</p>
         </Link>
       </div>
     </div>
+    </>
   )
 }
 

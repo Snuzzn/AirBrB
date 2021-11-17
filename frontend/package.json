@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@headlessui/react": "^1.4.1",
+    "@ramonak/react-progress-bar": "^4.1.0",
     "@reach/dialog": "^0.16.2",
     "@reach/menu-button": "^0.16.2",
     "@reach/tooltip": "^0.16.2",
@@ -23,7 +24,9 @@
     "react-scripts": "4.0.0",
     "react-scroll": "^1.8.4",
     "react-star-ratings": "^2.3.0",
+    "react-tippy": "^1.4.0",
     "react-toastify": "^8.1.0",
+    "react-tooltip": "^4.2.21",
     "react-use": "^17.3.1"
   },
   "scripts": {
