@@ -10,7 +10,7 @@ const UpcomingBookings = ({ userBookings }) => {
 
   return (
     <Popover className="relative">
-      <Popover.Button className="bg-red-400 p-3 text-white rounded-xl mt-3 w-full hover:bg-red-500">Upcoming Bookings</Popover.Button>
+      <Popover.Button className="border-red-400 border p-3 text-red-400 rounded-xl mt-3 w-full hover:bg-red-50">Upcoming Bookings</Popover.Button>
       <Transition
             as={Fragment}
             enter="transition ease-out duration-200"

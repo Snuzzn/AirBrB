@@ -2,8 +2,12 @@ import React from 'react'
 import { Link } from 'react-scroll'
 import StarToolTip from '../StarToolTip';
 import PropTypes from 'prop-types';
+import { IoChevronForwardOutline } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom';
 
 function Header ({ listingInfo }) {
+  const navigate = useNavigate();
+
   let score = 0
   listingInfo.reviews.forEach(element => {
     score += parseInt(element.score)
@@ -18,9 +22,10 @@ function Header ({ listingInfo }) {
     <>
     <div className="flex items-center  text-gray-700 justify-between">
       <div>
-        <p id="header-title" className="text-3xl font-medium">{listingInfo.title}</p>
-        <p id="header-street" className="text-gray-500">{listingInfo.address.street}
-          <span id="header-city" className="text-gray-500"> · {listingInfo.address.city}</span>
+        <p className="flex items-center text-sm text-gray-500"> <button onClick={() => navigate(-1)} className="hover:underline">Listings</button> <IoChevronForwardOutline className="inline m-0"/>Details</p>
+        <p className="text-3xl font-medium">{listingInfo.title}</p>
+        <p className="text-gray-500 ">{listingInfo.address.street}
+          <span className="text-gray-500"> · {listingInfo.address.city}</span>
         </p>
       </div>
       <div className="flex flex-col items-end">
