@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HiStar, HiUserCircle } from 'react-icons/hi'
+import { HiStar } from 'react-icons/hi'
 
 const GuestReview = ({ review }) => {
+  const src = `https://avatars.dicebear.com/api/gridy/${review.reviewer}.svg`
+
   return (
     <div className="flex gap-5 items-center">
       <div className="w-10 self-start">
-        <HiUserCircle size="3em" className="text-gray-600 " />
+        <img src={src} alt="" className="w-10 h-10 rounded-3xl p-2  bg-gray-200 " />
       </div>
       <div>
         <div className="flex gap-1">
