@@ -30,27 +30,26 @@ describe('Header', () => {
     ]
   }
 
-  
   it('renders with listing title', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
     expect(header.find('#header-title').text()).toBe(listingInfo.title);
   })
-  
+
   it('renders with listing street', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
     expect(header.find('#header-street').text()).toContain(listingInfo.address.street);
   })
-  
+
   it('renders with listing city', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
     expect(header.find('#header-city').text()).toContain(listingInfo.address.city);
   })
-  
+
   it('renders with number of reviews', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
     expect(header.find('#header-reviews').text()).toBe('2 reviews');
   })
-  
+
   it('calculates average score and rounds to 2 decimal place', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
     expect(header.find('#header-score').text()).toBe('3.5');
