@@ -11,7 +11,7 @@ exports[`LoginButton renders with minimal props 1`] = `
     Submit
   </div>
   <svg
-    alt="Submit login icon: arrow moving right"
+    aria-label="Submit login icon: arrow moving right"
     className="text-lg"
     fill="currentColor"
     height="1em"
@@ -44,7 +44,7 @@ exports[`LoginButton renders with provided text 1`] = `
     Submit
   </div>
   <svg
-    alt="Submit login icon: arrow moving right"
+    aria-label="Submit login icon: arrow moving right"
     className="text-lg"
     fill="currentColor"
     height="1em"

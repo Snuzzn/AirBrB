@@ -15,3 +15,5 @@
 
 ### Misc
 - Toasts for temporary error and success messages.
+- Randomly generated (but consistent) avatar (using Dicebear) for each user appears in nav bar and in reviews to uniquely identify users.
+- Can toggle the profit graph on and off
