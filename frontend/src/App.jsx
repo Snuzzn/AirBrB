@@ -12,6 +12,7 @@ import { displayToast } from './util/Toast';
 import ListingDetails from './pages/ListingDetails';
 import { StoreProvider } from './util/store';
 import BookingDetails from './pages/BookingDetails';
+import 'react-tippy/dist/tippy.css';
 
 // Initialise token state to what is stored in local storage
 const useLocalStorageState = (key, initialValue) => {

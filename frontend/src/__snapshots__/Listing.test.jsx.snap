@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Listing renders with minimal props 1`] = `
+Array [
+  <div
+    className="relative -mb-8 text-right pr-4 cursor"
+  >
+    <span
+      className="bg-red-400 cursor-default text-white rounded-xl transit pb-1 pt-1 pl-2 pr-2 transition duration-500 ease-in-out hover:text-red-400 hover:bg-white"
+      id="listing-price"
+    >
+      $
+    </span>
+  </div>,
+  <div
+    className=""
+  >
+    <img
+      alt="Image of a your listing"
+      className="object-cover h-60 w-80 rounded-2xl"
+    />
+  </div>,
+  <div
+    className="relative mt-1 flex justify-between pl-2 pr-2"
+  >
+    <div
+      className="text-lg"
+    />
+    <div
+      className="flex flex-row text-center items-center text-gray-500"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        aria-label="Number of reviews"
+        className="inline-block pr-1 text-lg"
+        id="review-length"
+      >
+        0
+      </span>
+      <svg
+        fill="currentColor"
+        height="1em"
+        id="review-number-icon"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>
+          Icon representing number of reviews
+        </title>
+        <path
+          d="M0 0h24v24H0V0z"
+          fill="none"
+        />
+        <path
+          d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17l-.59.59-.58.58V4h16v12zm-9.5-2H18v-2h-5.5zm3.86-5.87c.2-.2.2-.51 0-.71l-1.77-1.77c-.2-.2-.51-.2-.71 0L6 11.53V14h2.47l5.89-5.87z"
+        />
+      </svg>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Listing renders with provided props 1`] = `
+Array [
+  <div
+    className="relative -mb-8 text-right pr-4 cursor"
+  >
+    <span
+      className="bg-red-400 cursor-default text-white rounded-xl transit pb-1 pt-1 pl-2 pr-2 transition duration-500 ease-in-out hover:text-red-400 hover:bg-white"
+      id="listing-price"
+    >
+      $
+      150
+    </span>
+  </div>,
+  <div
+    className=""
+  >
+    <img
+      alt="Image of a your listing"
+      className="object-cover h-60 w-80 rounded-2xl"
+      src="I am a thumbnail!"
+    />
+  </div>,
+  <div
+    className="relative mt-1 flex justify-between pl-2 pr-2"
+  >
+    <div
+      className="text-lg"
+    >
+      Cool house!
+    </div>
+    <div
+      className="flex flex-row text-center items-center text-gray-500"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        aria-label="Number of reviews"
+        className="inline-block pr-1 text-lg"
+        id="review-length"
+      >
+        2
+      </span>
+      <svg
+        fill="currentColor"
+        height="1em"
+        id="review-number-icon"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>
+          Icon representing number of reviews
+        </title>
+        <path
+          d="M0 0h24v24H0V0z"
+          fill="none"
+        />
+        <path
+          d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17l-.59.59-.58.58V4h16v12zm-9.5-2H18v-2h-5.5zm3.86-5.87c.2-.2.2-.51 0-.71l-1.77-1.77c-.2-.2-.51-.2-.71 0L6 11.53V14h2.47l5.89-5.87z"
+        />
+      </svg>
+    </div>
+  </div>,
+]
+`;

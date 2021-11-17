@@ -9,8 +9,10 @@
 - When a booking is made, celebratory confetti appears on screen. Bookings also appear in a dynamic popover underneath the 'Book Now' button, with booking statuses appropriately colour-coded.
 
 ## Reviews
-- Implemented star rating system for reviews instead of numbers.
+- Uses stars to display review scores instead of numerical values.
 - Adds reviewer to the review display.
+- Bar graph used to display percentage distribution of ratings on hover of star rating at top of Listing Details page and on star ratings displayed on Host Listings page
 
 ### Misc
 - Toasts for temporary error and success messages.
+- Can toggle the profit graph on and off
