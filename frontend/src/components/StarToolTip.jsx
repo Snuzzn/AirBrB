@@ -60,7 +60,7 @@ const StarToolTip = ({ listingInfo, score, hostView }) => {
             key={idx + 1}
             className="grid grid-cols-5 gap-1 z-10 mb-2"
           >
-            <div id={idx + 1} onClick={prepareModal} className="underline col-start-1 text-sm cursor-pointer hover:text-red-400">{idx + 1} star:</div>
+            <div aria-haspopup="dialog" id={idx + 1} onClick={prepareModal} className="underline col-start-1 text-sm cursor-pointer hover:text-red-400">{idx + 1} star:</div>
             <div className="pl-3 pr-3 col-start-2 col-span-3">
               <ProgressBar
                 bgColor='rgba(248, 113, 113)'

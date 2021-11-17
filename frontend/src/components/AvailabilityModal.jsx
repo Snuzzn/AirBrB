@@ -212,6 +212,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                           onChange={(e) => handleStartDate(e)}
                           title={index}
                           name="startDate"
+                          aria-label="start date for availability window"
                         />
                     </div>
                       <div className="row-start-2 grid grid-cols-2 text-left pt-1">
@@ -222,6 +223,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                           title={index}
                           onChange={(e) => handleEndDate(e)}
                           name="endDate"
+                          aria-label="end date for availability window"
                         />
                       </div>
                     </div>
@@ -234,6 +236,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                   <LoginButton
                     handleClick={publish}
                     buttonText={'Publish'}
+                    label={'Publish listing button'}
                   />
                 </div>
               </div>

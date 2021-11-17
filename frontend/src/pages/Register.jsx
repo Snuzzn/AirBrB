@@ -183,7 +183,7 @@ const Register = ({ authenticate, storeEmail }) => {
                 </div>
 
                 <div className="mt-4">
-                  <LoginButton handleClick={submitRegistration} buttonText={'Sign up'} />
+                  <LoginButton handleClick={submitRegistration} buttonText={'Sign up'} label={'Sign up button'} />
                 </div>
               </div>
             </Transition.Child>

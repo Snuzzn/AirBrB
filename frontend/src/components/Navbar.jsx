@@ -12,7 +12,7 @@ export default function Navbar ({ tokenState, deauthenticate }) {
     { icon: <AiOutlineSearch alt="All listings icon: city icon"/>, text: 'All Listings', to: '/listings', loggedIn: true },
     { icon: <AiOutlineHome alt="Your listings Icon: house icon"/>, text: 'Your Listings', to: '/hosted-listings', loggedIn: true },
     { icon: <AiOutlineLogout alt='Logout icon: arrow leaving circle' id="button-logout" />, text: 'Logout', loggedIn: true, onClick: deauthenticate }]
-  const userIcon = <HiUserCircle size="2em" className="text-gray-600" alt="genericUserIcon"/>
+  const userIcon = <HiUserCircle size="2em" className="text-gray-600" alt="your avatar"/>
   return (
     <nav className="bg-white shadow-md px-3 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <Link to=""><img className="mr-auto lg:block h-7 w-auto" src={logo} alt="AirBrB logo: eye with house inside iris"/></Link>

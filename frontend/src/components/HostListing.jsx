@@ -126,6 +126,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
               {!published
                 ? <button
                 aria-label="publish listing"
+                aria-haspopup="dialog"
                 name="publish"
                 onClick={handlePublishClick}
                 onMouseEnter={() => setShowTooltip(true)}

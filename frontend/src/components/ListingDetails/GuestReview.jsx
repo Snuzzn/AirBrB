@@ -8,7 +8,7 @@ const GuestReview = ({ review }) => {
   return (
     <div className="flex gap-5 items-center">
       <div className="w-10 self-start">
-        <img src={src} alt="" className="w-10 h-10 rounded-3xl p-2  bg-gray-200 " />
+        <img src={src} alt="your avatar" className="w-10 h-10 rounded-3xl p-2  bg-gray-200 " />
       </div>
       <div>
         <div className="flex gap-1">

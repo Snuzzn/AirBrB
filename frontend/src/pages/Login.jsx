@@ -125,7 +125,7 @@ const Login = ({ authenticate, storeEmail }) => {
                 </div>
 
                 <div className="mt-4">
-                  <LoginButton handleClick={submitLogin} buttonText={'Log in'} />
+                  <LoginButton handleClick={submitLogin} buttonText={'Log in'} label={'Log in button'} />
                 </div>
               </div>
             </Transition.Child>

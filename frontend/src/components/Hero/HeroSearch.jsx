@@ -184,7 +184,7 @@ function HeroSearch ({ setDisplayedListings, allListings }) {
                   </div>
                 </Popover.Panel>
               </Popover>
-              <button className="bg-red-400 p-3 text-white rounded-lg hover:bg-red-400 flex items-center gap-2">
+              <button aria-label="search" className="bg-red-400 p-3 text-white rounded-lg hover:bg-red-400 flex items-center gap-2">
                 { isSearching
                   ? (
                     <>
