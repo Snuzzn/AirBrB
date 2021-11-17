@@ -2,7 +2,7 @@ import React from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 
-const LoginButton = ({ handleClick, buttonText = 'Submit' }) => {
+const LoginButton = ({ handleClick, buttonText = 'Submit', label }) => {
   return (
     <button
     type="button"
@@ -21,5 +21,5 @@ export default LoginButton;
 
 LoginButton.propTypes = {
   handleClick: PropTypes.func,
-  buttonText: PropTypes.string
+  buttonText: PropTypes.string,
 }

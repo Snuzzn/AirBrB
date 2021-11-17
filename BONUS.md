@@ -32,3 +32,4 @@
 
 ### Misc
 - Toasts for temporary error and success messages. 
+- Date pickers used for all date fields so that the user can use a calendar to select dates.
