@@ -21,11 +21,11 @@ function Bedrooms ({ bedrooms, setBedrooms }) {
         <div key={index} className="flex gap-5 items-center ">
           <div className="flex flex-col gap-1 justify-center">
             <label className="text-sm text-gray-600">Name</label>
-            <input type="text" value={bedrooms[index].title} onChange={(e) => handleBedroomChange(e, index, true)} required className="p-2 border border-gray-300 rounded-lg" />
+            <input type="text" name="bedroom" value={bedrooms[index].title} onChange={(e) => handleBedroomChange(e, index, true)} required className="p-2 border border-gray-300 rounded-lg" />
           </div>
           <div className="flex flex-col gap-1 justify-center">
             <label className="text-sm text-gray-600">No. of beds</label>
-            <input type="number" value={bedrooms[index].count} onChange={(e) => handleBedroomChange(e, index, false)} required className="p-2 border border-gray-300 rounded-lg w-24" />
+            <input type="number" name="numBeds" value={bedrooms[index].count} onChange={(e) => handleBedroomChange(e, index, false)} required className="p-2 border border-gray-300 rounded-lg w-24" />
           </div>
         </div>
       ))}

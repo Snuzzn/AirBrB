@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function Navbar ({ tokenState, deauthenticate }) {
-  const userOptions = [{ icon: <AiOutlineUserAdd alt="Register icon: user being added"/>, text: 'Register', to: '/register', loggedIn: false },
-    { icon: <AiOutlineLogin alt="Login icon: arrow entering circle"/>, text: 'Login', to: '/login', loggedIn: false },
+  const userOptions = [{ icon: <AiOutlineUserAdd id="button-register" alt="Register icon: user being added"/>, text: 'Register', to: '/register', loggedIn: false },
+    { icon: <AiOutlineLogin alt="Login icon: arrow entering circle" id="button-login"/>, text: 'Login', to: '/login', loggedIn: false },
     { icon: <AiOutlineSearch alt="All listings icon: city icon"/>, text: 'All Listings', to: '/listings', loggedIn: true },
     { icon: <AiOutlineHome alt="Your listings Icon: house icon"/>, text: 'Your Listings', to: '/hosted-listings', loggedIn: true },
-    { icon: <AiOutlineLogout alt='Logout icon: arrow leaving circle' />, text: 'Logout', loggedIn: true, onClick: deauthenticate }]
+    { icon: <AiOutlineLogout alt='Logout icon: arrow leaving circle' id="button-logout" />, text: 'Logout', loggedIn: true, onClick: deauthenticate }]
   const userIcon = <HiUserCircle size="2em" className="text-gray-600" alt="genericUserIcon"/>
   return (
     <nav className="bg-white shadow-md px-3 sm:px-6 lg:px-8 flex items-center justify-between h-16">

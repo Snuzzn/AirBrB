@@ -31,10 +31,10 @@ export default function Dropdown ({ title, options, tokenState }) {
 
   return (
     <Menu>
-      <MenuButton>
+      <MenuButton id='open-dropdown'>
         {title}
       </MenuButton>
-        <MenuList className="bg-gray-100 p-4 rounded-lg animate-wiggle">
+        <MenuList id='dropdown-menu' className="bg-gray-100 p-4 rounded-lg animate-wiggle">
             {options.filter(filterForAuthentication)
               .map((item, index) => <Link key={index} to={item.to ? item.to : ''}>
                   <MenuItem
