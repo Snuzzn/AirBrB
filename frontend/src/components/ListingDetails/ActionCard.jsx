@@ -135,6 +135,7 @@ function ActionCard ({ listingInfo, listingId }) {
       </div>
       <button
         name="make-booking"
+        aria-label="make booking"
         className="bg-red-400 p-3 text-white rounded-xl mt-1 w-full hover:bg-red-500"
         onClick={makeNewBooking}
       >

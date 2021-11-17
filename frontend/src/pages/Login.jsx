@@ -97,7 +97,7 @@ const Login = ({ authenticate, storeEmail }) => {
                   <div className="flex-1">
                     Account Login
                   </div>
-                  <div onClick={closeModal} className="cursor-pointer">
+                  <div aria-label="exit login screen" onClick={closeModal} className="cursor-pointer">
                     X
                   </div>
                 </Dialog.Title>
@@ -125,7 +125,7 @@ const Login = ({ authenticate, storeEmail }) => {
                 </div>
 
                 <div className="mt-4">
-                  <LoginButton handleClick={submitLogin} buttonText={'Log in'} />
+                  <LoginButton handleClick={submitLogin} buttonText={'Log in'} label={'Log in button'} />
                 </div>
               </div>
             </Transition.Child>

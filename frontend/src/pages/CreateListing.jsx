@@ -55,7 +55,7 @@ const CreateListing = () => {
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
         <Amenities amenities={amenities} setAmenities={setAmenities} />
         <ImageUpload images={images} setImages={setImages}/>
-        <button id="submit-new-listing" className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Add listing</button>
+        <button aria-label='Add listing' id="submit-new-listing" className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Add listing</button>
       </form>
       </div>
 

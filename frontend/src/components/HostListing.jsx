@@ -124,8 +124,9 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
             <div>{metadata.type}</div>
             <div>
               {!published
-                ? <div
-                aria-label="publish"
+                ? <button
+                aria-label="publish listing"
+                aria-haspopup="dialog"
                 name="publish"
                 onClick={handlePublishClick}
                 onMouseEnter={() => setShowTooltip(true)}
@@ -140,9 +141,9 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
                     setPublished={setPublished}
                     setShowTooltip={setShowTooltip}
                   />}
-                </div>
-                : <div
-                  aria-label="unpublish"
+                </button>
+                : <button
+                  aria-label="unpublish listing"
                   name="unpublish"
                   onClick={handleUnpublishClick}
                   onMouseEnter={() => setShowTooltip(true)}
@@ -150,17 +151,17 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
                   className="animate-pulse  inline-block cursor-pointer font-light text-green-500 hover:text-red-400">
                   {showTooltip && <span className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black -mt-8">Unpublish Listing</span>}
                   <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
-                </div>
+                </button>
               }
               <Link to={`${listingId}`} className="inline cursor-pointer hover:text-gray-800">
                 <IoMdStats className="inline text-xl mr-3 pointer-events-none" />
               </Link>
-              <div aria-label="edit-listing" name="edit-listing" onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
+              <button aria-label="edit listing" name="edit-listing" onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
-              </div>
-              <div aria-label="delete-listing" name="delete-listing" onClick={deleteListing} className="inline cursor-pointer hover:text-gray-800">
+              </button>
+              <button aria-label="delete listing" name="delete-listing" onClick={deleteListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiTrash className="inline text-xl pointer-events-none" />
-              </div>
+              </button>
             </div>
           </div>
           <div className="text-xl font-semibold text-black">{listing.title}</div>

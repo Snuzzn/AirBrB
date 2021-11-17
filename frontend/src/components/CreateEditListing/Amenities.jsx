@@ -16,7 +16,7 @@ function Amenities ({ amenities, setAmenities }) {
           {amenities.map((item, index) => (
           <div key={item.text} className="flex gap-4 items-center">
             <input type="checkbox" checked={amenities[index].isChecked}
-              onChange={(e) => changeAmenities(index)}
+              onChange={(e) => changeAmenities(index)} aria-label="select amenity"
               name="amenities" value={item.text} className="cursor-pointer" id={item.text} />
             <label htmlFor={item.text} className="text-gray-500 cursor-pointer">{item.text}</label>
           </div>))}
