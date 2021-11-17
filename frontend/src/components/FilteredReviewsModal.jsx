@@ -50,7 +50,7 @@ const FilteredReviewsModal = ({ reviews, setShowFilteredReviews }) => {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-700 text-center flex"
                 >
-                  <div className="flex-1">
+                  <div className="flex-1 mb-3">
                     { reviews && (reviews.length > 0 ? `Viewing ${reviews[0].score} Star Reviews` : 'No reviews for this rating exist!')}
                   </div>
                   <div onClick={closeModal} className="cursor-pointer">
