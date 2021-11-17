@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bedrooms renders all data 1`] = `
+<div
+  className="flex gap-4"
+>
+  <div
+    className="h-40 w-60 border p-4 rounded-xl flex flex-col justify-evenly"
+  >
+    <svg
+      className="text-5xl text-gray-600"
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+        }
+      }
+      viewBox="0 0 512 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M384 240H96V136a40.12 40.12 0 0140-40h240a40.12 40.12 0 0140 40v104zM48 416V304a64.19 64.19 0 0164-64h288a64.19 64.19 0 0164 64v112"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
+      />
+      <path
+        d="M48 416v-8a24.07 24.07 0 0124-24h368a24.07 24.07 0 0124 24v8M112 240v-16a32.09 32.09 0 0132-32h80a32.09 32.09 0 0132 32v16m0 0v-16a32.09 32.09 0 0132-32h80a32.09 32.09 0 0132 32v16"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
+      />
+    </svg>
+    <div>
+      <p
+        className="text-lg text-gray-700"
+        id="Room1"
+      >
+        Room1
+      </p>
+      <p
+        className="text-gray-600 font-light"
+        id="Room1count"
+      >
+        2
+         beds
+      </p>
+    </div>
+  </div>
+  <div
+    className="h-40 w-60 border p-4 rounded-xl flex flex-col justify-evenly"
+  >
+    <svg
+      className="text-5xl text-gray-600"
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+        }
+      }
+      viewBox="0 0 512 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M384 240H96V136a40.12 40.12 0 0140-40h240a40.12 40.12 0 0140 40v104zM48 416V304a64.19 64.19 0 0164-64h288a64.19 64.19 0 0164 64v112"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
+      />
+      <path
+        d="M48 416v-8a24.07 24.07 0 0124-24h368a24.07 24.07 0 0124 24v8M112 240v-16a32.09 32.09 0 0132-32h80a32.09 32.09 0 0132 32v16m0 0v-16a32.09 32.09 0 0132-32h80a32.09 32.09 0 0132 32v16"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
+      />
+    </svg>
+    <div>
+      <p
+        className="text-lg text-gray-700"
+        id="Room2"
+      >
+        Room2
+      </p>
+      <p
+        className="text-gray-600 font-light"
+        id="Room2count"
+      >
+        4
+         beds
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Bedrooms renders no props 1`] = `
+<div
+  className="flex gap-4"
+/>
+`;

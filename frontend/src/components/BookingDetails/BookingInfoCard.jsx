@@ -7,12 +7,12 @@ function BookingInfoCard ({ title, message, icon, bg }) {
     <div className="flex flex-col h-96 lg:h-36 lg:flex-row w-full gap-5">
       <div className="bg-white  rounded-lg shadow flex-1 flex justify-start">
         <div className="flex gap-6 items-center ml-9">
-          <div className={bg + ' p-5 rounded-2xl'}>
+          <div className={bg + ' p-5 rounded-2xl'} id="bookingMetricIcon">
             {icon}
           </div>
           <div className="">
-            <p className="text-gray-500 font-light text-sm">{title}</p>
-            <p className="text-xl font-bold">{message}</p>
+            <p className="text-gray-500 font-light text-sm" id="bookingMetricText">{title}</p>
+            <p className="text-xl font-bold" id="bookingMetricMessage">{message}</p>
           </div>
         </div>
       </div>
