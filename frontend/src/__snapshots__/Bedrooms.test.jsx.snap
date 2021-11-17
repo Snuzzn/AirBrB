@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bedrooms renders with minimal props 1`] = `
+exports[`Bedrooms renders all data 1`] = `
 <div
   className="flex gap-4"
 >
@@ -103,4 +103,10 @@ exports[`Bedrooms renders with minimal props 1`] = `
     </div>
   </div>
 </div>
+`;
+
+exports[`Bedrooms renders no props 1`] = `
+<div
+  className="flex gap-4"
+/>
 `;

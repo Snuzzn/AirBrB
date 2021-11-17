@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { IoBedOutline } from 'react-icons/io5'
 import Bedrooms from './components/ListingDetails/Bedrooms';
+import renderer from 'react-test-renderer';
 
 describe('Bedrooms', () => {
   /**
@@ -39,5 +40,17 @@ describe('Bedrooms', () => {
     const bedrooms = shallow(<Bedrooms listingInfo={listingInfo} />)
     const icon = <IoBedOutline className="text-5xl text-gray-600"/>
     expect(bedrooms.contains(icon)).toEqual(true)
+  })
+
+  // Snapshot
+  it('renders no props', () => {
+    const minInfo = { metadata: { bedrooms: [] } }
+    const bedrooms = renderer.create(<Bedrooms listingInfo={minInfo} />).toJSON()
+    expect(bedrooms).toMatchSnapshot();
+  })
+
+  it('renders all data', () => {
+    const bedrooms = renderer.create(<Bedrooms listingInfo={listingInfo} />).toJSON()
+    expect(bedrooms).toMatchSnapshot();
   })
 })

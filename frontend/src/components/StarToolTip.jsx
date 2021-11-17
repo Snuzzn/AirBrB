@@ -52,7 +52,7 @@ const StarToolTip = ({ listingInfo, score, hostView }) => {
       interactive="true"
       trigger="mouseenter"
       html={(listingInfo.reviews.length > 0
-        ? <div className="w-60 rounded-xl">
+        ? <div>
         <div className="font-bold mb-2">{totalReviews} guest reviews</div>
         <div>
         {Object.values(starDistribution).map((value, idx) =>
@@ -93,6 +93,6 @@ export default StarToolTip;
 
 StarToolTip.propTypes = {
   listingInfo: PropTypes.object,
-  score: PropTypes.number,
+  score: PropTypes.string,
   hostView: PropTypes.bool
 }

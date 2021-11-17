@@ -12,7 +12,7 @@ const LoginButton = ({ handleClick, buttonText = 'Submit' }) => {
       <div className="flex-1">
         {buttonText}
       </div>
-      <AiOutlineArrowRight className="text-lg" alt="Submit login icon: arrow moving right" />
+      <AiOutlineArrowRight className="text-lg" aria-label="Submit login icon: arrow moving right" />
     </button>
   )
 }

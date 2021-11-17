@@ -14,5 +14,5 @@ const ReviewSummary = ({ score }) => {
 export default ReviewSummary;
 
 ReviewSummary.propTypes = {
-  score: PropTypes.number
+  score: PropTypes.string
 }

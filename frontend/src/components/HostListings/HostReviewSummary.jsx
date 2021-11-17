@@ -14,5 +14,5 @@ const HostReviewSummary = ({ score }) => {
 export default HostReviewSummary;
 
 HostReviewSummary.propTypes = {
-  score: PropTypes.number
+  score: PropTypes.string
 }
