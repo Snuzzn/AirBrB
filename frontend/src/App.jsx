@@ -13,6 +13,7 @@ import ListingDetails from './pages/ListingDetails';
 import { StoreProvider } from './util/store';
 import BookingDetails from './pages/BookingDetails';
 import 'react-tippy/dist/tippy.css';
+import { FetchAPI } from './util/FetchAPI';
 
 // Initialise token state to what is stored in local storage
 const useLocalStorageState = (key, initialValue) => {
@@ -45,11 +46,22 @@ function App () {
   }
 
   const navigate = useNavigate();
-  const deauthenticate = () => {
-    setStoredEmail('');
-    setStoredToken('');
-    navigate('/');
-    displayToast('Successfully logged out!', 'success');
+  const deauthenticate = async () => {
+    const res = await FetchAPI('/user/auth/logout', 'POST', '', JSON.parse(localStorage.getItem('token')));
+    switch (res.status) {
+      case 403:
+        displayToast(res.error);
+        break;
+      case 200:
+        setStoredEmail('');
+        setStoredToken('');
+        navigate('/');
+        displayToast('Successfully logged out!', 'success');
+        break;
+      default:
+        displayToast('Something went wrong!');
+        break;
+    }
   }
 
   return (

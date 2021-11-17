@@ -125,6 +125,8 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
             <div>
               {!published
                 ? <div
+                aria-label="publish"
+                name="publish"
                 onClick={handlePublishClick}
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
@@ -140,6 +142,8 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
                   />}
                 </div>
                 : <div
+                  aria-label="unpublish"
+                  name="unpublish"
                   onClick={handleUnpublishClick}
                   onMouseEnter={() => setShowTooltip(true)}
                   onMouseLeave={() => setShowTooltip(false)}
@@ -151,10 +155,10 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
               <Link to={`${listingId}`} className="inline cursor-pointer hover:text-gray-800">
                 <IoMdStats className="inline text-xl mr-3 pointer-events-none" />
               </Link>
-              <div onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
+              <div aria-label="edit-listing" name="edit-listing" onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </div>
-              <div onClick={deleteListing} className="inline cursor-pointer hover:text-gray-800">
+              <div aria-label="delete-listing" name="delete-listing" onClick={deleteListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiTrash className="inline text-xl pointer-events-none" />
               </div>
             </div>

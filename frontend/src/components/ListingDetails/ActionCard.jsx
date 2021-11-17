@@ -114,6 +114,7 @@ function ActionCard ({ listingInfo, listingId }) {
           <p className="text-gray-500">Check in</p>
           <input
             aria-label='Start date for your booking'
+            name="startDate"
             placeholder="Add date"
             className="w-full focus:outline-none rounded text-gray-500 bg-white"
             type="date"
@@ -124,6 +125,7 @@ function ActionCard ({ listingInfo, listingId }) {
           <p className="text-gray-500">Check out</p>
           <input
             aria-label='End date for your booking'
+            name="endDate"
             className="w-full focus:outline-none rounded text-gray-500 bg-white"
             placeholder="Add date"
             type="date"
@@ -132,6 +134,7 @@ function ActionCard ({ listingInfo, listingId }) {
         </div>
       </div>
       <button
+        name="make-booking"
         className="bg-red-400 p-3 text-white rounded-xl mt-1 w-full hover:bg-red-500"
         onClick={makeNewBooking}
       >

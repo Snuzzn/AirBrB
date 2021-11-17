@@ -30,7 +30,7 @@ function ImageUpload ({ images, setImages }) {
     <>
       <div className="flex flex-col gap-1 justify-center">
         <label>Photo Thumbnail</label>
-        <div {...getRootProps()} className="flex flex-col items-center justify-center p-3 h-50 rounded-lg border-2 border-dashed border-blue-200  bg-blue-50">
+        <div {...getRootProps()} id="file-upload" className="flex flex-col items-center justify-center p-3 h-50 rounded-lg border-2 border-dashed border-blue-200  bg-blue-50">
           { isDragActive ? <AiFillFolderOpen size="3em" className="text-blue-400"/> : <AiFillFolder size="3em" className="text-blue-200"/> }
           <p className="text-sm text-gray-500">Drag and drop file here</p>
           <p className="text-sm my-2 text-gray-400">OR</p>
@@ -46,7 +46,7 @@ function ImageUpload ({ images, setImages }) {
             {images.map((image, index) => (
               <div key={index} className="relative">
                 <img src={image} className="object-cover w-full h-full rounded-lg shadow"/>
-                <AiFillMinusCircle className="text-white text-lg absolute top-1 right-1 hover:text-red-300 cursor-pointer"
+                <AiFillMinusCircle name="delete-image" className="text-white text-lg absolute top-1 right-1 hover:text-red-300 cursor-pointer"
                   onClick={() => removeImage(index)}/>
               </div>))
             }
