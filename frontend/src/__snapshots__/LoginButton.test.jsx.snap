@@ -3,7 +3,7 @@
 exports[`LoginButton renders with minimal props 1`] = `
 <button
   className="items-center flex justify-center w-full px-4 py-2 text-sm bg-red-300 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-  type="button"
+  type="submit"
 >
   <div
     className="flex-1"
@@ -36,7 +36,7 @@ exports[`LoginButton renders with minimal props 1`] = `
 exports[`LoginButton renders with provided text 1`] = `
 <button
   className="items-center flex justify-center w-full px-4 py-2 text-sm bg-red-300 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-  type="button"
+  type="submit"
 >
   <div
     className="flex-1"

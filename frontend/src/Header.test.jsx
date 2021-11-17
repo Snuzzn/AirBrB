@@ -60,10 +60,4 @@ describe('Header', () => {
     const header = shallow(<Header listingInfo={listingInfo} />);
     expect(header.find('#header-tooltip').prop('score')).toBe('-');
   })
-
-  // Snapshots
-  it('renders with all listing info data', () => {
-    const header = renderer.create(<Header listingInfo={listingInfo} />).toJSON();
-    expect(header).toMatchSnapshot();
-  })
 })

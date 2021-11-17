@@ -6,13 +6,48 @@ exports[`Header renders with all listing info data 1`] = `
 >
   <div>
     <p
+      className="flex items-center text-sm text-gray-500"
+    >
+       
+      <button
+        className="hover:underline"
+      >
+        Listings
+      </button>
+       
+      <svg
+        className="inline m-0"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 512 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M184 112l144 144-144 144"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="48"
+        />
+      </svg>
+      Details
+    </p>
+    <p
       className="text-3xl font-medium"
       id="header-title"
     >
       Simpsons Residence
     </p>
     <p
-      className="text-gray-500"
+      className="text-gray-500 "
       id="header-street"
     >
       742 Evergreen Terrace
