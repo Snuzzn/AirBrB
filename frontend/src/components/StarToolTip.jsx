@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
-import { HiStar } from 'react-icons/hi';
 import FilteredReviewsModal from './FilteredReviewsModal';
 import ProgressBar from '@ramonak/react-progress-bar';
+import ReviewSummary from './ListingDetails/ReviewSummary';
+import HostReviewSummary from './HostListings/HostReviewSummary';
 
-const StarToolTip = ({ listingInfo, score }) => {
+const StarToolTip = ({ listingInfo, score, hostView }) => {
   const [showFilteredReviews, setShowFilteredReviews] = React.useState(false);
   const [filteredReviews, setFilteredReviews] = React.useState('');
   const totalReviews = listingInfo.reviews.length;
@@ -50,14 +51,14 @@ const StarToolTip = ({ listingInfo, score }) => {
       position="left"
       interactive="true"
       trigger="mouseenter"
-      html={(
-      <div className="w-50">
+      html={(listingInfo.reviews.length > 0
+        ? <div className="w-50">
         <div className="font-bold mb-2">{totalReviews} guest reviews</div>
         <div>
         {Object.values(starDistribution).map((value, idx) =>
           <div
             key={idx + 1}
-            className="grid grid-cols-5 gap-1 z-100 mb-2"
+            className="grid grid-cols-5 gap-1 z-10 mb-2"
           >
             <div id={idx + 1} onClick={prepareModal} className="underline col-start-1 text-sm cursor-pointer hover:text-red-400">{idx + 1} star:</div>
             <div className="pl-3 pr-3 col-start-2 col-span-3">
@@ -73,11 +74,11 @@ const StarToolTip = ({ listingInfo, score }) => {
         )}
         </div>
       </div>
+        : <div>No reviews exist yet!</div>
       )}
     >
       <div className="flex items-center gap-2 cursor-pointer">
-        <HiStar className="text-red-400 text-xl" />
-        <p className="text-gray-600 font-medium text-2xl hover:text-red-400">{score}</p>
+        {hostView ? <HostReviewSummary score={score} /> : <ReviewSummary score={score} />}
       </div>
     </Tooltip>
     {showFilteredReviews && <FilteredReviewsModal
@@ -92,5 +93,6 @@ export default StarToolTip;
 
 StarToolTip.propTypes = {
   listingInfo: PropTypes.object,
-  score: PropTypes.number
+  score: PropTypes.number,
+  hostView: PropTypes.bool
 }

@@ -9,7 +9,7 @@ import { FetchAPI } from '../util/FetchAPI';
 import { useNavigate, Link } from 'react-router-dom';
 import { displayToast } from '../util/Toast';
 import AvailabilityModal from './AvailabilityModal';
-import { HiStar } from 'react-icons/hi'
+import StarToolTip from './StarToolTip';
 
 const HostListing = ({ listing, setRefresh, refresh }) => {
   const [metadata, setMetadata] = React.useState({});
@@ -161,8 +161,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
           </div>
           <div className="text-xl font-semibold text-black">{listing.title}</div>
             <div className="flex items-center">
-              <HiStar className="text-red-400 text-xl"/>
-              <span className="font-italic text-black">{getScore()}</span>
+              <StarToolTip listingInfo={listing} score={getScore()} hostView={true} />
               <span className="pl-1 text-black">({getNumReviews()})</span>
             </div>
           <div className="flex items-center pl-1 flex-wrap">

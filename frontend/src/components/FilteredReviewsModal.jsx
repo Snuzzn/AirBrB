@@ -16,20 +16,19 @@ const FilteredReviewsModal = ({ reviews, setShowFilteredReviews }) => {
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-100 overflow-y-auto"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}
-              enter="ease-out duration-300"
               enterFrom="opacity-0"
               enterTo="opacity-100"
               leave="ease-in duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0" />
+              <Dialog.Overlay className="fixed inset-0 opacity-40 bg-gray-500" />
             </Transition.Child>
             <span
               className="inline-block h-screen align-middle"
@@ -52,13 +51,13 @@ const FilteredReviewsModal = ({ reviews, setShowFilteredReviews }) => {
                   className="text-lg font-medium leading-6 text-gray-700 text-center flex"
                 >
                   <div className="flex-1">
-                    { reviews && `Viewing ${reviews[0].score} Star Reviews`}
+                    { reviews && (reviews.length > 0 ? `Viewing ${reviews[0].score} Star Reviews` : 'No reviews for this rating exist!')}
                   </div>
                   <div onClick={closeModal} className="cursor-pointer">
                     X
                   </div>
                 </Dialog.Title>
-                { reviews && reviews.reverse().map((review, idx) => (
+                { reviews && reviews.length > 0 && reviews.reverse().map((review, idx) => (
                   <>
                     <div key={idx} className="m-2">
                       <GuestReview review={review} key={idx} />
