@@ -3,19 +3,20 @@ import { Line } from 'react-chartjs-2';
 import { FetchAPI } from '../util/FetchAPI';
 import { displayToast } from '../util/Toast';
 import Fade from 'react-reveal/Fade';
+import PropTypes from 'prop-types';
 
-function Graph () {
+function Graph ({ listingIds }) {
   const [profit, setProfit] = React.useState([])
   const data = {
-    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
-      '23', '24', '25', '26', '27', '28', '29', '30'],
+    labels: Array.from(Array(31).keys()),
     datasets: [{
       data: profit,
       borderWidth: 1,
-      borderColor: '#F87171',
+      borderColor: '#1CB06C',
+      fill: true,
+      backgroundColor: '#D1EFE0'
     }]
   };
-  console.log(profit);
 
   React.useEffect(() => {
     const fetchBookings = async () => {
@@ -26,19 +27,17 @@ function Graph () {
           break;
         case 200: {
           const bookings = response.data.bookings
-          // let price = 0
           const month = new Array(32).fill(0)
           for (const item of bookings) { // get bookings of current listing id
-            if (item.owner === JSON.parse(localStorage.getItem('email'))) {
+            // check if booking is for a hosted listing and it is accepted
+            if (listingIds.includes(parseInt(item.listingId)) && item.status === 'accepted') {
               const numDays = calculateDayDiff(item.dateRange.start, item.dateRange.end)
-              // console.log(numDays);
               let i = 0
-              console.log(item);
               const currDate = new Date(item.dateRange.start)
+              // calculate profit on daily basis
               while (i < numDays) {
-                // console.log(currDate);
-                // console.log(new Date());
                 const daysAgo = calculateDayDiff(currDate, '')
+                // increment the daily profit of this booking to the appropriate day in the x-axis
                 month[daysAgo] += item.totalPrice / numDays
                 currDate.setDate(currDate.getDate() + 1)
                 i += 1
@@ -67,43 +66,50 @@ function Graph () {
 
   return (
     <Fade>
-      <div className="w-full sm:w-1/2 lg:w-3/4 h-96 flex flex-col items-center m-auto mt-5 text-xl mb-10">
+      <div className="w-full sm:w-1/2 lg:w-3/4 h-96 flex flex-col items-center m-auto mt-5 text-xl mb-14">
         <h2 className="text-gray-700 font-medium">Profit from Last Month</h2>
         <Line
           data={data}
-          options={ {
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: {
-                  callback: function (value, index, values) {
-                    return '$' + value;
-                  }
-                },
-                title: {
-                  text: 'Profit',
-                  display: true,
-                }
-              },
-              x: {
-                title: {
-                  text: 'Days ago',
-                  display: true,
-                }
-              }
-            }
-          }}
+          options={graphConfig}
         />
+        <p className="text-gray-600 text-xs mt-1 italic">*Profits calculated on a daily basis, commencing on the first day of the booking</p>
       </div>
     </Fade>
   )
 }
 
 export default Graph
+
+Graph.propTypes = {
+  listingIds: PropTypes.array,
+}
+
+const graphConfig = {
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        callback: function (value, index, values) {
+          return '$' + value;
+        }
+      },
+      title: {
+        text: 'Profit',
+        display: true,
+      }
+    },
+    x: {
+      title: {
+        text: 'Days ago',
+        display: true,
+      }
+    }
+  }
+}

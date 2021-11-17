@@ -11,6 +11,7 @@ import { VscGraphLine } from 'react-icons/vsc'
 
 const Hostedlistings = () => {
   const [hostListings, setHostListings] = React.useState([]);
+  const [listingIds, setLisingIds] = React.useState([])
   const [refresh, setRefresh] = React.useState(true);
 
   React.useEffect(async () => {
@@ -19,7 +20,12 @@ const Hostedlistings = () => {
       // Filter out listings not belonging to host
       const myListings = response.data.listings.filter((listing) => listing.owner === JSON.parse(localStorage.getItem('email')));
       // console.log(myListings);
+      const myListingIds = []
+      for (const listing of myListings) {
+        myListingIds.push(listing.id)
+      }
       setHostListings([...myListings]);
+      setLisingIds(myListingIds)
     }
   }, [refresh]);
 
@@ -38,7 +44,7 @@ const Hostedlistings = () => {
           <VscGraphLine size="1.5em" onClick={() => setIsGraphVisibile(!isGraphVisible)} alt="add button to create new listing"
             className={`cursor-pointer text-gray-300 hover:text-black ${isGraphVisible && 'text-gray-700 hover:text-gray-500'}`} />
         </div>
-        { isGraphVisible && <Graph/> }
+        { isGraphVisible && <Graph listingIds={listingIds}/> }
       <div className="flex flex-col justify-center items-center">
         {hostListings.length === 0 ? <EmptyList /> : hostListings.map((listing, idx) => (<HostListing key={idx} listing={listing} setRefresh={setRefresh} refresh={refresh} />))
         }
