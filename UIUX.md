@@ -9,6 +9,7 @@
 - Fades and transitions used to make the user journey smooth.
 - Non-logged in users are constrained in what they can do. In particular, the dropdown menu provides logged-in users with the options to only 'login' or 'register'.
 - Minimal steps for users to carry out tasks to maintain efficiency of the user journey.
+- Cursor pointer used to indicate interactive elements.
 
 ### Accessibility
 - `alt` tags with appropriate descriptions used for images.
