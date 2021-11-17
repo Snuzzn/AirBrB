@@ -86,7 +86,7 @@ const Register = ({ authenticate, storeEmail }) => {
         storeEmail(email);
         authenticate(response.data.token);
         closeModal();
-        displayToast('Successfully Signed Up', 'success')
+        displayToast('Successfully signed up!', 'success')
         break;
       default:
         throwWarning('Unknown error!');
@@ -157,25 +157,25 @@ const Register = ({ authenticate, storeEmail }) => {
 
                 <div className='focus:border-red-400'>
                   <TextInput
-                    label='Email'
+                    label='email'
                     type='text'
                     placeholder='Email'
                     setState={setEmail}
                   />
                   <TextInput
-                    label='Name'
+                    label='name'
                     type='text'
                     placeholder='Name'
                     setState={setName}
                   />
                   <TextInput
-                    label='Password'
+                    label='password'
                     type='password'
                     placeholder='Password'
                     setState={handleInitialPassword}
                   />
                   <TextInput
-                    label='Confirm Password'
+                    label='confirm-password'
                     type='password'
                     placeholder='Confirm Password'
                     setState={handleConfirmPassword}

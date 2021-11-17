@@ -211,6 +211,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                           type="date"
                           onChange={(e) => handleStartDate(e)}
                           title={index}
+                          name="startDate"
                         />
                     </div>
                       <div className="row-start-2 grid grid-cols-2 text-left pt-1">
@@ -220,6 +221,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                           type="date"
                           title={index}
                           onChange={(e) => handleEndDate(e)}
+                          name="endDate"
                         />
                       </div>
                     </div>

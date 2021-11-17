@@ -37,11 +37,10 @@ const Login = ({ authenticate, storeEmail }) => {
         throwWarning(response.data?.error);
         break;
       case 200:
-        console.log(response.status);
         storeEmail(email);
         authenticate(response.data.token);
         closeModal();
-        displayToast('Successfully Logged In!', 'success');
+        displayToast('Successfully logged in!', 'success');
         break;
       default:
         throwWarning('Unknown error!');
@@ -112,13 +111,13 @@ const Login = ({ authenticate, storeEmail }) => {
 
                 <div className='focus:border-red-400'>
                   <TextInput
-                    label='Email'
+                    label='email'
                     type='text'
                     placeholder='Email'
                     setState={setEmail}
                   />
                   <TextInput
-                    label='Password'
+                    label='password'
                     type='password'
                     placeholder='Password'
                     setState={setPassword}
