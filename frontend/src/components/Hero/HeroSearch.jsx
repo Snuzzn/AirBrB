@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { animateScroll as scroll } from 'react-scroll'
 import { ImSpinner2 } from 'react-icons/im'
 
-function HeroSearch ({ setDisplayedListings }) {
+function HeroSearch ({ setDisplayedListings, allListings }) {
   const [isSearching, setIsSearching] = React.useState(false)
 
   const [priceRange, setPriceRange] = React.useState(['', ''])
@@ -46,24 +46,12 @@ function HeroSearch ({ setDisplayedListings }) {
       return
     }
 
-    const response = await FetchAPI('/listings', 'GET');
-    switch (response.status) {
-      case 400:
-        displayToast('Could not find any listng', 'error')
-        break;
-      case 200: {
-        filterListings(response.data.listings)
-        // setDisplayedListings(matchingListings);
-        break;
-      }
-      default:
-        displayToast('Something went wrong!', 'error');
-    }
+    filterListings(allListings)
   }
 
   const filterListings = async (listings) => {
     const matchingListings = await findMatches(listings);
-
+    console.log(listings);
     // calculate rating for each listing
     matchingListings.forEach(listing => {
       let sum = 0
@@ -149,7 +137,7 @@ function HeroSearch ({ setDisplayedListings }) {
 
   return (
     <div className="relative">
-      <img src={lakehouse} className="w-screen h-70v lg:h-80v object-cover rounded-lg sm:rounded-3xl"
+      <img src={lakehouse} className="w-screen h-70v lg:h-70v object-cover rounded-lg sm:rounded-3xl"
         alt="empty street with park benches represents lack of listings" />
 
       <div className="flex items-center justify-center lg:items-end sm:pb-10 absolute top-0 left-0 w-full h-full ">
@@ -221,5 +209,6 @@ function HeroSearch ({ setDisplayedListings }) {
 export default HeroSearch
 
 HeroSearch.propTypes = {
-  setDisplayedListings: PropTypes.func
+  setDisplayedListings: PropTypes.func,
+  allListings: PropTypes.func
 }

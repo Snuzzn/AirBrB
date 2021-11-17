@@ -15,3 +15,4 @@
 
 ### Misc
 - Toasts for temporary error and success messages.
+- Can toggle the profit graph on and off
