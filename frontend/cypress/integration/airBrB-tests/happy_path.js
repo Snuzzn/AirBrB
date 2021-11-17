@@ -160,7 +160,7 @@ context('signup, creation and booking flow - happy path', () => {
     
     // User is taken back to the Host Listings page, which should
     // display the listing details
-    cy.wait(1000);
+    cy.wait(3000);
     cy.contains(roomType);
     cy.contains(listingName);
     cy.contains(city);
@@ -195,7 +195,7 @@ context('signup, creation and booking flow - happy path', () => {
       .click();
 
     // Check new name appears on listing card
-    cy.wait(1000);
+    cy.wait(3000);
     cy.contains(newListingName);
 
     // Since the listing is not yet published, the 'publish' icon should be
