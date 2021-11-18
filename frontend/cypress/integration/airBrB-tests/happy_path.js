@@ -1,4 +1,4 @@
-// Please run 'yarn reset' before each test
+// Please run 'yarn reset' and then 'yarn test' inside the frontend folder.
 
 context('signup, creation and booking flow - happy path', () => {
   before(() => {
@@ -131,12 +131,12 @@ context('signup, creation and booking flow - happy path', () => {
     cy.get('input[type=date]')
       .should('have.length', 2);
 
-    // Set Wayne's Manor to be available in all of 2022
+    // Set Wayne's Manor to be available until Dec 2022
     cy.get('input[name=startDate]')
-      .type('2022-01-01');
+      .type('2021-12-01');
     
     cy.get('input[name=endDate]')
-      .type('2022-12-30');
+      .type('2022-12-01');
     
     cy.get('button[type=submit]')
       .click()
@@ -204,7 +204,7 @@ context('signup, creation and booking flow - happy path', () => {
       .click();
 
     cy.contains('Successfully signed up!');
-    
+
     // Click icon in nav bar to expand dropdown and check it is expanded again
     cy.get('[id=open-dropdown]')
     .click()
@@ -340,12 +340,12 @@ context('signup, creation and booking flow - happy path', () => {
     cy.get('input[type=date]')
       .should('have.length', 2);
 
-    // Set property to be available in January 2022
+    // Set property to be available until January 2022
     cy.get('input[name=startDate]')
-      .type('2022-01-01');
+      .type('2021-12-01');
     
     cy.get('input[name=endDate]')
-      .type('2022-02-01');
+      .type('2022-01-30');
     
     cy.get('button[type=submit]')
       .click()
@@ -383,10 +383,10 @@ context('signup, creation and booking flow - happy path', () => {
       .click()
     
     cy.get('input[name=startDate]')
-      .type('2022-01-01');
+      .type('2021-12-10');
     
     cy.get('input[name=endDate')
-      .type('2022-01-03');
+      .type('2021-12-12');
 
     cy.get('button[name=make-booking]')
       .click()

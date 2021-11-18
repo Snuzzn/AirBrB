@@ -34,7 +34,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test --watchAll=false",
+    "test": "craco test --watchAll=false && cypress run --headed --spec cypress/integration/airBrB-tests/happy_path.js && cypress run --headed --spec cypress/integration/airBrB-tests/2nd_path.js",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx}"
   },

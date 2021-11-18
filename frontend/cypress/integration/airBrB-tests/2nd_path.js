@@ -1,5 +1,4 @@
 /* eslint-disable */
-// Please run 'yarn reset' before each test
 
 // This path should be run after the happy path
 context('2nd path - accept booking and make review', () => {

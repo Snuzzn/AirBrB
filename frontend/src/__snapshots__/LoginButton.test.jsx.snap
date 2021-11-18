@@ -2,6 +2,7 @@
 
 exports[`LoginButton renders with minimal props 1`] = `
 <button
+  aria-label="Submit"
   className="items-center flex justify-center w-full px-4 py-2 text-sm bg-red-300 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
   type="submit"
 >
@@ -11,7 +12,6 @@ exports[`LoginButton renders with minimal props 1`] = `
     Submit
   </div>
   <svg
-    aria-label="Submit login icon: arrow moving right"
     className="text-lg"
     fill="currentColor"
     height="1em"
@@ -35,6 +35,7 @@ exports[`LoginButton renders with minimal props 1`] = `
 
 exports[`LoginButton renders with provided text 1`] = `
 <button
+  aria-label="Submit"
   className="items-center flex justify-center w-full px-4 py-2 text-sm bg-red-300 border border-transparent rounded-lg hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
   type="submit"
 >
@@ -44,7 +45,6 @@ exports[`LoginButton renders with provided text 1`] = `
     Submit
   </div>
   <svg
-    aria-label="Submit login icon: arrow moving right"
     className="text-lg"
     fill="currentColor"
     height="1em"
