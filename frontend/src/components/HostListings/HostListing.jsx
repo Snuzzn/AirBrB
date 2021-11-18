@@ -140,7 +140,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
                   <CgLivePhoto className="inline text-xl mr-3 pointer-events-none" />
                 </button>
               }
-              <Link to={`${listingId}`} className="inline cursor-pointer hover:text-gray-800">
+              <Link to={`${listingId}`} id="bookingInfoBtn" className="inline cursor-pointer hover:text-gray-800">
                 <IoMdStats className="inline text-xl mr-3 pointer-events-none" />
               </Link>
               <button aria-label="edit listing" name="edit-listing" onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
