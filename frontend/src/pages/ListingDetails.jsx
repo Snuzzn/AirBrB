@@ -59,7 +59,9 @@ const ListingDetails = () => {
               <hr className="mt-2 mb-4"/>
               <Amenities listingInfo={listingInfo}/>
             </div>
-            <ActionCard listingInfo={listingInfo} listingId={id}/>
+            {JSON.parse(localStorage.getItem('token')) !== '' && JSON.parse(localStorage.getItem('token')) !== null &&
+              <ActionCard listingInfo={listingInfo} listingId={id}
+            />}
           </div>
           <hr className="mt-2 mb-3"/>
           <p className="text-xl font-medium text-gray-700">Bedrooms</p>
