@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsPlusCircle } from 'react-icons/bs';
 import { FetchAPI } from '../util/FetchAPI';
-import HostListing from '../components/HostListing';
+import HostListing from '../components/HostListings/HostListing';
 import EmptyList from '../components/EmptyList';
 import Graph from '../components/Graph';
 // import emptyStreet from '../images/emptyStreet.svg';

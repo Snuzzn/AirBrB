@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { BsDot } from 'react-icons/bs';
 import { BiBath, BiPencil, BiTrash } from 'react-icons/bi';
 import { IoMdStats } from 'react-icons/io';
 import { RiHotelBedLine } from 'react-icons/ri';
 import { CgLivePhoto } from 'react-icons/cg';
-import { FetchAPI } from '../util/FetchAPI';
+import { FetchAPI } from '../../util/FetchAPI';
 import { useNavigate, Link } from 'react-router-dom';
-import { displayToast } from '../util/Toast';
+import { displayToast } from '../../util/Toast';
 import AvailabilityModal from './AvailabilityModal';
-import StarToolTip from './StarToolTip';
+import StarToolTip from '../StarToolTip';
 
 const HostListing = ({ listing, setRefresh, refresh }) => {
   const [metadata, setMetadata] = React.useState({});
   const [showTooltip, setShowTooltip] = React.useState(false);
   const [showAvailabilityModal, setShowAvailabilityModal] = React.useState(false);
+  const [showDeletionModal, setShowDeletionModal] = React.useState(false);
   const [published, setPublished] = React.useState(0);
   const navigate = useNavigate();
 
