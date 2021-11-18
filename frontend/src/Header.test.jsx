@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './components/ListingDetails/Header';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
 
 describe('Header', () => {
   /**

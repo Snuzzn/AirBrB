@@ -1,11 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { BsPlusCircle } from 'react-icons/bs';
-import 'react-day-picker/lib/style.css';
-import { ToastContainer, toast } from 'react-toastify';
-import LoginButton from './LoginButton';
+import LoginButton from '../LoginButton';
 import PropTypes from 'prop-types';
-import { FetchAPI } from '../util/FetchAPI';
+import { FetchAPI } from '../../util/FetchAPI';
+import { displayToast } from '../../util/Toast';
 
 const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, setShowTooltip }) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -21,17 +20,17 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
 
     for (let i = 0; i < curr.length; i++) {
       if (curr[i].start === '' || curr[i].end === '') {
-        dateError('Please complete all fields.');
+        displayToast('Please complete all fields.', 'error');
         return;
       }
 
       if (!isRangeValid(curr[i].start, curr[i].end)) {
-        dateError('Start dates must be before end dates.');
+        displayToast('Start dates must be before end dates.', 'error');
         return;
       }
 
       if (!isDateAfterToday(curr[i].start) || !isDateAfterToday(curr[i].end)) {
-        dateError('Dates must commence after today.');
+        displayToast('Dates must commence on or after today.', 'error');
         return;
       }
 
@@ -39,7 +38,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
       const currEnd = new Date(curr[i].end);
       for (let j = i + 1; j < curr.length; j++) {
         if ((currStart <= new Date(curr[j].end)) && (currEnd >= new Date(curr[j].start))) {
-          dateError('Dates must not overlap.');
+          displayToast('Dates must not overlap.', 'error');
           return;
         }
       }
@@ -49,13 +48,13 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
     const response = await FetchAPI(`/listings/publish/${listingId}`, 'PUT', body, JSON.parse(localStorage.getItem('token')));
     switch (response.status) {
       case 400:
-        dateError('Invalid input.');
+        displayToast('Input error!', 'error');
         break;
       case 403:
-        dateError('You are not authorised to publish this listing.');
+        displayToast('You are not authorised to publish this listing.', 'error');
         break;
       case 200:
-        publishSuccess();
+        displayToast('Listing successfully published!', 'success');
         setShowAvailabilityModal(false);
         setShowTooltip(false);
         setPublished(0);
@@ -64,7 +63,8 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
 
   const isDateAfterToday = (date) => {
     const today = new Date();
-    if (new Date(date) < today) {
+    const yesterday = today.setDate(today.getDate() - 1);
+    if (new Date(date) <= yesterday) {
       return false;
     }
     return true;
@@ -107,43 +107,8 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
     return [parseInt(dateString.slice(8)), parseInt(dateString.slice(5, 7)), parseInt(dateString.slice(0, 4))];
   }
 
-  const dateError = (msg) => {
-    toast.error(msg, {
-      position: 'top-center',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-
-  const publishSuccess = () => {
-    toast.success('Listing successfully published!', {
-      position: 'top-center',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"

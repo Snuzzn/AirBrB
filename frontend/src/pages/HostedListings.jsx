@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsPlusCircle } from 'react-icons/bs';
 import { FetchAPI } from '../util/FetchAPI';
-import HostListing from '../components/HostListing';
+import HostListing from '../components/HostListings/HostListing';
 import EmptyList from '../components/EmptyList';
 import Graph from '../components/Graph';
 // import emptyStreet from '../images/emptyStreet.svg';
@@ -19,7 +19,6 @@ const Hostedlistings = () => {
     if (response.status === 200) {
       // Filter out listings not belonging to host
       const myListings = response.data.listings.filter((listing) => listing.owner === JSON.parse(localStorage.getItem('email')));
-      // console.log(myListings);
       const myListingIds = []
       for (const listing of myListings) {
         myListingIds.push(listing.id)
