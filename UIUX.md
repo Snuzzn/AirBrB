@@ -11,7 +11,7 @@
 - Minimal steps for users to carry out tasks to maintain efficiency of the user journey.
 - Cursor pointer used to indicate interactive elements.
 - Used Figma to create initial design of AirBrB (see screenshot `FigmaInitialDesign` in root).
-- Ensured user safety via additional popup to confirm deletion of a host's listing.
+- Ensured user safety via additional warning popup to confirm deletion of a host's listing.
 
 ### Accessibility
 - `alt` tags with appropriate descriptions used for images.
