@@ -50,7 +50,7 @@ function HeroSearch ({ setDisplayedListings, allListings }) {
   }
 
   const filterListings = async (listings) => {
-    const matchingListings = await findMatches(listings);
+    let matchingListings = await findMatches(listings);
     console.log(listings);
     // calculate rating for each listing
     matchingListings.forEach(listing => {
@@ -62,6 +62,10 @@ function HeroSearch ({ setDisplayedListings, allListings }) {
       if (listing.reviews.length !== 0) rating = sum / listing.reviews.length
       listing.rating = rating
     });
+    console.log(matchingListings);
+    if (sortRating === 'descending') matchingListings = matchingListings.sort((a, b) => (a.rating < b.rating) ? 1 : -1)
+    else if (sortRating === 'ascending') matchingListings = matchingListings.sort((a, b) => (a.rating > b.rating) ? 1 : -1)
+
     // prepare for displaying listing
     setDisplayedListings(matchingListings);
     setIsSearching(false)
