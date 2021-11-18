@@ -7,7 +7,7 @@ import Graph from '../components/Graph';
 // import emptyStreet from '../images/emptyStreet.svg';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
-import { VscGraphLine } from 'react-icons/vsc'
+import GraphToggle from './GraphToggle';
 
 const Hostedlistings = () => {
   const [hostListings, setHostListings] = React.useState([]);
@@ -40,8 +40,7 @@ const Hostedlistings = () => {
           <Link to="/create-listing">
             <BsPlusCircle size="1.5em" alt="add button to create new listing" className='text-gray-700 hover:text-black hover:drop-shadow-lg' />
           </Link>
-          <VscGraphLine size="1.5em" onClick={() => setIsGraphVisibile(!isGraphVisible)} alt="add button to create new listing"
-            className={`cursor-pointer text-gray-300 hover:text-black ${isGraphVisible && 'text-gray-700 hover:text-gray-500'}`} />
+          <GraphToggle isGraphVisible={isGraphVisible} setIsGraphVisibile={setIsGraphVisibile} />
         </div>
         { isGraphVisible && <Graph listingIds={listingIds}/> }
       <div className="flex flex-col justify-center items-center">
