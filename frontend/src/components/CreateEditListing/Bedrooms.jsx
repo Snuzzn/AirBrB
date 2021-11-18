@@ -36,6 +36,6 @@ function Bedrooms ({ bedrooms, setBedrooms }) {
 export default Bedrooms
 
 Bedrooms.propTypes = {
-  bedrooms: PropTypes.string,
-  setBedrooms: PropTypes.string
+  bedrooms: PropTypes.array,
+  setBedrooms: PropTypes.func
 }

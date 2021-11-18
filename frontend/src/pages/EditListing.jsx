@@ -21,7 +21,7 @@ const EditListing = () => {
   const [formData, setFormData] = React.useState({})
   React.useEffect(async () => {
     const response = await FetchAPI(`/listings/${id}`, 'GET', '', '');
-    console.log(response);
+
     switch (response.status) {
       case 400:
         displayToast('Could not open listing to edit', 'error')
@@ -88,7 +88,7 @@ const EditListing = () => {
         <Bedrooms bedrooms={bedrooms} setBedrooms={setBedrooms}/>
         <Amenities amenities={amenities} setAmenities={setAmenities}/>
         <ImageUpload images={images} setImages={setImages}/>
-        <button aria-label='edit listing' id="submit-edit-listing" className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Edit listing</button>
+        <button aria-label='edit listing' id="submit-edit-listing" className="p-2 mt-3 bg-red-400 rounded-lg text-white font-medium shadow-lg hover:bg-red-500">Save</button>
       </form>
       </div>
     </Fade>

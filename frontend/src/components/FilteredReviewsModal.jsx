@@ -10,7 +10,6 @@ const FilteredReviewsModal = ({ reviews, setShowFilteredReviews }) => {
     setShowFilteredReviews(false);
     setIsOpen(false)
   }
-  console.log(reviews);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

@@ -60,5 +60,5 @@ export default ImageUpload
 
 ImageUpload.propTypes = {
   images: PropTypes.array,
-  setImages: PropTypes.array
+  setImages: PropTypes.func
 }

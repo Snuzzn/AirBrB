@@ -56,7 +56,7 @@ const Listings = () => {
           }
           for (const listing of publishedListingsData) {
             // Get all bookings of this listing
-            const listingBookings = bookingsData.filter(booking => booking.listingId === listing.id);
+            const listingBookings = bookingsData.filter(booking => parseInt(booking.listingId) === listing.id);
             for (const listingBooking of listingBookings) {
               // Find any bookings made by the user by checking dateRange schema
               // "dateRange": {"guest": email, "start": date, "end": date}
