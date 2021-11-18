@@ -71,10 +71,20 @@ const BookingDetails = () => {
         let newDaysBooked = 0
         for (const item of relevantBookings) {
           if (item.status === 'accepted') {
-            // only add profit if it's checkin date is within the last year
-            const daysSinceStart = calculateDayDiff(item.dateRange.start, '')
-            if (daysSinceStart <= 365) newProfit += item.totalPrice
             newDaysBooked += calculateDayDiff(item.dateRange.start, item.dateRange.end)
+            const numDays = calculateDayDiff(item.dateRange.start, item.dateRange.end)
+            let i = 0
+            const currDate = new Date(item.dateRange.start)
+            // calculate profit on daily basis
+            while (i < numDays) {
+              const daysAgo = calculateDayDiff('yearStart', currDate.toDateString())
+              if (daysAgo < 365) {
+                // increment the daily profit of this booking to total
+                newProfit += item.totalPrice / numDays
+              }
+              currDate.setDate(currDate.getDate() + 1)
+              i += 1
+            }
           }
         }
         setProfit(newProfit)
@@ -88,9 +98,11 @@ const BookingDetails = () => {
 
   // return number of days between 2 date strings
   const calculateDayDiff = (startDate, endDate) => {
-    let end = new Date()
-    if (endDate !== '') end = new Date(endDate) // today
-    return Math.floor((end - new Date(startDate)) / (1000 * 60 * 60 * 24))
+    let start = new Date(new Date().getFullYear(), 0, 1); // start of year
+    let end = new Date() // today
+    if (endDate !== '') end = new Date(endDate)
+    if (startDate !== 'yearStart') start = new Date(startDate)
+    return Math.floor((end - start) / (1000 * 60 * 60 * 24))
   }
 
   return (

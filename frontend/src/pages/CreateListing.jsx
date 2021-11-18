@@ -12,7 +12,7 @@ import { prepareForSubmit } from '../util/CreateEditListing';
 
 const CreateListing = () => {
   const navigate = useNavigate();
-  const [amenities, setAmenities] = React.useState(amenityList)
+  const [amenities, setAmenities] = React.useState(JSON.parse(JSON.stringify(amenityList)))
   const [bedrooms, setBedrooms] = React.useState([{ title: '', count: 0 }])
   const [images, setImages] = React.useState([])
   const [formData, setFormData] = React.useState({ address: {}, metadata: {} })
