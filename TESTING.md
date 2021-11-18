@@ -1,4 +1,8 @@
-Please note we assume that a `yarn reset` is run before testing. To test, please run `yarn test` in the `frontend` folder. After the component testing completes, Cypress will automatically open a window to run the first happy path and, when that completes and closes, Cypress will open a new window to run the second path. The second path assumes the first path has been run to completion (to take advantage of the first path's listings in the database).
+Please note we assume that a `yarn reset` is run before testing. To test, please run `yarn test` in the `frontend` folder. 
+
+After the component testing completes, Cypress will automatically open a window to run the first happy path and, when that completes and closes, Cypress will open a new window to run the second path. The second path assumes the first path has been run to completion (to take advantage of the first path's listings in the database).
+
+We have set 'trashAssetsBeforeRun' to `false` in Cypress' config file, so a video of each path will be saved to `cypress/integration/videos`.
 
 ### Path 1: Registering, creating a listing, publishing, booking, and logging out and in.
 We created a thorough test for the 'happy' path required in the spec. This path touched on functionality from the perspective of a guest (by making a booking) and from the perspective of a host (by creating a listing). Since we start with a fresh database, we used a `before` function to create a listing (Wayne Manor) that our test path can interact with (via Jar Jar Binks). 
