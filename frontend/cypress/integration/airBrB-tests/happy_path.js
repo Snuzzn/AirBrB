@@ -1,9 +1,163 @@
+// Please run 'yarn reset' before each test
+
 context('signup, creation and booking flow - happy path', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('localhost:3000');
+
+    // This setup creates and publishes a property titled 'Wayne Manor' for use
+    // in the paths below.
+    const name = 'Bruce Wayne';
+    const email = 'bruce.wayne@wayne.bat';
+    const password = 'IAmTheBatman';
+
+    cy.get('[id=open-dropdown]')
+      .click()
+      .should('have.attr', 'aria-expanded')
+      .and('eq', 'true');
+
+    cy.get('[id=button-register]')
+      .click();
+
+    // Wayne must input an email, name, password and confirm password
+    cy.get('input[name=email]')
+      .focus()
+      .type(email);
+  
+    cy.get('input[name=name]')
+      .focus()
+      .type(name);
+    
+    cy.get('input[name=password]')
+      .focus()
+      .type(password);
+
+    cy.get('input[name=confirm-password]')
+      .focus()
+      .type(password);
+    
+    // Wayne submits
+    cy.get('button[type=submit]')
+      .click();
+
+    cy.contains('Successfully signed up!');
+
+    cy.get('[id=open-dropdown]')
+    .click()
+    .should('have.attr', 'aria-expanded')
+    .and('eq', 'true');
+
+    // Since logged in, dropdown should have three options: All Listings, 
+    // Your Listings, and Logout
+    cy.contains('All Listings')
+      .should('be.visible');
+    cy.contains('Your Listings')
+      .should('be.visible');
+    cy.contains('Logout')
+      .should('be.visible');
+
+    cy.contains('Your Listings')
+      .parent()
+      .click();
+
+    // Go to the 'Your Listings' page, which has no listings initially
+    cy.contains('You have no listings yet...');
+
+    // Click the link to add a new listing
+    cy.get('a[href*="create-listing"]')
+      .click()
+
+    // Wayne enters data for the new listing
+    const listingName = 'Wayne Manor';
+    const street = '1007 Mountain Drive';
+    const city = 'Gotham';
+    const roomType = 'Private Room';
+    const price = '1000';
+    const bathrooms = '10';
+    const bedroom = {
+      name: 'Guest Suite',
+      num: '1'
+    }
+    const imagePath = './wayne.jpeg';
+
+    cy.get('input[name=title]')
+      .focus()
+      .type(listingName);
+    
+    cy.get('input[name=street')
+      .focus()
+      .type(street);
+    
+    cy.get('input[name=city]')
+      .focus()
+      .type(city);
+    
+    cy.get('select[name=propertyType]')
+      .select(roomType);
+    
+    cy.get('input[name=price]')
+      .focus()
+      .type(price);
+    
+    cy.get('input[name=bathrooms]')
+      .focus()
+      .type(bathrooms);
+    
+    cy.get('input[name=bedroom]')
+      .focus()
+      .type(bedroom.name);
+    
+    cy.get('input[name=numBeds]')
+      .focus()
+      .type(`{backspace}`)
+      .type(bedroom.num);
+
+    cy.get('[id="Bat Cave"]')
+      .check();
+    
+    cy.get('[id=file-upload]')
+      .attachFile(imagePath, { subjectType: 'drag-n-drop' });
+
+    cy.wait(1000);
+    cy.get('[id=submit-new-listing')
+      .click();
+    
+    cy.wait(3000);
+    // Wayne then publishes his listing
+    cy.get('button[name=publish]')
+      .should('have.class', 'text-red-400')
+      .click();
+
+    // This brings up a modal which should have two inputs
+    cy.get('input[type=date]')
+      .should('have.length', 2);
+
+    // Set Wayne's Manor to be available in all of 2022
+    cy.get('input[name=startDate]')
+      .type('2022-01-01');
+    
+    cy.get('input[name=endDate]')
+      .type('2022-12-30');
+    
+    cy.get('button[type=submit]')
+      .click()
+    
+    // Toast alerts Wayne he has published successfully
+    cy.contains('Listing successfully published!');
+
+    // Wayne logs out
+    cy.get('[id=open-dropdown]')
+      .click()
+      .should('have.attr', 'aria-expanded')
+      .and('eq', 'true');
+
+    cy.get('[id=button-logout]')
+      .click();
+    
+    // Toast indicates successful logout
+    cy.contains('Successfully logged out!');
   });
 
-  it('successfully signs up', () => {
+  it('successfully signs up, hosts and edits listing, and makes a booking', () => {
     const name = 'Jar Jar Binks';
     const email = 'jarjar.binks@naboo.ort';
     const password = 'mesaWantHighMarks';
@@ -50,29 +204,6 @@ context('signup, creation and booking flow - happy path', () => {
       .click();
 
     cy.contains('Successfully signed up!');
-    
-    // // // Click login button in dropdown
-    // cy.get('[id=button-login]')
-    //   .click();
-    
-    // // Login form should have two fields
-    // cy.get('input')
-    //   .should('have.length', 2);
-    
-    // // User must input an email and password
-    // cy.get('input[name=email]')
-    // .focus()
-    // .type(email);
-  
-    // cy.get('input[name=password]')
-    //   .focus()
-    //   .type(password);
-
-    // // User then submits which should take us back to listing page
-    // cy.get('button[type=submit]')
-    //   .click();
-    
-    // cy.contains('Successfully logged in!');
     
     // Click icon in nav bar to expand dropdown and check it is expanded again
     cy.get('[id=open-dropdown]')
@@ -170,7 +301,7 @@ context('signup, creation and booking flow - happy path', () => {
     cy.contains('1 x Baths');
 
     // User navigates to edit listing page
-    cy.get('div[name=edit-listing]')
+    cy.get('button[name=edit-listing]')
       .click();
 
     const newListingName = "Gungan Swamp Retreat";
@@ -200,7 +331,7 @@ context('signup, creation and booking flow - happy path', () => {
 
     // Since the listing is not yet published, the 'publish' icon should be
     // showing and glowing red
-    cy.get('div[name=publish]')
+    cy.get('button[name=publish]')
       .should('have.class', 'text-red-400')
       .click();
 
@@ -224,7 +355,7 @@ context('signup, creation and booking flow - happy path', () => {
 
     // Since the listing has now been published, the 'publish' icon should be
     // showing and glowing green
-    cy.get('div[name=unpublish]')
+    cy.get('button[name=unpublish]')
       .should('have.class', 'text-green-500')
       .click();
     
@@ -232,7 +363,7 @@ context('signup, creation and booking flow - happy path', () => {
     cy.contains('Listing successfully unpublished!')
 
     // Once again, the green publish icon should now be showing
-    cy.get('div[name=publish]')
+    cy.get('button[name=publish]')
       .should('have.class', 'text-red-400')
 
     // User then opens the dropdown and navigates to listings home page
@@ -245,7 +376,7 @@ context('signup, creation and booking flow - happy path', () => {
       .click();
 
     // Wait for all data to be fetched
-    cy.wait(7000);
+    cy.wait(5000);
 
     // User selects the 'Wayne Manor' listing and makes a booking
     cy.contains('Wayne Manor')
