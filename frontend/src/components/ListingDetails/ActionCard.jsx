@@ -55,6 +55,7 @@ function ActionCard ({ listingInfo, listingId }) {
     }
 
     const today = new Date();
+    const yesterday = today.setDate(today.getDate() - 1);
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -63,11 +64,8 @@ function ActionCard ({ listingInfo, listingId }) {
       return;
     }
 
-    if (start.getFullYear() < today.getFullYear() ||
-        (start.getFullYear() === today.getFullYear() && start.getMonth() < today.getMonth()) ||
-        (start.getFullYear() === today.getFullYear() && start.getMonth() === today.getMonth() &&
-         start.getDate() < today.getDate())) {
-      displayToast('Bookings must commence after today.', 'error');
+    if (start <= yesterday) {
+      displayToast('Bookings must commence on or after today.', 'error');
       return;
     }
 
