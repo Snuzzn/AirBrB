@@ -28,6 +28,6 @@ function GraphToggle ({ isGraphVisible, setIsGraphVisibile }) {
 export default GraphToggle
 
 GraphToggle.propTypes = {
-  isGraphVisible: PropTypes.func,
+  isGraphVisible: PropTypes.bool,
   setIsGraphVisibile: PropTypes.func
 }

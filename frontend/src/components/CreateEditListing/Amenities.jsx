@@ -29,6 +29,6 @@ function Amenities ({ amenities, setAmenities }) {
 export default Amenities
 
 Amenities.propTypes = {
-  amenities: PropTypes.object,
+  amenities: PropTypes.array,
   setAmenities: PropTypes.func,
 }

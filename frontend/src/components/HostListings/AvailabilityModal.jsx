@@ -192,7 +192,7 @@ const AvailabilityModal = ({ listingId, setShowAvailabilityModal, setPublished, 
                         />
                       </div>
                     </div>
-                  <div className="justify-center flex">
+                  <div className="justify-center flex" key="index">
                     <hr className="mt-4 mb-2 w-20 border-gray-300" />
                   </div>
                   </>

@@ -78,7 +78,7 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     if (score !== 0) {
       score = Math.round((score / scores.length) * 100) / 100
     }
-    return score;
+    return score + '';
   }
 
   const getNumReviews = () => {
