@@ -19,7 +19,6 @@ const Hostedlistings = () => {
     if (response.status === 200) {
       // Filter out listings not belonging to host
       const myListings = response.data.listings.filter((listing) => listing.owner === JSON.parse(localStorage.getItem('email')));
-      // console.log(myListings);
       const myListingIds = []
       for (const listing of myListings) {
         myListingIds.push(listing.id)

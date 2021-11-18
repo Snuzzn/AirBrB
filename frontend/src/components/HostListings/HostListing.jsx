@@ -9,6 +9,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { displayToast } from '../../util/Toast';
 import AvailabilityModal from './AvailabilityModal';
 import StarToolTip from '../StarToolTip';
+import ConfirmDeletion from './ConfirmDeletion';
 
 const HostListing = ({ listing, setRefresh, refresh }) => {
   const [metadata, setMetadata] = React.useState({});
@@ -88,22 +89,8 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
     navigate(`/edit-listing/${listingId}`);
   }
 
-  const deleteListing = async (e) => {
-    const response = await FetchAPI(`/listings/${listingId}`, 'DELETE', '', JSON.parse(localStorage.getItem('token')));
-    switch (response.status) {
-      case 400:
-        displayToast('Could not delete listing', 'error')
-        break;
-      case 200:
-        displayToast('Successfully deleted listing', 'success')
-        setRefresh(!refresh);
-        break;
-      case 403:
-        displayToast('You are not authorised to delete this listing', 'error');
-        break;
-      default:
-        displayToast('Something went wrong!', 'error');
-    }
+  const handleDeleteListing = async (e) => {
+    setShowDeletionModal(true);
   }
   const listingDetailsPage = `/listing/${listingId}`
 
@@ -159,9 +146,21 @@ const HostListing = ({ listing, setRefresh, refresh }) => {
               <button aria-label="edit listing" name="edit-listing" onClick={editListing} className="inline cursor-pointer hover:text-gray-800">
                 <BiPencil className="inline text-xl mr-3 pointer-events-none" />
               </button>
-              <button aria-label="delete listing" name="delete-listing" onClick={deleteListing} className="inline cursor-pointer hover:text-gray-800">
+              <button
+                aria-label="delete listing"
+                aria-haspopup="dialog"
+                name="delete-listing"
+                onClick={handleDeleteListing}
+                className="inline cursor-pointer hover:text-gray-800">
                 <BiTrash className="inline text-xl pointer-events-none" />
               </button>
+              {showDeletionModal &&
+                <ConfirmDeletion
+                  listingId={listingId}
+                  setRefresh={setRefresh}
+                  refresh={refresh}
+                  setShowDeletionModal={setShowDeletionModal}
+              />}
             </div>
           </div>
           <div className="text-xl font-semibold text-black">{listing.title}</div>
