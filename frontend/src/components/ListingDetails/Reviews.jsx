@@ -110,10 +110,10 @@ function Reviews ({ listingInfo, listingId, onSubmit }) {
           <Ratings.Widget />
           <Ratings.Widget />
           <Ratings.Widget />
-          <Ratings.Widget />
+          <Ratings.Widget id="4star" />
           <Ratings.Widget />
       </Ratings>
-      <button aria-label="Submit a review" className="bg-red-400 p-3 pl-5 pr-5 text-white rounded-xl mt-1 hover:bg-red-500 w-min" onClick={submitReview}>
+      <button aria-label="Submit a review" id="submitReviewBtn" className="bg-red-400 p-3 pl-5 pr-5 text-white rounded-xl mt-1 hover:bg-red-500 w-min" onClick={submitReview}>
         Submit
       </button>
       </div>
