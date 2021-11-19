@@ -39,6 +39,7 @@ Array [
         0
       </span>
       <svg
+        aria-label="Number of reviews"
         fill="currentColor"
         height="1em"
         id="review-number-icon"
@@ -112,6 +113,7 @@ Array [
         2
       </span>
       <svg
+        aria-label="Number of reviews"
         fill="currentColor"
         height="1em"
         id="review-number-icon"

@@ -6,8 +6,8 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 
 describe('LoginButton', () => {
   /**
-   * LoginButton takes in a click function and optional text
-   * to display. It is used across multiple components,
+   * LoginButton takes in a click function, optional text, and
+   * optional label to display. It is used across multiple components,
    * including for login and registration.
    */
 
@@ -44,11 +44,19 @@ describe('LoginButton', () => {
     expect(button.contains(<AiOutlineArrowRight />))
   })
 
-  it('icon has aria-label prop for accessibility', () => {
+  it('button has aria-label prop for accessibility', () => {
+    const button = shallow(<LoginButton
+      onClick={noop}
+      label={'test'}
+    />);
+    expect(button.prop('aria-label')).toBe('test');
+  })
+
+  it('button uses default label if no custom label provided', () => {
     const button = shallow(<LoginButton
       onClick={noop}
     />);
-    expect(button.find(<AiOutlineArrowRight />).find('aria-label')).toBeDefined();
+    expect(button.prop('aria-label')).toBe('Submit');
   })
 
   // Snapshots

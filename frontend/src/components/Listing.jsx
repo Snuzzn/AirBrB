@@ -29,7 +29,7 @@ const Listing = ({ thumbnail, reviews = [], title, price }) => {
           >
             {reviews.length}
           </span>
-          <MdOutlineRateReview id="review-number-icon" title="Icon representing number of reviews" />
+          <MdOutlineRateReview id="review-number-icon" aria-label="Number of reviews" title="Icon representing number of reviews" />
           {showTooltip && <div className="absolute rounded text-xs shadow-lg p-1 bg-gray-100 text-black bottom-7">Review Count</div>}
         </div>
       </div>
