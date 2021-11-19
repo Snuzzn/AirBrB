@@ -69,18 +69,19 @@ const BookingDetails = () => {
         // find total profit and days booked
         let newProfit = 0
         let newDaysBooked = 0
+        // go through each booking
         for (const item of relevantBookings) {
           if (item.status === 'accepted') {
-            newDaysBooked += calculateDayDiff(item.dateRange.start, item.dateRange.end)
             const numDays = calculateDayDiff(item.dateRange.start, item.dateRange.end)
             let i = 0
             const currDate = new Date(item.dateRange.start)
-            // calculate profit on daily basis
+            // calculate profit and days booked by going through each day of the booking
             while (i < numDays) {
               const daysAgo = calculateDayDiff('yearStart', currDate.toDateString())
-              if (daysAgo < 365) {
-                // increment the daily profit of this booking to total
+              if (daysAgo < 365) { // day is in the current calendar year
+                // increment the daily profit and days booked to total
                 newProfit += item.totalPrice / numDays
+                newDaysBooked += 1
               }
               currDate.setDate(currDate.getDate() + 1)
               i += 1
