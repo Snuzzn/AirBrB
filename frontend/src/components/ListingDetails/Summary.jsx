@@ -22,19 +22,19 @@ function Summary ({ listingInfo }) {
       <Tooltip label={bedroomsTxt} className="animate-wiggle">
         <div className="flex items-center gap-1 text-xl text-gray-600">
           <p className="text-lg">{ listingInfo.metadata.bedrooms.length }</p>
-          <MdOutlineDoorBack/>
+          <MdOutlineDoorBack alt="door icon which represents number of bedrooms"/>
         </div>
       </Tooltip>
       <Tooltip label={bedsTxt} className="animate-wiggle">
         <div className="flex items-center gap-1 text-xl text-gray-600">
           <p className="text-lg">{numBedrooms}</p>
-          <MdOutlineBed/>
+          <MdOutlineBed alt="bed icon which represents number of beds"/>
         </div>
       </Tooltip>
       <Tooltip label={bathroomsTxt} className="animate-wiggle">
         <div className="flex items-center gap-1 text-xl text-gray-600">
           <p className="text-lg">{ listingInfo.metadata.bathrooms }</p>
-          <MdOutlineShower/>
+          <MdOutlineShower alt="shower icon which represents number of bathrooms"/>
         </div>
       </Tooltip>
     </div>

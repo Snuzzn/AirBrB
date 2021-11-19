@@ -69,18 +69,19 @@ const BookingDetails = () => {
         // find total profit and days booked
         let newProfit = 0
         let newDaysBooked = 0
+        // go through each booking
         for (const item of relevantBookings) {
           if (item.status === 'accepted') {
-            newDaysBooked += calculateDayDiff(item.dateRange.start, item.dateRange.end)
             const numDays = calculateDayDiff(item.dateRange.start, item.dateRange.end)
             let i = 0
             const currDate = new Date(item.dateRange.start)
-            // calculate profit on daily basis
+            // calculate profit and days booked by going through each day of the booking
             while (i < numDays) {
               const daysAgo = calculateDayDiff('yearStart', currDate.toDateString())
-              if (daysAgo < 365) {
-                // increment the daily profit of this booking to total
+              if (daysAgo < 365) { // day is in the current calendar year
+                // increment the daily profit and days booked to total
                 newProfit += item.totalPrice / numDays
+                newDaysBooked += 1
               }
               currDate.setDate(currDate.getDate() + 1)
               i += 1
@@ -119,9 +120,9 @@ const BookingDetails = () => {
             </div>
           </div>
           <div className="flex flex-col h-96 lg:h-36 lg:flex-row w-full gap-5">
-            <BookingInfoCard title="Listing Age" message={age + ' days'} icon={<HiCake className="text-red-400 text-2xl"/>} bg="bg-red-100" />
-            <BookingInfoCard title="Days Booked" message={daysBooked + ' days'} icon={<MdOutlineAccessTimeFilled className="text-blue-400 text-2xl"/>} bg="bg-blue-100" />
-            <BookingInfoCard title="Yearly Profit" message={'$ ' + profit} icon={<FaMoneyBillAlt className="text-green-400 text-2xl"/>} bg="bg-green-100" />
+            <BookingInfoCard title="Listing Age" message={age + ' days'} icon={<HiCake alt='cake icon represents age of booking' className="text-red-400 text-2xl"/>} bg="bg-red-100" />
+            <BookingInfoCard title="Days Booked" message={daysBooked + ' days'} icon={<MdOutlineAccessTimeFilled alt='clock icon represents number of day booking' className="text-blue-400 text-2xl"/>} bg="bg-blue-100" />
+            <BookingInfoCard title="Yearly Profit" message={'$ ' + profit} icon={<FaMoneyBillAlt alt='cash icon represents yearly profit' className="text-green-400 text-2xl"/>} bg="bg-green-100" />
           </div>
           <div>
             <h1 className="text-2xl text-gray-700 font-medium mb-2">Pending Requests</h1>

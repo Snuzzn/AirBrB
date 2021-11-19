@@ -38,7 +38,7 @@ describe('Bedrooms', () => {
 
   it('contains a bed icon', () => {
     const bedrooms = shallow(<Bedrooms listingInfo={listingInfo} />)
-    const icon = <IoBedOutline className="text-5xl text-gray-600"/>
+    const icon = <IoBedOutline alt="bed icon" className="text-5xl text-gray-600"/>
     expect(bedrooms.contains(icon)).toEqual(true)
   })
 

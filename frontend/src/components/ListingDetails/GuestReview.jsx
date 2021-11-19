@@ -4,7 +4,8 @@ import { HiStar } from 'react-icons/hi'
 
 const GuestReview = ({ review }) => {
   const src = `https://avatars.dicebear.com/api/gridy/${review.reviewer}.svg`
-
+  const alt = 'orange star icon indicating a unit of rating'
+  const greyAlt = 'gray star icon indicating 0 unit of rating'
   return (
     <div className="flex gap-5 items-center">
       <div className="w-10 self-start">
@@ -12,11 +13,11 @@ const GuestReview = ({ review }) => {
       </div>
       <div>
         <div className="flex gap-1">
-          <HiStar className="text-red-400 text-xl"/>
-          {review.score >= 2 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-          {review.score >= 3 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-          {review.score >= 4 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
-          {review.score === 5 ? <HiStar className="text-red-400 text-xl" /> : <HiStar className="text-gray-400 text-xl" />}
+          <HiStar alt={alt} className="text-red-400 text-xl"/>
+          {review.score >= 2 ? <HiStar alt={alt} className="text-red-400 text-xl" /> : <HiStar alt={greyAlt} className="text-gray-400 text-xl" />}
+          {review.score >= 3 ? <HiStar alt={alt} className="text-red-400 text-xl" /> : <HiStar alt={greyAlt} className="text-gray-400 text-xl" />}
+          {review.score >= 4 ? <HiStar alt={alt} className="text-red-400 text-xl" /> : <HiStar alt={greyAlt} className="text-gray-400 text-xl" />}
+          {review.score === 5 ? <HiStar alt={alt} className="text-red-400 text-xl" /> : <HiStar alt={greyAlt} className="text-gray-400 text-xl" />}
         </div>
         <p className="text-gray-600 max-w-5xl">{review.review}</p>
         <p className="font-light text-gray-400 italic text-sm">{review.reviewer}</p>

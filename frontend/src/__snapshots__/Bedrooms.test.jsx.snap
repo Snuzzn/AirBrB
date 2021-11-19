@@ -8,6 +8,7 @@ exports[`Bedrooms renders all data 1`] = `
     className="h-40 w-60 border p-4 rounded-xl flex flex-col justify-evenly"
   >
     <svg
+      alt="bed icon"
       className="text-5xl text-gray-600"
       fill="currentColor"
       height="1em"
@@ -57,6 +58,7 @@ exports[`Bedrooms renders all data 1`] = `
     className="h-40 w-60 border p-4 rounded-xl flex flex-col justify-evenly"
   >
     <svg
+      alt="bed icon"
       className="text-5xl text-gray-600"
       fill="currentColor"
       height="1em"

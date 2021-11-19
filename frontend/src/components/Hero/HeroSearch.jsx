@@ -31,18 +31,21 @@ function HeroSearch ({ setDisplayedListings, allListings }) {
     const form = e.target
     form.checkValidity()
 
-    if (priceRange[0] > priceRange[1]) {
+    if (parseInt(priceRange[0]) > parseInt(priceRange[1])) {
       displayToast('Minimum price must be lower than maximum price', 'error')
+      setIsSearching(false)
       return
     }
 
-    if (roomRange[0] > roomRange[1]) {
+    if (parseInt(roomRange[0]) > parseInt(roomRange[1])) {
       displayToast('Minimum bedrooms must be lower than maximum bedrooms', 'error')
+      setIsSearching(false)
       return
     }
 
     if (new Date(startDate) > new Date(endDate)) {
       displayToast('Check in date must come before the Check out date', 'error')
+      setIsSearching(false)
       return
     }
 
