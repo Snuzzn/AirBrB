@@ -10,7 +10,7 @@ function Bedrooms ({ listingInfo }) {
       { bedrooms.map((bedroom) =>
         <React.Fragment key={bedroom.title}>
           <div className="h-40 w-60 border p-4 rounded-xl flex flex-col justify-evenly">
-            <IoBedOutline className="text-5xl text-gray-600"/>
+            <IoBedOutline alt="bed icon" className="text-5xl text-gray-600"/>
             <div>
               <p className="text-lg text-gray-700" id={bedroom.title}>{bedroom.title}</p>
               <p className="text-gray-600 font-light" id={bedroom.title + 'count'}>{bedroom.count} beds</p>

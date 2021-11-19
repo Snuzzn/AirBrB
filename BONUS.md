@@ -1,5 +1,5 @@
 ### Branding and theme
-- AirBrB EYE icon designed by Sano.
+- AirBrB EYE logo designed by us.
 - Curated placeholder images for empty screens.
 - Consistent colour theme used to reflect EYE branding.
 - Curated icons used throughout website to convey meaning.
@@ -24,6 +24,7 @@
 - Celebratory confetti appears on screen when a booking request is successful. 
 - Dynamic popover containing  underneath the 'Book Now' button, with booking statuses appropriately colour-coded.
 - Amenities have unique and engaging descriptions.
+- Can click on the reviews text at top to smooth scroll down to reviews
 
 ### Reviews
 - Reviews also display the reviewer, in addition to stars in lieu of numerical values.
