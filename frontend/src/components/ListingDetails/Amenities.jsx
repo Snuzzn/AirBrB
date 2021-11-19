@@ -32,49 +32,39 @@ Amenities.propTypes = {
 
 const amenityInfo = {
   Kitchen: {
-    icon: <GiKitchenTap className="text-2xl text-gray-600 self-center"/>,
+    icon: <GiKitchenTap alt='Kitchen icon' className="text-2xl text-gray-600 self-center"/>,
     msg: 'Sink your teeth into a delicious home-made meal. Cooking skills not included.'
   },
   Washer: {
-    icon: <MdOutlineLocalLaundryService className="text-2xl text-gray-600 self-center"/>,
+    icon: <MdOutlineLocalLaundryService alt='Washing machine icon' className="text-2xl text-gray-600 self-center"/>,
     msg: 'Does something smell funky? Dunk your clothes in the on-site washing machine.'
   },
   'Air Conditioning': {
-    icon: <FaRegSnowflake className="text-2xl text-gray-600 self-center"/>,
+    icon: <FaRegSnowflake alt='Air conditioning icon' className="text-2xl text-gray-600 self-center"/>,
     msg: 'Get all cooly wooly with AirBrB-approved air conditioning.'
   },
   Heating: {
-    icon: <ImFire className="text-2xl text-gray-600 self-center" />,
-    msg: 'Get all snuggly wuggly with AirBrB-approved heating.',
+    icon: <ImFire alt='Heating (fire) icon' className="text-2xl text-gray-600 self-center" />,
+    msg: 'Get all snuggly wuggly with AirBrB-approved heating.'
   },
   TV: {
-    icon: <IoTvOutline className="text-2xl text-gray-600 self-center" />,
+    icon: <IoTvOutline alt='TV icon' className="text-2xl text-gray-600 self-center" />,
     msg: 'Binge shows. Watch the news. You know, holiday stuff.'
   },
   'Free Parking': {
-    icon: <AiOutlineCar className="text-2xl text-gray-600 self-center" />,
-    msg: 'Drop anchor right next to the stay. Easy in. Easy out.',
+    icon: <AiOutlineCar alt='Free parking (car) icon' className="text-2xl text-gray-600 self-center" />,
+    msg: 'Drop anchor right next to the stay. Easy in. Easy out.'
   },
   'Free Wifi': {
-    icon: <MdWifi className="text-2xl text-gray-600 self-center" />,
+    icon: <MdWifi alt='Wifi icon' className="text-2xl text-gray-600 self-center" />,
     msg: 'Instant communication. The world at your fingertips. Blah, blah. You know the deal.'
   },
   Waterfront: {
-    icon: <BiWater className="text-2xl text-gray-600 self-center" />,
+    icon: <BiWater alt='Water icon' className="text-2xl text-gray-600 self-center" />,
     msg: 'Enjoy an amazing view of the most abundant substance on Earth: water. Yes seriously. Water.'
   },
   'Bat Cave': {
-    icon: <GiBatMask className="text-2xl text-gray-600 self-center" />,
+    icon: <GiBatMask alt='Bat icon (for bat cave)' className="text-2xl text-gray-600 self-center" />,
     msg: 'You\'re very own Bat Cave! Perfect for hunting crime or just chilling with the bats.'
   },
 }
-
-// const amenityList = [{ text: 'Kitchen', isChecked: false },
-//   { text: 'Washer', isChecked: false },
-//   { text: 'Air Conditioning', isChecked: false },
-//   { text: 'Heating', isChecked: false },
-//   { text: 'TV', isChecked: false },
-//   { text: 'Free Parking', isChecked: false },
-//   { text: 'Free Wifi', isChecked: false },
-//   { text: 'Waterfront', isChecked: false },
-//   { text: 'Bat Cave', isChecked: false }]

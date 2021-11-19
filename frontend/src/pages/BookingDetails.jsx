@@ -120,9 +120,9 @@ const BookingDetails = () => {
             </div>
           </div>
           <div className="flex flex-col h-96 lg:h-36 lg:flex-row w-full gap-5">
-            <BookingInfoCard title="Listing Age" message={age + ' days'} icon={<HiCake className="text-red-400 text-2xl"/>} bg="bg-red-100" />
-            <BookingInfoCard title="Days Booked" message={daysBooked + ' days'} icon={<MdOutlineAccessTimeFilled className="text-blue-400 text-2xl"/>} bg="bg-blue-100" />
-            <BookingInfoCard title="Yearly Profit" message={'$ ' + profit} icon={<FaMoneyBillAlt className="text-green-400 text-2xl"/>} bg="bg-green-100" />
+            <BookingInfoCard title="Listing Age" message={age + ' days'} icon={<HiCake alt='cake icon represents age of booking' className="text-red-400 text-2xl"/>} bg="bg-red-100" />
+            <BookingInfoCard title="Days Booked" message={daysBooked + ' days'} icon={<MdOutlineAccessTimeFilled alt='clock icon represents number of day booking' className="text-blue-400 text-2xl"/>} bg="bg-blue-100" />
+            <BookingInfoCard title="Yearly Profit" message={'$ ' + profit} icon={<FaMoneyBillAlt alt='cash icon represents yearly profit' className="text-green-400 text-2xl"/>} bg="bg-green-100" />
           </div>
           <div>
             <h1 className="text-2xl text-gray-700 font-medium mb-2">Pending Requests</h1>
