@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer';
 
 describe('Listing', () => {
   /**
-   * Listing takes in an id, thumbnail, reviews,
+   * Listing takes in a thumbnail, reviews,
    * title and price as props, and displays all but
    * the id prop.
    */
@@ -59,6 +59,11 @@ describe('Listing', () => {
   it('review number icon has title for accessibility', () => {
     const listing = shallow(<Listing />);
     expect(listing.find('#review-number-icon').prop('title')).toBeDefined();
+  })
+
+  it('review number icon has aria-label for accessibility', () => {
+    const listing = shallow(<Listing />);
+    expect(listing.find('#review-number-icon').prop('aria-label')).toBeDefined();
   })
 
   // Snapshots
