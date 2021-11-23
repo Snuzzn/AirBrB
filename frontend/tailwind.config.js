@@ -3,6 +3,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'auto-fit': 'repeat(auto-fit, minmax(0, 1fr))',
+        'auto-fill': 'repeat(auto-fill, minmax(300px, 1fr))',
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: 0, transform: 'translateY(-10px)' },

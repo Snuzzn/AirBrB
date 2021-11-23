@@ -94,7 +94,7 @@ const Listings = () => {
       <Fade className="flex flex-row">
         <HeroSearch setDisplayedListings={setDisplayedListings} allListings={allListings}/>
         <div className="mt-10">
-          <div className="flex gap-6 flex-wrap justify-center lg:justify-start" id="searchResults">
+          <div className="grid grid-cols-auto-fill  gap-7 " id="searchResults">
               {displayedListings.map((listing) => {
                 // console.log(displayedListings);
                 return (

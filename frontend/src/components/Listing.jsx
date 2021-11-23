@@ -11,7 +11,7 @@ const Listing = ({ thumbnail, reviews = [], title, price }) => {
         <span id="listing-price" className="bg-red-400 cursor-default text-white rounded-xl transit pb-1 pt-1 pl-2 pr-2 transition duration-500 ease-in-out hover:text-red-400 hover:bg-white">${price}</span>
       </div>
       <div className="">
-        <img className="object-cover h-60 w-80 rounded-2xl" src={thumbnail} alt="Image of a your listing" />
+        <img className="object-cover h-60 w-full rounded-2xl" src={thumbnail} alt="Image of a your listing" />
       </div>
       <div className="relative mt-1 flex justify-between pl-2 pr-2">
         <div className="text-lg">
